@@ -1,6 +1,11 @@
---Tạo database
--- Mở PostgreSQL
-
+/*
+Tạo database:
+    1. Mở PostgreSQL (bằng trình duyệt) tạo 1 database tên là inventoryonlinedb
+    2. Click phải vào database vừa tạo chọn Query Tool
+    3. Chép Code sql bên dưới past vào query tool rồi chạy (bao phối bấm nút tam giác)
+    4. Xong quay lại đây mở file .env bên backend, nhập user với mật khẩu của postgreSQL đang xài (của thằng nào nhập thằng đó)
+        (Nếu ko biết user là gì mở Shell của postgreSQL lên, nhập \l rồi xem ở database vừa tạo cột owner là gì)
+*/
 
 CREATE TABLE CUSTOMER (
 	customer_id serial PRIMARY KEY,
