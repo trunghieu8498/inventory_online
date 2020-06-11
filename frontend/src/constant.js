@@ -1,0 +1,6 @@
+export const GET_CUSTOMERS = 'GET_CUSTOMERS'
+export const GET_CUSTOMER_BY_ID = 'GET_CUSTOMER_BY_ID'
+export const ADD_CUSTOMER = 'ADD_CUSTOMER'
+
+export const LOGIN_BY_CUSTOMER = 'LOGIN_BY_CUSTOMER'
+export const SIGNUP = 'SIGNUP'

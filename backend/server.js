@@ -1,22 +1,27 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
+const cors = require('cors');
 const port = 8000
-const nguoiDung = require('./routers/nguoiDung-router')
+
+const customer = require('./routers/customer-router')
+const auth = require('./routers/auth-router')
+
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 
-app.use(bodyParser.json())
-app.use(
-    bodyParser.urlencoded({
-        extended: true,
-    })
-)
+//app.get('/api/sayhello', customer.sayHello)
+app.get('/api/nguoidungs', customer.getCustomers)
+app.get('/api/nguoidung/:id', customer.getCustomerById)
+app.post('/api/nguoidung/add', customer.addCustomer)
+app.put('/api/nguoidung/update/:id', customer.updateCustomer)
 
-//app.get('/api/sayhello', nguoiDung.sayHello)
-app.get('/api/nguoidungs', nguoiDung.getNguoiDungs)
-app.get('/api/nguoidung/:id', nguoiDung.getNguoiDungById)
-app.post('/api/nguoidung/add', nguoiDung.addNguoiDung)
-app.put('/api/nguoidung/update/:id', nguoiDung.updateNguoiDung)
+app.post('/api/login', auth.login)
+app.post('/api/signup', auth.signup)
+
+
 //app.delete('/users/:id', db.deleteUser)
 
 app.get('/', (request, response) => {
