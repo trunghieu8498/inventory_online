@@ -23,7 +23,7 @@ CREATE TABLE WAREHOUSE(
 	warehousename varchar(30) NOT NULL,
 	address varchar(50),
 	description varchar(100),
-	available boolean DEFAULT false,
+	available boolean DEFAULT true,
 	customer_id integer NOT NULL,
 	CONSTRAINT WAREHOUSE_customer_id_fkey FOREIGN KEY (customer_id)
     REFERENCES CUSTOMER(customer_id) MATCH SIMPLE
@@ -33,7 +33,7 @@ CREATE TABLE WAREHOUSE(
 CREATE TABLE TYPE (
 	type_id serial PRIMARY KEY,
 	typename varchar(30) NOT NULL,
-	available boolean DEFAULT false
+	available boolean DEFAULT true
 );
 
 CREATE TABLE GOODS(
@@ -44,6 +44,7 @@ CREATE TABLE GOODS(
 	costprice bigint DEFAULT 0,
 	sellingprice bigint DEFAULT 0,
 	inventorynumber int NOT NULL,
+	available boolean DEFAULT true,
 	warehouse_id integer NOT NULL,
 	CONSTRAINT GOODS_warehouse_id_fkey FOREIGN KEY (warehouse_id)
     REFERENCES WAREHOUSE(warehouse_id) MATCH SIMPLE
@@ -57,6 +58,7 @@ CREATE TABLE GOODS(
 CREATE TABLE RECEIVEDNOTE(
 	receivednote_id serial PRIMARY KEY,
 	date timestamp NOT NULL,
+	available boolean DEFAULT true,
 	warehouse_id integer NOT NULL,
 	CONSTRAINT RECEIVEDNOTE_warehouse_id_fkey FOREIGN KEY (warehouse_id)
     REFERENCES WAREHOUSE(warehouse_id) MATCH SIMPLE
@@ -67,6 +69,7 @@ CREATE TABLE RECEIVEDNOTEDETAIL(
 	receivednotedetail_id serial PRIMARY KEY,
 	quantity int DEFAULT 0,
 	sellingprice bigint DEFAULT 0,
+	available boolean DEFAULT true,
 	goods_id integer NOT NULL,
 	CONSTRAINT RECEIVEDNOTEDETAIL_goods_id_fkey FOREIGN KEY (goods_id)
     REFERENCES GOODS(goods_id) MATCH SIMPLE
@@ -77,6 +80,7 @@ CREATE TABLE DELIVERYNOTE(
 	deliverynote_id serial PRIMARY KEY,
 	quantity int NOT NULL,
 	date timestamp NOT NULL,
+	available boolean DEFAULT true,
 	warehouse_id integer NOT NULL,
 	CONSTRAINT DELIVERYNOTE_warehouse_id_fkey FOREIGN KEY (warehouse_id)
     REFERENCES WAREHOUSE(warehouse_id) MATCH SIMPLE
@@ -91,10 +95,11 @@ CREATE TABLE DELIVERYNOTEDETAIL(
 	deliverynotedetail_id serial PRIMARY KEY,
 	quantity int DEFAULT 0,
 	sellingprice bigint DEFAULT 0,
+	available boolean DEFAULT true,
 	goods_id integer NOT NULL,
 	CONSTRAINT RECEIVEDNOTEDETAIL_goods_id_fkey FOREIGN KEY (goods_id)
     REFERENCES GOODS(goods_id) MATCH SIMPLE
 	ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
---DROP TABLE TYPE, CUSTOMERS, WAREHOUSE, GOODS, DELIVERYNOTE, DELIVERYNOTEDETAIL, RECEIVEDNOTE, RECEIVEDNOTEDETAIL;
+--DROP TABLE TYPE, CUSTOMER, WAREHOUSE, GOODS, DELIVERYNOTE, DELIVERYNOTEDETAIL, RECEIVEDNOTE, RECEIVEDNOTEDETAIL;

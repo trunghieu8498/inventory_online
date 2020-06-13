@@ -2,25 +2,27 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { TextField, Grid, Card, Typography, Button, CardContent, CardActions } from '@material-ui/core'
 import { Link, Redirect } from 'react-router-dom'
-import { login } from '../../actions/auth-action'
+import { signup } from '../../actions/auth-action'
 
-class LoginForm extends Component {
+class SuggestCreateWarehouse extends Component {
     constructor(props) {
         super(props)
 
         this.handleSubmit = this.handleSubmit.bind(this)
 
         this.state = {
-            email: '',
-            password: ''
+            warehousename: '',
+            address: '',
+            description: '',
         }
-        this.emailTextfield = React.createRef()
+        this.warehousenameTextfield = React.createRef()
     }
 
     handleSubmit = (e) => {
-        const { email, password } = this.state
+        const { warehousename, address, description } = this.state
+        const { customer_id } = this.props.customer_logged
         e.preventDefault()
-        this.props.login(email, password)
+        //this.props.addWarehouse(warehousename, address, description, customer_id)
     }
 
     changeHandler = (e) => {
@@ -37,6 +39,7 @@ class LoginForm extends Component {
                     direction="column"
                     justify="center"
                     alignItems="center"
+                    style={{ marginTop: '0rem' }}
                 >
                     <Grid item>
                         <Typography variant="h5" component="h2" style={{ margin: '2rem' }}>
@@ -53,51 +56,34 @@ class LoginForm extends Component {
                                         spacing={2}
                                     >
                                         <Grid item>
-                                            <TextField name="email"
-                                                label="Email"
+                                            <TextField name="warehousename"
+                                                label="Tên kho"
                                                 variant="outlined"
-                                                value={this.state.email}
-                                                inputRef={this.emailTextfield}
+                                                value={this.state.warehousename}
+                                                inputRef={this.warehousenameTextfield}
                                                 autoFocus
-                                                type='email'
                                                 onChange={(e) => this.changeHandler(e)} />
                                         </Grid>
                                         <Grid item>
-                                            <TextField name="password"
-                                                label="Mật khẩu"
+                                            <TextField name="address"
+                                                label="Địa chỉ"
                                                 variant="outlined"
-                                                value={this.state.password}
-                                                type='password'
+                                                value={this.state.address}
                                                 onChange={(e) => this.changeHandler(e)} />
                                         </Grid>
                                         <Grid item>
-                                            <Button type='submit' variant="contained" size="medium" color="primary">
-                                                Đăng nhập
-                                            </Button>
+                                            <TextField name="description"
+                                                label="Mô tả"
+                                                variant="outlined"
+                                                value={this.state.description}
+                                                onChange={(e) => this.changeHandler(e)} />
                                         </Grid>
                                     </Grid>
                                 </form>
                             </CardContent>
                         </Card>
-                        <Grid
-                            container
-                            direction="row"
-                            justify="flex-end"
-                            alignItems="flex-start"
-                        >
-                            <Grid item>
-                                <Typography variant="caption" display="block" gutterBottom style={{ marginBottom: '2rem' }}>
-                                    Bạn chưa có tài khoản?
-                            <Link to="/signup">Đăng ký ngay</Link>
-                                </Typography>
-                            </Grid>
-                        </Grid>
                     </Grid>
                 </Grid>
-                {this.props.customer_logged ?
-                    <Redirect to='/home' />
-                    : null
-                }
             </div>
         )
     }
@@ -108,7 +94,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    login,
+    //signup,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
+export default connect(mapStateToProps, mapDispatchToProps)(SignupForm)

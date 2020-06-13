@@ -15,7 +15,6 @@ const login = (request, response) => {
                 return response.status(400).json({ msg: 'Sai mật khẩu, vui lòng kiểm tra lại' })
         else
             return response.status(400).json({ msg: 'Tài khoản này không tồn tại' })
-
     })
 }
 
