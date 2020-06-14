@@ -7,6 +7,7 @@ import { connect } from 'react-redux'
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { Grid } from '@material-ui/core'
 
 class Navbar extends Component {
 
@@ -16,13 +17,24 @@ class Navbar extends Component {
             <div>
                 <AppBar position="static">
                     <Toolbar>
-                        <IconButton edge="start" color="inherit" aria-label="menu">
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="h6">
-                            News
-                    </Typography>
-                        <Button color="inherit">Login</Button>
+                        <Grid
+                            container
+                            direction="row"
+                            justify="space-between"
+                            alignItems="center"
+                        >
+                            <Grid item>
+                                <Typography variant="h6">
+                                    INVENTORY ONLINE
+                                </Typography>
+                            </Grid>
+                            <Grid item>
+                                <div></div>
+                            </Grid>
+                            <Grid item>
+                                <Button color="inherit">Login</Button>
+                            </Grid>
+                        </Grid>
                     </Toolbar>
                 </AppBar>
             </div>

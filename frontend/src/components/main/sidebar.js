@@ -11,6 +11,7 @@ import Divider from '@material-ui/core/Divider';
 import WarehouseSelector from '../main/warehouse-selector'
 import { Grid } from '@material-ui/core'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class Sidebar extends Component {
     render() {
@@ -21,26 +22,41 @@ class Sidebar extends Component {
                 </div>
                 <Paper>
                     <MenuList>
-                        <MenuItem>
-                            <ListItemIcon>
-                                <SendIcon fontSize="small" />
-                            </ListItemIcon>
-                            <Typography variant="inherit">Hàng hóa</Typography>
-                        </MenuItem>
+                        <Link to='/goods' style={{ textDecoration: 'none' }}>
+                            <MenuItem>
+                                <ListItemIcon>
+                                    <SendIcon fontSize="small" />
+                                </ListItemIcon>
+                                <Typography variant="inherit">Hàng hóa</Typography>
+                            </MenuItem>
+                        </Link>
                         <Divider />
-                        <MenuItem>
-                            <ListItemIcon>
-                                <PriorityHighIcon fontSize="small" />
-                            </ListItemIcon>
-                            <Typography variant="inherit">Nhập kho</Typography>
-                        </MenuItem>
+                        <Link to='/receivednote' style={{ textDecoration: 'none' }}>
+                            <MenuItem>
+                                <ListItemIcon>
+                                    <SendIcon fontSize="small" />
+                                </ListItemIcon>
+                                <Typography variant="inherit">Nhập kho</Typography>
+                            </MenuItem>
+                        </Link>
                         <Divider />
-                        <MenuItem>
-                            <ListItemIcon>
-                                <DraftsIcon fontSize="small" />
-                            </ListItemIcon>
-                            <Typography variant="inherit">Xuất kho</Typography>
-                        </MenuItem>
+                        <Link to='/deliverynote' style={{ textDecoration: 'none' }}>
+                            <MenuItem>
+                                <ListItemIcon>
+                                    <SendIcon fontSize="small" />
+                                </ListItemIcon>
+                                <Typography variant="inherit">Xuất kho</Typography>
+                            </MenuItem>
+                        </Link>
+                        <Divider />
+                        <Link to='/warehouse' style={{ textDecoration: 'none' }}>
+                            <MenuItem>
+                                <ListItemIcon>
+                                    <SendIcon fontSize="small" />
+                                </ListItemIcon>
+                                <Typography variant="inherit">Kho hàng</Typography>
+                            </MenuItem>
+                        </Link>
                     </MenuList>
                 </Paper>
             </div>

@@ -1,25 +1,25 @@
 customerRouter = require('./customer-router')
 
-const login = (request, response) => {
-    const { email, password } = request.body
+const login = (req, res) => {
+    const { email, password } = req.body
     pool.query('SELECT * FROM CUSTOMER WHERE email = $1', [email], (error, result) => {
         if (error) {
             throw error
         }
         const customer = result.rows[0]
-
+        
         if (customer)
             if (customer.password === password)
-                return response.status(201).json(customer)
+                return res.status(201).json(customer)
             else
-                return response.status(400).json({ msg: 'Sai mật khẩu, vui lòng kiểm tra lại' })
+                return res.status(400).json({ msg: 'Sai mật khẩu, vui lòng kiểm tra lại' })
         else
-            return response.status(400).json({ msg: 'Tài khoản này không tồn tại' })
+            return res.status(400).json({ msg: 'Tài khoản này không tồn tại' })
     })
 }
 
-const signup = (request, response) => {
-    customerRouter.addCustomer(request, response)
+const signup = (req, res) => {
+    customerRouter.addCustomer(req, res)
 }
 
 

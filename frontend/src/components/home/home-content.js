@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { Grid } from '@material-ui/core'
-import { SuggestCreateWarehouseForm } from '../content/suggestCreateWarehouse-form'
+import { SuggestCreateWarehouseForm } from '../warehouse/suggestCreateWarehouse-form'
 
 class HomeContent extends Component {
 

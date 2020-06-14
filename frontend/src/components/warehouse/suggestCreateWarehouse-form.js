@@ -20,14 +20,13 @@ export class SuggestCreateWarehouseForm extends Component {
                                 direction="column"
                                 justify="center"
                                 alignItems="center"
-                                style={{ marginTop: '0rem' }}
                             >
                                 <Grid item>
-                                    <Typography style={{ margin: '2rem' }}>
+                                    <Typography style={{ margin: '1rem' }}>
                                         Bạn chưa có kho, hãy tạo 1 kho mới
                                     </Typography>
                                 </Grid>
-                                <Grid item>
+                                <Grid item style={{ margin: '1rem' }}>
                                     <Link to='/warehouse/add' style={{ textDecoration: 'none' }}>
                                         <Button variant="contained" size="medium" color="primary">Tạo kho</Button>
                                     </Link>

@@ -13,17 +13,17 @@ class SignupForm extends Component {
         this.state = {
             email: '',
             password: '',
-            fullname: '',
+            fullName: '',
             birthday: '',
-            numberphone: '',
+            numberPhone: '',
         }
         this.emailTextfield = React.createRef()
     }
 
     handleSubmit = (e) => {
-        const { email, password, fullname, birthday, numberphone } = this.state
+        const { email, password, fullName, birthday, numberPhone } = this.state
         e.preventDefault()
-        this.props.signup(email, password, fullname, birthday, numberphone)
+        this.props.signup(email, password, fullName, birthday, numberPhone)
     }
 
     changeHandler = (e) => {
@@ -75,10 +75,10 @@ class SignupForm extends Component {
                                                 onChange={(e) => this.changeHandler(e)} />
                                         </Grid>
                                         <Grid item>
-                                            <TextField name="fullname"
+                                            <TextField name="fullName"
                                                 label="Tên"
                                                 variant="outlined"
-                                                value={this.state.fullname}
+                                                value={this.state.fullName}
                                                 onChange={(e) => this.changeHandler(e)} />
                                         </Grid>
                                         <Grid item>
@@ -89,10 +89,10 @@ class SignupForm extends Component {
                                                 onChange={(e) => this.changeHandler(e)} />
                                         </Grid>
                                         <Grid item>
-                                            <TextField name="numberphone"
+                                            <TextField name="numberPhone"
                                                 label="Số điện thoại"
                                                 variant="outlined"
-                                                value={this.state.numberphone}
+                                                value={this.state.numberPhone}
                                                 onChange={(e) => this.changeHandler(e)} />
                                         </Grid>
                                         <Grid item>

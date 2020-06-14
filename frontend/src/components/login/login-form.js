@@ -95,7 +95,7 @@ class LoginForm extends Component {
                     </Grid>
                 </Grid>
                 {this.props.customer_logged ?
-                    <Redirect to='/home' />
+                    <Redirect to='/warehouse' />
                     : null
                 }
             </div>

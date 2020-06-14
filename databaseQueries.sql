@@ -11,16 +11,16 @@ CREATE TABLE CUSTOMER (
 	customer_id serial PRIMARY KEY,
 	email varchar(30) UNIQUE NOT NULL,
 	password varchar(20) NOT NULL,
-	fullname varchar(30) NOT NULL,
+	fullName varchar(30) NOT NULL,
 	birthday date,
-	numberphone varchar(12),
+	numberPhone varchar(12),
 	available boolean DEFAULT true,
 	isAdmin boolean DEFAULT false
 );
 
 CREATE TABLE WAREHOUSE(
 	warehouse_id serial PRIMARY KEY,
-	warehousename varchar(30) NOT NULL,
+	warehouseName varchar(30) NOT NULL,
 	address varchar(50),
 	description varchar(100),
 	available boolean DEFAULT true,
