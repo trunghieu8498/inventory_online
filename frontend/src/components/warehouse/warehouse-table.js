@@ -21,8 +21,7 @@ export class WarehouseTable extends Component {
     }
 
     componentDidMount() {
-        const { customer_id } = this.props.customer_logged
-        this.props.getWarehousesByCustomer_id(customer_id)
+        this.props.getWarehousesByCustomer_id(this.props.customer_id)
     }
 
     componentDidUpdate(prevProps) {
@@ -85,7 +84,7 @@ export class WarehouseTable extends Component {
                     alignItems="flex-start"
                     style={{ marginBottom: '1rem' }}
                 >
-                    <Link to='/warehouse/add'>
+                    <Link to='/warehouse/add' style={{ textDecoration: 'none'}} >
                         <Button variant="contained" size="small" color="primary">Thêm kho mới</Button>
                     </Link>
                 </Grid>
@@ -128,7 +127,7 @@ export class WarehouseTable extends Component {
 
 const mapStateToProps = (state) => ({
     warehouses: state.warehouseReducer.warehouses,
-    customer_logged: state.authReducer.customer_logged
+    customer_id: state.authReducer.customer_id
 })
 
 const mapDispatchToProps = {

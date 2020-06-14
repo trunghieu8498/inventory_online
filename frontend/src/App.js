@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 //import logo from './logo.svg';
 //import './App.css';
 import store from './Store'
@@ -15,41 +15,49 @@ import createReactClass from 'create-react-class'
 import Homepage from './components/home/home-page'
 import WarehouseTable from './components/warehouse/warehouse-table'
 import AddWarehouseForm from './components/warehouse/addWarehouse-form'
+import { loadCustomer } from './actions/auth-action'
 
-function App() {
+class App extends Component {
 
-  const Page = (Content) => (
-    <div>
-      <Grid container spacing={4}>
-        <Grid item xs={3}>
-          <Sidebar />
-        </Grid>
-        <Grid item xs={9}>
-          <Content />
-        </Grid>
-      </Grid>
-    </div>
-  )
+  componentDidMount() {
+    store.dispatch(loadCustomer());
+  }
 
-  return (
-    <Provider store={store}>
+
+  render() {
+    const Page = (Content) => (
       <div>
-        <BrowserRouter>
-          <Navbar />
-          <div style={{margin:'2rem'}}>
-            <Switch>
-              <Redirect exact from='/' to='/login'/>
-
-              <Route exact path='/login' component={LoginForm} />
-              <Route eaxct path='/signup' component={SignupForm} />
-              <Route exact path='/warehouse' component={() => Page(WarehouseTable)} />
-              <Route exact path='/warehouse/add' component={()=> Page(AddWarehouseForm)} />
-            </Switch>
-          </div>
-        </BrowserRouter>
+        <Grid container spacing={4}>
+          <Grid item xs={3}>
+            <Sidebar />
+          </Grid>
+          <Grid item xs={9}>
+            <Content />
+          </Grid>
+        </Grid>
       </div>
-    </Provider>
-  )
+    )
+
+    return (
+      <Provider store={store}>
+        <div>
+          <BrowserRouter>
+            <Navbar />
+            <div style={{ margin: '2rem' }}>
+              <Switch>
+                <Redirect exact from='/' to='/login' />
+
+                <Route exact path='/login' component={LoginForm} />
+                <Route eaxct path='/signup' component={SignupForm} />
+                <Route exact path='/warehouse' component={() => Page(WarehouseTable)} />
+                <Route exact path='/warehouse/add' component={() => Page(AddWarehouseForm)} />
+              </Switch>
+            </div>
+          </BrowserRouter>
+        </div>
+      </Provider>
+    )
+  }
 }
 
 export default App

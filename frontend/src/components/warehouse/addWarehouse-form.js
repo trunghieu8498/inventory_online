@@ -20,7 +20,7 @@ class AddWarehouseForm extends Component {
 
     handleSubmit = (e) => {
         const { warehouseName, address, description } = this.state
-        const { customer_id } = this.props.customer_logged
+        const { customer_id } = this.props.customer_id
         e.preventDefault()
         this.props.addWarehouse(warehouseName, address, description, customer_id)
 
@@ -95,7 +95,7 @@ class AddWarehouseForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    customer_logged: state.authReducer.customer_logged
+    customer_id: state.authReducer.customer_id
 })
 
 const mapDispatchToProps = {
