@@ -3,44 +3,43 @@ import { connect } from 'react-redux'
 import { Grow, Button, Grid } from '@material-ui/core'
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { Link } from 'react-router-dom'
-import { SuggestCreateWarehouseForm } from './suggestCreateWarehouse-form'
-import { getWarehousesByCustomer_id } from '../../actions/warehouse-action'
+import { SuggestCreateWarehouseForm } from '../warehouse/suggestCreateWarehouse-form'
+import { getTypesByWarehouse_id } from '../../actions/type-action'
 
-export class WarehouseTable extends Component {
+export class TypeTable extends Component {
     constructor(props) {
         super(props)
         this.state = {
             columns: [
-                { title: 'ID', field: 'warehouse_id' },
-                { title: 'Tên kho', field: 'warehousename' },
-                { title: 'Địa chỉ', field: 'address' },
-                { title: 'Mô tả', field: 'description' },
+                { title: 'ID', field: 'type_id' },
+                { title: 'Tên loại', field: 'typeName' },
             ],
             data: [],
         }
     }
 
+
     componentDidMount() {
-        if (this.props.customer_id !== '')
-            this.props.getWarehousesByCustomer_id(this.props.customer_id)
+        // if (this.props.warehouse_accessed_id !== '')
+            // this.props.getTypesByWarehouse_id(this.props.warehouse_accessed_id)
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.warehouses !== this.props.warehouses)
-            this.setState({
-                data: this.props.warehouses
-            })
-        if (prevProps.customer_id !== this.props.customer_id)
-            this.props.getWarehousesByCustomer_id(this.props.customer_id)
+        // if (prevProps.types !== this.props.types)
+        // this.setState({
+        //     data: this.props.types
+        // })
+
+        // if (prevProps.warehouse_accessed_id !== this.props.warehouse_accessed_id)
+            // this.props.getTypesByWarehouse_id(this.props.warehouse_accessed_id)
     }
 
-    render() {
-        const warehouses = this.props.warehouses
 
+    render() {
         const table = (
             <Grow in={true}>
                 <MaterialTable
-                    title="DANH SÁCH KHO"
+                    title="DANH SÁCH LOẠI HÀNG"
                     columns={this.state.columns}
                     data={this.state.data}
                     // actions={[
@@ -89,8 +88,8 @@ export class WarehouseTable extends Component {
                             alignItems="flex-start"
                             style={{ marginBottom: '1rem' }}
                         >
-                            <Link to='/warehouse/add' style={{ textDecoration: 'none' }} >
-                                <Button variant="contained" size="small" color="primary">Thêm kho</Button>
+                            <Link to='/type/add' style={{ textDecoration: 'none' }} >
+                                <Button variant="contained" size="small" color="primary">Thêm loại hàng</Button>
                             </Link>
                         </Grid>
                         {table}
@@ -104,12 +103,13 @@ export class WarehouseTable extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    types: state.typeReducer.types,
     warehouses: state.warehouseReducer.warehouses,
-    customer_id: state.authReducer.customer_id
+    warehouse_accessed_id : state.warehouseReducer.warehouse_accessed_id
 })
 
 const mapDispatchToProps = {
-    getWarehousesByCustomer_id
+    getTypesByWarehouse_id
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(WarehouseTable)
+export default connect(mapStateToProps, mapDispatchToProps)(TypeTable)

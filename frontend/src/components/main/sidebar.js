@@ -31,6 +31,15 @@ class Sidebar extends Component {
                             </MenuItem>
                         </Link>
                         <Divider />
+                        <Link to='/type' style={{ textDecoration: 'none' }}>
+                            <MenuItem>
+                                <ListItemIcon>
+                                    <SendIcon fontSize="small" />
+                                </ListItemIcon>
+                                <Typography variant="inherit">Loại hàng</Typography>
+                            </MenuItem>
+                        </Link>
+                        <Divider />
                         <Link to='/receivednote' style={{ textDecoration: 'none' }}>
                             <MenuItem>
                                 <ListItemIcon>

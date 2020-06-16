@@ -8,6 +8,7 @@ const port = 8000
 const auth = require('./routers/auth-router')
 const customer = require('./routers/customer-router')
 const warehouse = require('./routers/warehouse-router')
+const type = require('./routers/type-router')
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -28,6 +29,10 @@ app.get('/api/warehouse/:id', warehouse.getWarehouseById)
 app.get('/api/warehouse/get/:id', warehouse.getWarehousesByCustomer_id)
 app.post('/api/warehouse/add', warehouse.addWarehouse)
 app.put('/api/warehouse/update/:id', warehouse.updateWarehouse)
+
+app.get('/api/type', type.getTypes)
+app.get('/api/type/get/:id', type.getTypeByWarehouse_id)
+app.post('/api/type/add', type.addType)
 
 //app.delete('/users/:id', db.deleteUser)
 

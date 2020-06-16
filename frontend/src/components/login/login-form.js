@@ -94,7 +94,7 @@ class LoginForm extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-                {this.props.customer_id ?
+                {this.props.isAuthenticated ?
                     <Redirect to='/warehouse' />
                     : null
                 }
@@ -104,7 +104,7 @@ class LoginForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    customer_id: state.authReducer.customer_id
+    isAuthenticated: state.authReducer.isAuthenticated
 })
 
 const mapDispatchToProps = {

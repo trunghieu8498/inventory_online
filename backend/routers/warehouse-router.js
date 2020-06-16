@@ -31,7 +31,6 @@ const getWarehouseById = (req, res) => {
 
 const addWarehouse = (req, res) => {
     const { warehouseName, address, description, customer_id } = req.body
-
     pool.query('INSERT INTO WAREHOUSE (warehouseName, address, description, customer_id) VALUES ($1, $2, $3, $4)', [warehouseName, address, description, customer_id], (error, results) => {
         if (error) {
             throw error

@@ -1,27 +1,25 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { TextField, Grid, Card, Typography, Button, CardContent, CardActions } from '@material-ui/core'
-import { addWarehouse } from '../../actions/warehouse-action'
+import { addType } from '../../actions/type-action'
 
 
-class AddWarehouseForm extends Component {
+class AddTypeForm extends Component {
     constructor(props) {
         super(props)
 
         this.handleSubmit = this.handleSubmit.bind(this)
 
         this.state = {
-            warehouseName: '',
-            address: '',
-            description: '',
+            typeName: '',
         }
-        this.warehouseNameTextfield = React.createRef()
+        this.typeNameTextfield = React.createRef()
     }
 
     handleSubmit = (e) => {
-        const { warehouseName, address, description } = this.state
+        const { typeName } = this.state
         e.preventDefault()
-        this.props.addWarehouse(warehouseName, address, description, this.props.customer_id)
+        this.props.addType(typeName, this.props.warehouse_accessed_id)
 
         this.resetInput()
     }
@@ -34,9 +32,7 @@ class AddWarehouseForm extends Component {
 
     resetInput = () => {
         this.setState({
-            warehouseName: '',
-            address: '',
-            description: '',
+            typeName: '',
         })
     }
 
@@ -44,7 +40,7 @@ class AddWarehouseForm extends Component {
         return (
             <div>
                 <Typography>
-                    Thêm kho mới
+                    Thêm loại hàng
                 </Typography>
                 <Card variant="outlined">
                     <CardContent>
@@ -57,28 +53,15 @@ class AddWarehouseForm extends Component {
                                 spacing={2}
                             >
                                 <Grid item>
-                                    <TextField name="warehouseName"
-                                        label="Tên kho"
+                                    <TextField name="typeName"
+                                        label="Tên loại"
                                         variant="outlined"
-                                        value={this.state.warehouseName}
-                                        inputRef={this.warehouseNameTextfield}
+                                        value={this.state.typeName}
+                                        inputRef={this.typeNameTextfield}
                                         autoFocus
                                         onChange={(e) => this.changeHandler(e)} />
                                 </Grid>
-                                <Grid item>
-                                    <TextField name="address"
-                                        label="Địa chỉ"
-                                        variant="outlined"
-                                        value={this.state.address}
-                                        onChange={(e) => this.changeHandler(e)} />
-                                </Grid>
-                                <Grid item>
-                                    <TextField name="description"
-                                        label="Mô tả"
-                                        variant="outlined"
-                                        value={this.state.description}
-                                        onChange={(e) => this.changeHandler(e)} />
-                                </Grid>
+                                
                                 <Grid item>
                                     <Button type='submit' variant="contained" size="medium" color="primary">
                                         Thêm
@@ -94,11 +77,11 @@ class AddWarehouseForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    customer_id: state.authReducer.customer_id
+    warehouse_accessed_id: state.warehouseReducer.warehouse_accessed_id
 })
 
 const mapDispatchToProps = {
-    addWarehouse
+    addType
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddWarehouseForm)
+export default connect(mapStateToProps, mapDispatchToProps)(AddTypeForm)

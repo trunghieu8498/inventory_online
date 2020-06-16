@@ -119,8 +119,8 @@ class SignupForm extends Component {
                         </Grid>
                     </Grid>
                 </Grid>
-                {this.props.customer_id ?
-                    <Redirect to='/home' />
+                {this.props.isAuthenticated ?
+                    <Redirect to='/warehouse' />
                     : null
                 }
             </div>
@@ -129,7 +129,7 @@ class SignupForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    customer_id: state.authReducer.customer_id
+    isAuthenticated: state.authReducer.isAuthenticated
 })
 
 const mapDispatchToProps = {

@@ -3,7 +3,7 @@ import { LOGIN_BY_CUSTOMER, SIGNUP } from '../constant'
 const initialState = {
     isAuthenticated: false,
     customer_logged: null, //object
-    customer_id: localStorage.getItem('customer_id')
+    customer_id: ''//localStorage.getItem('customer_id')
 }
 
 export default function (state = initialState, action) {

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { LOGIN_BY_CUSTOMER, SIGNUP } from '../constant'
 
 export const loadCustomer = () => (dispatch, getState) => {
-    const customer_id = getState().authReducer.customer_id
+    const customer_id = localStorage.getItem('customer_id')//getState().authReducer.customer_id
 
     const config = {
         headers: {
@@ -11,21 +11,25 @@ export const loadCustomer = () => (dispatch, getState) => {
     }
 
     console.log(customer_id)
-    axios.get(`http://localhost:8000/api/customer/${customer_id}`, config)
-        .then(res => {
-            dispatch({
-                type: LOGIN_BY_CUSTOMER,
-                payload: res.data
+    if (customer_id && customer_id !== '')
+        axios.get(`http://localhost:8000/api/customer/${customer_id}`, config)
+            .then(res => {
+                dispatch({
+                    type: LOGIN_BY_CUSTOMER,
+                    payload: res.data
+                })
+                // console.log(res.data)
             })
-            // console.log(res.data)
-        })
-        .catch(err => {
-            console.log('loi load user do chua dang nhap');
-            // // dispatch(returnErrors(err.response.data, err.response.status));
-            // dispatch({
-            //     type: AUTH_ERROR
-            // })
-        })
+            .catch(err => {
+                console.log('loi load user do chua dang nhap');
+                // // dispatch(returnErrors(err.response.data, err.response.status));
+                // dispatch({
+
+                //     type: AUTH_ERROR
+                // })
+            })
+    else
+        console.log('chua tung dang nhap')
 }
 
 
@@ -36,6 +40,7 @@ export const login = (email, password) => dispatch => {
         }
     }
     const body = JSON.stringify({ email, password });
+    console.log(body)
     axios.post('http://localhost:8000/api/login', body, config)
         .then(res => {
             console.log(res.data)
@@ -49,7 +54,7 @@ export const login = (email, password) => dispatch => {
             // dispatch({
             //     type: LOGIN_FAIL
             // })
-            alert(err.res.data)
+            alert(err.response.data.msg)
         })
 }
 

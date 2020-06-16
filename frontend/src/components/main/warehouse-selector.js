@@ -1,84 +1,91 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import IconButton from '@material-ui/core/IconButton';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Typography } from '@material-ui/core';
-import {Grid} from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 
-const options = [
-    'None',
-    'Atria',
-    'Callisto',
-    'Dione',
-    'Ganymede',
-    'Hangouts Call',
-    'Luna',
-    'Oberon',
-    'Phobos',
-    'Pyxis',
-    'Sedna',
-    'Titania',
-    'Triton',
-    'Umbriel',
-];
+class WarehouseSelector extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            open: false,
+            options: [],
+            ITEM_HEIGHT: 48
+        }
+    }
 
-const ITEM_HEIGHT = 48;
-
-export default function WarehouseSelector() {
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const open = Boolean(anchorEl);
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
+    handleOpen = (e) => {
+        this.setState({
+            open: true
+        })
     };
 
-    const handleClose = () => {
-        setAnchorEl(null);
+    handleClose = (e) => {
+        this.setState({
+            open: false
+        })
     };
 
-    return (
-        <div>
-            <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="center"
-                spacing={1}
-            >
-                <Grid item>
-                    <Typography>Warehouse Name</Typography>
+    render() {
+        const { options, ITEM_HEIGHT } = this.state
+        return (
+            <div>
+                <Grid
+                    container
+                    direction="row"
+                    justify="center"
+                    alignItems="center"
+                >
+                    <Grid item>
+                        <Typography>Warehouse Name</Typography>
+                    </Grid>
+                    <Grid item>
+                        <IconButton
+                            aria-label="more"
+                            aria-controls="long-menu"
+                            aria-haspopup="true"
+                            onClick={e => this.handleOpen()}
+                        >
+                            <MoreVertIcon />
+                        </IconButton>
+                        <Grid item>
+                            <Menu
+                                id="long-menu"
+                                open={this.state.open}
+                                keepMounted
+                                onClose={e => this.handleClose(e)}
+                                PaperProps={{
+                                    style: {
+                                        marginLeft: '14rem',
+                                        maxHeight: ITEM_HEIGHT * 4.5,
+                                        width: '20ch',
+                                    },
+                                }}
+                            >
+                                {options.map((option) => (
+                                    <MenuItem key={option} selected={option === 'Pyxis'}>
+                                        {option}
+                                    </MenuItem>
+                                ))}
+                            </Menu>
+                        </Grid>
+                    </Grid>
                 </Grid>
-                <Grid item>
-                    <IconButton
-                        aria-label="more"
-                        aria-controls="long-menu"
-                        aria-haspopup="true"
-                        onClick={handleClick}
-                    >
-                        <MoreVertIcon />
-                    </IconButton>
-                    <Menu
-                        id="long-menu"
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={open}
-                        onClose={handleClose}
-                        PaperProps={{
-                            style: {
-                                maxHeight: ITEM_HEIGHT * 4.5,
-                                width: '20ch',
-                            },
-                        }}
-                    >
-                        {options.map((option) => (
-                            <MenuItem key={option} selected={option === 'Pyxis'} onClick={handleClose}>
-                                {option}
-                            </MenuItem>
-                        ))}
-                    </Menu>
-                </Grid>
-            </Grid>
-        </div>
-    );
+            </div>
+        );
+    }
 }
+
+const mapStateToProps = (state) => ({
+    warehouses: state.warehouseReducer.warehouses,
+    customer_id: state.authReducer.customer_id
+})
+
+const mapDispatchToProps = {
+    //getWarehousesByCustomer_id
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(WarehouseSelector)

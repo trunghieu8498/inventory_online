@@ -33,7 +33,11 @@ CREATE TABLE WAREHOUSE(
 CREATE TABLE TYPE (
 	type_id serial PRIMARY KEY,
 	typename varchar(30) NOT NULL,
-	available boolean DEFAULT true
+	available boolean DEFAULT true,
+	warehouse_id integer NOT NULL,
+	CONSTRAINT TYPE_warehouse_id_fkey FOREIGN KEY (warehouse_id)
+    REFERENCES WAREHOUSE(warehouse_id) MATCH SIMPLE
+		ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
 CREATE TABLE GOODS(
@@ -68,7 +72,7 @@ CREATE TABLE RECEIVEDNOTE(
 CREATE TABLE RECEIVEDNOTEDETAIL(
 	receivednotedetail_id serial PRIMARY KEY,
 	quantity int DEFAULT 0,
-	sellingprice bigint DEFAULT 0,
+	costprice bigint DEFAULT 0,
 	available boolean DEFAULT true,
 	goods_id integer NOT NULL,
 	CONSTRAINT RECEIVEDNOTEDETAIL_goods_id_fkey FOREIGN KEY (goods_id)
@@ -78,7 +82,6 @@ CREATE TABLE RECEIVEDNOTEDETAIL(
 
 CREATE TABLE DELIVERYNOTE(
 	deliverynote_id serial PRIMARY KEY,
-	quantity int NOT NULL,
 	date timestamp NOT NULL,
 	available boolean DEFAULT true,
 	warehouse_id integer NOT NULL,
