@@ -17,17 +17,21 @@ class WarehouseSelector extends Component {
         }
     }
 
+    componentDidUpdate () {
+        console.log(this.props.warehouses)
+    }
+
     handleOpen = (e) => {
         this.setState({
             open: true
         })
-    };
+    }
 
     handleClose = (e) => {
         this.setState({
             open: false
         })
-    };
+    }
 
     render() {
         const { options, ITEM_HEIGHT } = this.state
@@ -75,7 +79,7 @@ class WarehouseSelector extends Component {
                     </Grid>
                 </Grid>
             </div>
-        );
+        )
     }
 }
 
