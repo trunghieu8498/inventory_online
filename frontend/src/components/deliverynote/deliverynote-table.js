@@ -88,7 +88,7 @@ export class DeliveryNoteTable extends Component {
                             alignItems="flex-start"
                             style={{ marginBottom: '1rem' }}
                         >
-                            <Link to='/type/add' style={{ textDecoration: 'none' }} >
+                            <Link to='/deliverynote/add' style={{ textDecoration: 'none' }} >
                                 <Button variant="contained" size="small" color="primary">Tạo phiếu xuất kho</Button>
                             </Link>
                         </Grid>

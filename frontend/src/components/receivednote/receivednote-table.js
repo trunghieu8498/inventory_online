@@ -88,7 +88,7 @@ export class ReceivedNoteTable extends Component {
                             alignItems="flex-start"
                             style={{ marginBottom: '1rem' }}
                         >
-                            <Link to='/type/add' style={{ textDecoration: 'none' }} >
+                            <Link to='/receivednote/add' style={{ textDecoration: 'none' }} >
                                 <Button variant="contained" size="small" color="primary">Tạo phiếu nhập kho</Button>
                             </Link>
                         </Grid>

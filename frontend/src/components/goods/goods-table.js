@@ -88,7 +88,7 @@ export class GoodsTable extends Component {
                             alignItems="flex-start"
                             style={{ marginBottom: '1rem' }}
                         >
-                            <Link to='/warehouse/add' style={{ textDecoration: 'none' }} >
+                            <Link to='/goods/add' style={{ textDecoration: 'none' }} >
                                 <Button variant="contained" size="small" color="primary">Thêm mặt hàng</Button>
                             </Link>
                         </Grid>
