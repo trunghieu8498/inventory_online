@@ -11,22 +11,17 @@ class AddGoodsForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
 
         this.state = {
-            goodsName: '',
-            weight: '',
-            description: '',
-	        costPrice: '',
-	        sellingPrice: '',
-	        inventoryNumber: '',
+            typeName: ''
         }
         this.typeNameTextfield = React.createRef()
     }
 
     handleSubmit = (e) => {
-        // const { typeName } = this.state
-        // e.preventDefault()
-        // this.props.addType(typeName, this.props.warehouse_accessed_id)
+        const { typeName } = this.state
+        e.preventDefault()
+        this.props.addType(typeName, this.props.warehouse_accessed_id)
 
-        // this.resetInput()
+        this.resetInput()
     }
 
     changeHandler = (e) => {
@@ -37,7 +32,7 @@ class AddGoodsForm extends Component {
 
     resetInput = () => {
         this.setState({
-            typeName: '',
+            typeName: ''
         })
     }
 
@@ -120,7 +115,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    // addType
+    addType
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddGoodsForm)

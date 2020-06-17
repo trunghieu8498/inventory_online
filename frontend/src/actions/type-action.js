@@ -1,21 +1,21 @@
 import axios from 'axios'
 import { ADD_TYPE, GET_TYPES_BY_WAREHOUSE_ID } from "../constant"
 
-export const addType = (typename, warehouse_id) => dispatch => {
+export const addType = (typeName, warehouse_id) => dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
-    const body = JSON.stringify({ typename, warehouse_id })
+    const body = JSON.stringify({ typeName, warehouse_id })
+    console.log(body)
     axios.post('http://localhost:8000/api/type/add', body, config)
         .then(res => {
-            if (res.data) {
+            console.log(res.data)
                 dispatch({
                     type: ADD_TYPE,
                     payload: res.data
-                })
-            }
+            })
             alert('Đã thêm loại mới')
         })
         .catch((err) => {
