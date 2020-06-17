@@ -17,10 +17,12 @@ import AddWarehouseForm from './components/warehouse/addWarehouse-form'
 import { loadCustomer } from './actions/auth-action'
 import GoodsTable from './components/goods/goods-table'
 import TypeTable from './components/type/type-table'
-import DeliveryNoteTable from './components/deliverynote/deliverynote-table'
+import DeliveryNoteTable from './components/deliverynote/deliveryNote-table'
 import ReceivedNoteTable from './components/receivednote/receivednote-table'
 import AddTypeForm from './components/type/addType-form'
-
+import AddGoodsForm from './components/goods/addGoods-form'
+import AddReceivedNoteForm from './components/receivednote/receivednote-form'
+import AddDeliveryNoteForm from './components/deliverynote/deliverynote-form'
 class App extends Component {
 
   componentDidMount() {
@@ -59,7 +61,9 @@ class App extends Component {
               <Route exact path='/type/add' component={() => Page(AddTypeForm)} />
               <Route exact path='/deliverynote' component={() => Page(DeliveryNoteTable)} />
               <Route exact path='/receivednote' component={() => Page(ReceivedNoteTable)} />
-
+              <Route exact path='/goods/add' component={() => Page(AddGoodsForm)}/>
+              <Route exact path='/receivednote/add' component={() => Page(AddReceivedNoteForm)}/> 
+              <Route exact path='/deliverynote/add' component={() => Page(AddDeliveryNoteForm)}/>
             </Switch>
           </div>
         </BrowserRouter>
