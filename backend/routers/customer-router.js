@@ -27,6 +27,8 @@ const getCustomerById = (req, res) => {
 const addCustomer = (req, res) => {
     const { email, password, fullName, birthday, numberPhone } = req.body
 
+    console.log(req.body)
+
     pool.query('INSERT INTO CUSTOMER (email, password, fullName, birthday, numberPhone) VALUES ($1, $2, $3, $4, $5)', [email, password, fullName, birthday, numberPhone], (error, results) => {
         if (error) {
             throw error
