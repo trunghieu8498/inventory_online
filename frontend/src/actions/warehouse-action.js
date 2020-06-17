@@ -2,6 +2,7 @@ import axios from 'axios'
 import { ADD_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID, ACCESS_WAREHOUSE } from "../constant"
 
 export const accessWarehouse = (warehouse_id) => dispatch => {
+    console.log(warehouse_id)
     dispatch({
         type: ACCESS_WAREHOUSE,
         payload: warehouse_id

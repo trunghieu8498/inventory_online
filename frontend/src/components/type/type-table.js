@@ -20,18 +20,18 @@ export class TypeTable extends Component {
 
 
     componentDidMount() {
-        // if (this.props.warehouse_accessed_id !== '')
-            // this.props.getTypesByWarehouse_id(this.props.warehouse_accessed_id)
+        if (this.props.warehouse_accessed_id !== '')
+            this.props.getTypesByWarehouse_id(this.props.warehouse_accessed_id)
     }
 
     componentDidUpdate(prevProps) {
-        // if (prevProps.types !== this.props.types)
-        // this.setState({
-        //     data: this.props.types
-        // })
+        if (prevProps.types !== this.props.types)
+        this.setState({
+            data: this.props.types
+        })
 
-        // if (prevProps.warehouse_accessed_id !== this.props.warehouse_accessed_id)
-            // this.props.getTypesByWarehouse_id(this.props.warehouse_accessed_id)
+        if (prevProps.warehouse_accessed_id !== this.props.warehouse_accessed_id)
+            this.props.getTypesByWarehouse_id(this.props.warehouse_accessed_id)
     }
 
 
