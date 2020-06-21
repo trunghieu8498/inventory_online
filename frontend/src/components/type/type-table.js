@@ -12,28 +12,30 @@ export class TypeTable extends Component {
         this.state = {
             columns: [
                 { title: 'ID', field: 'type_id' },
-                { title: 'Tên loại', field: 'typeName' },
+                { title: 'Tên loại', field: 'typename' },
             ],
             data: [],
         }
     }
 
-
     componentDidMount() {
-        if (this.props.warehouse_accessed_id !== '')
-            this.props.getTypesByWarehouse_id(this.props.warehouse_accessed_id)
+        this.props.getTypesByWarehouse_id(this.props.warehouse_selected_id)
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.types !== this.props.types)
-        this.setState({
-            data: this.props.types
-        })
+        try {
+            if (prevProps.types !== this.props.types)
+                this.setState({
+                    data: this.props.types
+                })
 
-        if (prevProps.warehouse_accessed_id !== this.props.warehouse_accessed_id)
-            this.props.getTypesByWarehouse_id(this.props.warehouse_accessed_id)
+            if (prevProps.warehouse_selected !== this.props.warehouse_selected)
+                this.props.getTypesByWarehouse_id(this.props.warehouse_selected.warehouse_id)
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
-
 
     render() {
         const table = (
@@ -105,7 +107,7 @@ export class TypeTable extends Component {
 const mapStateToProps = (state) => ({
     types: state.typeReducer.types,
     warehouses: state.warehouseReducer.warehouses,
-    warehouse_accessed_id : state.warehouseReducer.warehouse_accessed_id
+    warehouse_selected_id: state.warehouseReducer.warehouse_selected_id
 })
 
 const mapDispatchToProps = {

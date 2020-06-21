@@ -1,4 +1,4 @@
-import { LOGIN_BY_CUSTOMER, SIGNUP } from '../constant'
+import { LOGIN_BY_CUSTOMER, SIGNUP, LOGOUT } from '../constant'
 
 const initialState = {
     isAuthenticated: false,
@@ -12,17 +12,25 @@ export default function (state = initialState, action) {
             localStorage.setItem('customer_id', action.payload.customer_id)
             return {
                 ...state,
+                isAuthenticated: true,
                 customer_id: action.payload.customer_id,
                 customer_logged: action.payload,
-                isAuthenticated: true
             }
         case SIGNUP:
             localStorage.setItem('customer_id', action.payload.customer_id)
             return {
                 ...state,
+                isAuthenticated: true,
                 customer_id: action.payload.customer_id,
                 customer_logged: action.payload,
-                isAuthenticated: true
+            }
+        case LOGOUT:
+            localStorage.setItem('customer_id', '')
+            return {
+                ...state,
+                isAuthenticated: false,
+                customer_id: '',
+                customer_logged: null
             }
 
         default:

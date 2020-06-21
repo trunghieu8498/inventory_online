@@ -12,9 +12,9 @@ export const addType = (typeName, warehouse_id) => dispatch => {
     axios.post('http://localhost:8000/api/type/add', body, config)
         .then(res => {
             console.log(res.data)
-                dispatch({
-                    type: ADD_TYPE,
-                    payload: res.data
+            dispatch({
+                type: ADD_TYPE,
+                payload: res.data
             })
             alert('Đã thêm loại mới')
         })
@@ -33,18 +33,21 @@ export const getTypesByWarehouse_id = (warehouse_id) => dispatch => {
             'Content-Type': 'application/json'
         }
     }
-    axios.get(`http://localhost:8000/api/type/get/${warehouse_id}`, config)
-        .then(res => {
-            dispatch({
-                type: GET_TYPES_BY_WAREHOUSE_ID,
-                payload: res.data
+    if (warehouse_id !== '')
+        axios.get(`http://localhost:8000/api/type/get/${warehouse_id}`, config)
+            .then(res => {
+                dispatch({
+                    type: GET_TYPES_BY_WAREHOUSE_ID,
+                    payload: res.data
+                })
             })
-        })
-        .catch((err) => {
-            // dispatch(returnErrors(err.res.data, err.res.status, 'LOGIN_FAIL'))
-            // dispatch({
-            //     type: LOGIN_FAIL
-            // })
-            alert(err)
-        })
+            .catch((err) => {
+                // dispatch(returnErrors(err.res.data, err.res.status, 'LOGIN_FAIL'))
+                // dispatch({
+                //     type: LOGIN_FAIL
+                // })
+                alert(err)
+            })
+    else
+        alert('Hãy chọn kho trước khi xem')
 }

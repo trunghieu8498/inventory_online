@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { LOGIN_BY_CUSTOMER, SIGNUP } from '../constant'
+import { LOGIN_BY_CUSTOMER, SIGNUP, LOGOUT } from '../constant'
 
 export const loadCustomer = () => (dispatch, getState) => {
     const customer_id = localStorage.getItem('customer_id')//getState().authReducer.customer_id
@@ -9,9 +9,7 @@ export const loadCustomer = () => (dispatch, getState) => {
             'Content-type': 'application/json'
         }
     }
-
-    console.log(customer_id)
-    if (customer_id && customer_id !== '')
+    try {
         axios.get(`http://localhost:8000/api/customer/${customer_id}`, config)
             .then(res => {
                 dispatch({
@@ -24,12 +22,13 @@ export const loadCustomer = () => (dispatch, getState) => {
                 console.log('loi load user do chua dang nhap');
                 // // dispatch(returnErrors(err.response.data, err.response.status));
                 // dispatch({
-
                 //     type: AUTH_ERROR
                 // })
             })
-    else
-        console.log('chua tung dang nhap')
+    }
+    catch (err) {
+        console.log(err)
+    }
 }
 
 
@@ -82,4 +81,12 @@ export const signup = (email, password, fullName, birthday, numberPhone) => disp
             // })
             alert(err.res.data.msg)
         })
+}
+
+export const logout = () => dispatch => {
+    dispatch(
+        {
+            type: LOGOUT
+        }
+    )
 }

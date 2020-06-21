@@ -1,11 +1,18 @@
 import axios from 'axios'
-import { ADD_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID, ACCESS_WAREHOUSE } from "../constant"
+import { ADD_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID, SELECT_WAREHOUSE } from "../constant"
 
-export const accessWarehouse = (warehouse_id) => dispatch => {
-    console.log(warehouse_id)
+// export const loadWarehouse = () => dispatch => {
+//     const warehouse_id = localStorage.getItem('warehouse_id')
+//     dispatch({
+//         type: SELECT_WAREHOUSE,
+//         payload: warehouse_id
+//     })
+// }
+
+export const selectWarehouse = (warehouse_selected_id) => dispatch => {
     dispatch({
-        type: ACCESS_WAREHOUSE,
-        payload: warehouse_id
+        type: SELECT_WAREHOUSE,
+        payload: warehouse_selected_id
     })
 }
 
@@ -42,18 +49,24 @@ export const getWarehousesByCustomer_id = (customer_id) => dispatch => {
             'Content-Type': 'application/json'
         }
     }
-    axios.get(`http://localhost:8000/api/warehouse/get/${customer_id}`, config)
-        .then(res => {
-            dispatch({
-                type: GET_WAREHOUSES_BY_CUSTOMER_ID,
-                payload: res.data
-            })
-        })
-        .catch((err) => {
-            // dispatch(returnErrors(err.res.data, err.res.status, 'LOGIN_FAIL'))
-            // dispatch({
-            //     type: LOGIN_FAIL
-            // })
-            alert(customer_id)
-        })
+    if (customer_id !== '')
+        try {
+            axios.get(`http://localhost:8000/api/warehouse/get/${customer_id}`, config)
+                .then(res => {
+                    dispatch({
+                        type: GET_WAREHOUSES_BY_CUSTOMER_ID,
+                        payload: res.data
+                    })
+                })
+                .catch((err) => {
+                    // dispatch(returnErrors(err.res.data, err.res.status, 'LOGIN_FAIL'))
+                    // dispatch({
+                    //     type: LOGIN_FAIL
+                    // })
+                    alert('Lỗi lấy danh sách kho', err)
+                })
+        }
+        catch (err) {
+            console.log(err)
+        }
 }

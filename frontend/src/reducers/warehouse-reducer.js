@@ -1,9 +1,10 @@
-import { GET_WAREHOUSES, GET_WAREHOUSE_BY_ID, ADD_WAREHOUSE, ACCESS_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID } from '../constant'
+import { GET_WAREHOUSES, GET_WAREHOUSE_BY_ID, ADD_WAREHOUSE, SELECT_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID } from '../constant'
 
 const initialState = {
     warehouses: [], //warehouses of customer
     warehouse: null,
-    warehouse_accessed_id: null, //id warehouse accessing
+    warehouse_selected_id: '', //id warehouse selecting
+    warehouse_selected: null
 }
 
 export default function (state = initialState, action) {
@@ -19,6 +20,7 @@ export default function (state = initialState, action) {
                 warehouse: action.payload
             }
         case GET_WAREHOUSES_BY_CUSTOMER_ID:
+            console.log('GET_WAREHOUSES_BY_CUSTOMER_ID', action.payload)
             return {
                 ...state,
                 warehouses: action.payload
@@ -27,10 +29,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
             }
-        case ACCESS_WAREHOUSE:
+        case SELECT_WAREHOUSE:
+            localStorage.setItem('warehouse_selected_id', action.payload)
             return {
                 ...state,
-                warehouse_accessed_id: action.payload
+                warehouse_selected_id: action.payload
             }
         default:
             return state

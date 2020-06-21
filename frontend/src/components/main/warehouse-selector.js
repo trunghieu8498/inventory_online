@@ -17,8 +17,12 @@ class WarehouseSelector extends Component {
         }
     }
 
-    componentDidUpdate () {
+    componentDidUpdate(prevProps) {
         console.log(this.props.warehouses)
+        if (this.props.warehouses.lenght > 0 && this.props.warehouses !== prevProps.warehouses)
+            this.setState({
+                options: [...this.props.warehouses]
+            })
     }
 
     handleOpen = (e) => {
@@ -70,8 +74,10 @@ class WarehouseSelector extends Component {
                                 }}
                             >
                                 {options.map((option) => (
-                                    <MenuItem key={option} selected={option === 'Pyxis'}>
-                                        {option}
+                                    <MenuItem key={option.warehouse_id}
+                                    //  selected={option === 'Pyxis'}
+                                    >
+                                        {option.warehousename}
                                     </MenuItem>
                                 ))}
                             </Menu>
@@ -84,12 +90,13 @@ class WarehouseSelector extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    // warehouse_selected
     warehouses: state.warehouseReducer.warehouses,
     customer_id: state.authReducer.customer_id
 })
 
 const mapDispatchToProps = {
-    //getWarehousesByCustomer_id
+    // getWarehousesByCustomer_id
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WarehouseSelector)

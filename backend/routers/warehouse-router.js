@@ -9,18 +9,23 @@ const getWarehouses = (req, res) => {
 
 const getWarehousesByCustomer_id = (req, res) => {
     const customer_id = parseInt(req.params.id)
+    console.log('customer_id', customer_id)
+    try{
+        pool.query('SELECT * FROM WAREHOUSE WHERE customer_id = $1', [customer_id], (error, results) => {
+            if (error) {
+                throw error
+            }
+            res.status(200).json(results.rows)
+        })
+    }
+    catch{
 
-    pool.query('SELECT * FROM WAREHOUSE WHERE customer_id = $1', [customer_id], (error, results) => {
-        if (error) {
-            throw error
-        }
-        res.status(200).json(results.rows)
-    })
+    }
 }
 
 const getWarehouseById = (req, res) => {
     const id = parseInt(req.params.id)
-
+    console.log('loi ne',id)
     pool.query('SELECT * FROM WAREHOUSE WHERE warehouse_id = $1', [id], (error, results) => {
         if (error) {
             throw error

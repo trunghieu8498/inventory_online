@@ -4,8 +4,8 @@ import { Grow, Button, Grid } from '@material-ui/core'
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { Link } from 'react-router-dom'
 import { SuggestCreateWarehouseForm } from './suggestCreateWarehouse-form'
-import { getWarehousesByCustomer_id, accessWarehouse } from '../../actions/warehouse-action'
-import {IconButton, EditIcon} from '@material-ui/icons'
+import { getWarehousesByCustomer_id, selectWarehouse } from '../../actions/warehouse-action'
+import { IconButton, EditIcon } from '@material-ui/icons'
 
 export class WarehouseTable extends Component {
     constructor(props) {
@@ -22,8 +22,7 @@ export class WarehouseTable extends Component {
     }
 
     componentDidMount() {
-        if (this.props.customer_id !== '')
-            this.props.getWarehousesByCustomer_id(this.props.customer_id)
+        this.props.getWarehousesByCustomer_id(this.props.customer_id)
     }
 
     componentDidUpdate(prevProps) {
@@ -35,14 +34,12 @@ export class WarehouseTable extends Component {
             this.props.getWarehousesByCustomer_id(this.props.customer_id)
     }
 
-    accessWarehouseHandle(e,warehouse_id){
+    selectWarehouseHandle(e, warehouse_id) {
         e.preventDefault()
-        // console.log(warehouse_id)
-        this.props.accessWarehouse(warehouse_id)
+        this.props.selectWarehouse(warehouse_id)
     }
     render() {
         const warehouses = this.props.warehouses
-
         const table = (
             <Grow in={true}>
                 <MaterialTable
@@ -55,9 +52,8 @@ export class WarehouseTable extends Component {
                             tooltip: 'Save User',
                             // Update: (e, rowData) => alert("You updated " + rowData.name),
                             // Delete: (e, rowData) => alert("You deleted " + rowData.name),
-                            Access: (e,warehouse_id) => this.accessWarehouseHandle(e,warehouse_id)
+                            select: (e, warehouse_id) => this.selectWarehouseHandle(e, warehouse_id)
                         },
-
                     ]}
                     components={{
                         Toolbar: props => (
@@ -67,7 +63,7 @@ export class WarehouseTable extends Component {
                         ),
                         Action: props => (
                             <div>
-                                <Button onClick={(e)=> props.action.Access(e,props.data.warehouse_id)}>Chon</Button>
+                                <Button variant="outlined" color="primary" onClick={(e) => props.action.select(e, props.data.warehouse_id)}>Chọn</Button>
                                 {/* <IconButton aria-label="edit" style={{ color: '#009FFF' }}
                                     // onClick={(event) => props.action.Update(event, props.data)}
                                     >
@@ -81,7 +77,6 @@ export class WarehouseTable extends Component {
                                 </IconButton> */}
                             </div>
                         ),
-
                     }}
                 />
             </Grow>
@@ -118,7 +113,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
     getWarehousesByCustomer_id,
-    accessWarehouse
+    selectWarehouse
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WarehouseTable)

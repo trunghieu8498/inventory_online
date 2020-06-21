@@ -23,12 +23,12 @@ import AddTypeForm from './components/type/addType-form'
 import AddGoodsForm from './components/goods/addGoods-form'
 import AddReceivedNoteForm from './components/receivednote/receivednote-form'
 import AddDeliveryNoteForm from './components/deliverynote/deliverynote-form'
+import { loadWarehouse } from './actions/warehouse-action'
 class App extends Component {
 
   componentDidMount() {
-    store.dispatch(loadCustomer()); //load customer logged
+    store.dispatch(loadCustomer())
   }
-
 
   render() {
     const Page = (Content) => (
@@ -51,7 +51,6 @@ class App extends Component {
           <div style={{ margin: '2rem' }}>
             <Switch>
               <Redirect exact from='/' to='/login' />
-
               <Route exact path='/login' component={LoginForm} />
               <Route eaxct path='/signup' component={SignupForm} />
               <Route exact path='/warehouse' component={() => Page(WarehouseTable)} />
@@ -61,9 +60,9 @@ class App extends Component {
               <Route exact path='/type/add' component={() => Page(AddTypeForm)} />
               <Route exact path='/deliverynote' component={() => Page(DeliveryNoteTable)} />
               <Route exact path='/receivednote' component={() => Page(ReceivedNoteTable)} />
-              <Route exact path='/goods/add' component={() => Page(AddGoodsForm)}/>
-              <Route exact path='/receivednote/add' component={() => Page(AddReceivedNoteForm)}/> 
-              <Route exact path='/deliverynote/add' component={() => Page(AddDeliveryNoteForm)}/>
+              <Route exact path='/goods/add' component={() => Page(AddGoodsForm)} />
+              <Route exact path='/receivednote/add' component={() => Page(AddReceivedNoteForm)} />
+              <Route exact path='/deliverynote/add' component={() => Page(AddDeliveryNoteForm)} />
             </Switch>
           </div>
         </BrowserRouter>

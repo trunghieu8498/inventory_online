@@ -19,7 +19,7 @@ class AddTypeForm extends Component {
     handleSubmit = (e) => {
         const { typeName } = this.state
         e.preventDefault()
-        this.props.addType(typeName, this.props.warehouse_accessed_id)
+        this.props.addType(typeName, this.props.warehouse_selected_id)
 
         this.resetInput()
     }
@@ -77,7 +77,7 @@ class AddTypeForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    warehouse_accessed_id: state.warehouseReducer.warehouse_accessed_id
+    warehouse_selected_id: state.warehouseReducer.warehouse_selected_id
 })
 
 const mapDispatchToProps = {

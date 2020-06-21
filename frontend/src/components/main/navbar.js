@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
 import { connect } from 'react-redux'
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import Button from '@material-ui/core/Button'
+import IconButton from '@material-ui/core/IconButton'
+import MenuIcon from '@material-ui/icons/Menu'
 import { Grid } from '@material-ui/core'
+import { logout } from '../../actions/auth-action'
+import { Redirect } from 'react-router-dom'
 
 class Navbar extends Component {
-
-
     render() {
         return (
             <div>
@@ -32,7 +32,7 @@ class Navbar extends Component {
                                 <div></div>
                             </Grid>
                             <Grid item>
-                                <Button color="inherit">Login</Button>
+                                {this.props.isAuthenticated ? <Button color="inherit" onClick={() => this.props.logout()}>Logout</Button> : <Redirect to='/login'/>}
                             </Grid>
                         </Grid>
                     </Toolbar>
@@ -47,7 +47,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-
+    logout
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
