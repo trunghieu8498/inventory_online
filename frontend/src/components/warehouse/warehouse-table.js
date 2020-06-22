@@ -35,8 +35,6 @@ export class WarehouseTable extends Component {
     }
 
     selectWarehouseHandle = (warehouse_id) => {
-        // e.preventDefault()
-        console.log(warehouse_id)
         this.props.selectWarehouse(warehouse_id)
     }
 
@@ -54,7 +52,7 @@ export class WarehouseTable extends Component {
                             tooltip: 'Save User',
                             // Update: (e, rowData) => alert("You updated " + rowData.name),
                             // Delete: (e, rowData) => alert("You deleted " + rowData.name),
-                            select: (e, warehouse_id) => this.selectWarehouseHandle(warehouse_id)
+                            select: (warehouse_id) => this.selectWarehouseHandle(warehouse_id)
                         },
                     ]}
                     components={{
@@ -66,7 +64,7 @@ export class WarehouseTable extends Component {
                         Action: props => (
                             <div>
                                 {/* <Button onClick={(() => console.log(props.data.warehouse_id))}>test</Button> */}
-                                <Button variant="outlined" color="primary" onClick={e => props.action.select(e, props.data.warehouse_id)}>Chọn</Button>
+                                <Button variant="outlined" color="primary" onClick={() => props.action.select(props.data.warehouse_id)}>Chọn</Button>
                                 {/* <IconButton aria-label="edit" style={{ color: '#009FFF' }}
                                     // onClick={(event) => props.action.Update(event, props.data)}
                                     >

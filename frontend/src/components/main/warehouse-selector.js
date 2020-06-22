@@ -19,23 +19,18 @@ class WarehouseSelector extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        // const { warehouses, warehouse_selected_id } = this.props
-        // if (warehouse_selected_id !== '' && prevProps.warehouse_selected_id !== warehouse_selected_id) {
-        //     // console.log(warehouse_selected_id)
-        //     var warehouseName = this.getWarehouseName(warehouse_selected_id, warehouses)
-        //     this.setState({
-        //         warehouseName: warehouseName
-        //     })
-            //     this.setState({
-            //         options: [...this.props.warehouses]
-            //     })
-        // }
+        const { warehouses, warehouse_selected_id } = this.props
+        if (warehouse_selected_id !== '' && prevProps.warehouse_selected_id !== warehouse_selected_id) {
+            var warehouseName = this.getWarehouseName(warehouse_selected_id, warehouses)
+            this.setState({
+                warehouseName: warehouseName
+            })
+        }
     }
 
     getWarehouseName(warehouse_id, warehouses) {
         try {
-            const warehouse = warehouses.find(warehouse => warehouse.warehouse_id = warehouse_id)
-            // console.log(warehouse.warehousename)
+            const warehouse = warehouses.find(warehouse => { return warehouse.warehouse_id === warehouse_id })
             return warehouse.warehousename
         }
         catch{
