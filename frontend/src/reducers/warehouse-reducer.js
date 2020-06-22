@@ -4,7 +4,7 @@ const initialState = {
     warehouses: [], //warehouses of customer
     warehouse: null,
     warehouse_selected_id: '', //id warehouse selecting
-    warehouse_selected: null
+    warehouse_selected: null,
 }
 
 export default function (state = initialState, action) {
@@ -20,20 +20,19 @@ export default function (state = initialState, action) {
                 warehouse: action.payload
             }
         case GET_WAREHOUSES_BY_CUSTOMER_ID:
-            console.log('GET_WAREHOUSES_BY_CUSTOMER_ID', action.payload)
             return {
                 ...state,
                 warehouses: action.payload
-            }
-        case ADD_WAREHOUSE:
-            return {
-                ...state,
             }
         case SELECT_WAREHOUSE:
             localStorage.setItem('warehouse_selected_id', action.payload)
             return {
                 ...state,
                 warehouse_selected_id: action.payload
+            }
+        case ADD_WAREHOUSE:
+            return {
+                ...state,
             }
         default:
             return state

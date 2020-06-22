@@ -108,7 +108,7 @@ class AddDeliveryNoteForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
+  // warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
 });
 
 const mapDispatchToProps = {

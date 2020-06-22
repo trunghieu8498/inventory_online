@@ -9,10 +9,11 @@ import { ADD_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID, SELECT_WAREHOUSE } from "
 //     })
 // }
 
-export const selectWarehouse = (warehouse_selected_id) => dispatch => {
+export const selectWarehouse = (warehouse_id) => dispatch => {
+    console.log(warehouse_id)
     dispatch({
         type: SELECT_WAREHOUSE,
-        payload: warehouse_selected_id
+        payload: warehouse_id
     })
 }
 

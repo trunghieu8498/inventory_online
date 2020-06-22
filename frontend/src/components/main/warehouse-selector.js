@@ -11,6 +11,7 @@ class WarehouseSelector extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            warehouseName: 'None',
             open: false,
             options: [],
             ITEM_HEIGHT: 48
@@ -18,11 +19,28 @@ class WarehouseSelector extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.log(this.props.warehouses)
-        if (this.props.warehouses.lenght > 0 && this.props.warehouses !== prevProps.warehouses)
-            this.setState({
-                options: [...this.props.warehouses]
-            })
+        // const { warehouses, warehouse_selected_id } = this.props
+        // if (warehouse_selected_id !== '' && prevProps.warehouse_selected_id !== warehouse_selected_id) {
+        //     // console.log(warehouse_selected_id)
+        //     var warehouseName = this.getWarehouseName(warehouse_selected_id, warehouses)
+        //     this.setState({
+        //         warehouseName: warehouseName
+        //     })
+            //     this.setState({
+            //         options: [...this.props.warehouses]
+            //     })
+        // }
+    }
+
+    getWarehouseName(warehouse_id, warehouses) {
+        try {
+            const warehouse = warehouses.find(warehouse => warehouse.warehouse_id = warehouse_id)
+            // console.log(warehouse.warehousename)
+            return warehouse.warehousename
+        }
+        catch{
+            return ''
+        }
     }
 
     handleOpen = (e) => {
@@ -38,7 +56,7 @@ class WarehouseSelector extends Component {
     }
 
     render() {
-        const { options, ITEM_HEIGHT } = this.state
+        const { options, ITEM_HEIGHT, warehouseName } = this.state
         return (
             <div>
                 <Grid
@@ -48,7 +66,7 @@ class WarehouseSelector extends Component {
                     alignItems="center"
                 >
                     <Grid item>
-                        <Typography>Warehouse Name</Typography>
+                        <Typography>{warehouseName}</Typography>
                     </Grid>
                     <Grid item>
                         <IconButton
@@ -90,7 +108,7 @@ class WarehouseSelector extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    // warehouse_selected
+    warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
     warehouses: state.warehouseReducer.warehouses,
     customer_id: state.authReducer.customer_id
 })
