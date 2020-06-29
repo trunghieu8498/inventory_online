@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express()
-const cors = require('cors');
+const cors = require('cors')
 const port = 8000
 
 const auth = require('./routers/auth-router')
@@ -13,6 +13,7 @@ const deliverynote = require('./routers/deliverynote-router')
 const deliverynotedetail = require('./routers/deliverynotedetail-router')
 const receivednote = require('./routers/receivednote-router')
 const receivednotedetail = require('./routers/receivednotedetail-router')
+const goods = require('./routers/goods-router')
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -38,6 +39,10 @@ app.get('/api/types', type.getTypes)
 app.get('/api/type/:id', type.getTypeById)
 app.get('/api/type/get/:id', type.getTypeByWarehouse_id)
 app.post('/api/type/add', type.addType)
+
+app.get('/api/goods', goods.getGoods)
+app.get('/api/goods/:id', goods.getGoodsById)
+app.post('/api/goods/get/:id', goods.getGoodsByWarehouse_id)
 
 app.get('/api/deliverynotes', deliverynote.getDeliveryNotes)
 app.get('/api/deliverynote/:id', deliverynote.getDeliveryNoteById)

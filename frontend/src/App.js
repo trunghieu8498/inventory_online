@@ -24,6 +24,8 @@ import AddGoodsForm from './components/goods/addGoods-form'
 import AddReceivedNoteForm from './components/receivednote/receivednote-form'
 import AddDeliveryNoteForm from './components/deliverynote/deliverynote-form'
 import { loadWarehouse } from './actions/warehouse-action'
+import HomeContent from './components/home/home-content'
+
 class App extends Component {
 
   componentDidMount() {
@@ -53,6 +55,7 @@ class App extends Component {
               <Redirect exact from='/' to='/login' />
               <Route exact path='/login' component={LoginForm} />
               <Route eaxct path='/signup' component={SignupForm} />
+              <Route eaxct path='/home' component={() => Page(HomeContent)} />
               <Route exact path='/warehouse' component={() => Page(WarehouseTable)} />
               <Route exact path='/warehouse/add' component={() => Page(AddWarehouseForm)} />
               <Route exact path='/goods' component={() => Page(GoodsTable)} />

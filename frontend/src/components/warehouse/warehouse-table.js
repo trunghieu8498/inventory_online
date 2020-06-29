@@ -4,7 +4,7 @@ import { Grow, Button, Grid } from '@material-ui/core'
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { Link } from 'react-router-dom'
 import { SuggestCreateWarehouseForm } from './suggestCreateWarehouse-form'
-import { getWarehousesByCustomer_id, selectWarehouse } from '../../actions/warehouse-action'
+import { getWarehousesByCustomer_id, selectWarehouse, loadWarehouse } from '../../actions/warehouse-action'
 import { IconButton, EditIcon } from '@material-ui/icons'
 
 export class WarehouseTable extends Component {
@@ -23,6 +23,11 @@ export class WarehouseTable extends Component {
 
     componentDidMount() {
         this.props.getWarehousesByCustomer_id(this.props.customer_id)
+    }
+
+    loadWarehouse() {
+        const warehouse_selected_id_before = localStorage.getItem('warehouse_selected_id')
+        this.props.selectWarehouse(warehouse_selected_id_before)
     }
 
     componentDidUpdate(prevProps) {
