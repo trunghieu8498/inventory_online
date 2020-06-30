@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { TextField, Grid, Card, Typography, Button, CardContent, CardActions } from '@material-ui/core'
 import { addType } from '../../actions/type-action'
+import TypeSelector from '../type/type-selector'
 
 
 class AddGoodsForm extends Component {
@@ -36,7 +37,12 @@ class AddGoodsForm extends Component {
 
     resetInput = () => {
         this.setState({
-            goodsName: ''
+            goodsName: '',
+            weight: '',
+            inventoryNumber: '',
+            description: '',
+            costPrice: '',
+            sellingPrice: '',
         })
     }
 
@@ -100,6 +106,10 @@ class AddGoodsForm extends Component {
                                         value={this.state.goodsName}
                                         onChange={(e) => this.changeHandler(e)} />
                                 </Grid>
+                                <Grid item>
+                                    <TypeSelector />
+                                </Grid>
+
                                 <Grid item>
                                     <Button type='submit' variant="contained" size="medium" color="primary">
                                         Thêm

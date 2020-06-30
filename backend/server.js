@@ -42,7 +42,8 @@ app.post('/api/type/add', type.addType)
 
 app.get('/api/goods', goods.getGoods)
 app.get('/api/goods/:id', goods.getGoodsById)
-app.post('/api/goods/get/:id', goods.getGoodsByWarehouse_id)
+app.get('/api/goods/get/:id', goods.getGoodsByWarehouse_id)
+app.post('/api/goods/add', goods.addGoods)
 
 app.get('/api/deliverynotes', deliverynote.getDeliveryNotes)
 app.get('/api/deliverynote/:id', deliverynote.getDeliveryNoteById)

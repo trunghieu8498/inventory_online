@@ -31,8 +31,8 @@ const getGoodsById = (req, res) => {
 
 const addGoods = (req, res) => {
     const { goodsName, weight, description, costPrice, sellingPrice, inventoryNumber, warehouse_id, type_id } = req.body
-
-    pool.query('INSERT INTO GOODS (goodsName, weight, description,costPrice,sellingPrice,inventoryNumber, warehouse_id) VALUES ($1, $2, $3, $4)', [goodsName, weight, description, costPrice, sellingPrice, inventoryNumber, warehouse_id, type_id], (error, results) => {
+    console.log(req.body)
+    pool.query('INSERT INTO GOODS (goodsName, weight, description, costPrice, sellingPrice, inventoryNumber, warehouse_id, type_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', [goodsName, weight, description, costPrice, sellingPrice, inventoryNumber, warehouse_id, type_id], (error, results) => {
         if (error) {
             throw error
         }

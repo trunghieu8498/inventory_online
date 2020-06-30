@@ -1,7 +1,7 @@
 import { GET_TYPES, GET_TYPES_BY_WAREHOUSE_ID, ADD_TYPE } from "../constant"
 
 const initialState = {
-    types: [], //warehouses of customer
+    types: [],
     type: null
 }
 

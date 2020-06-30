@@ -13,7 +13,7 @@ class WarehouseSelector extends Component {
         this.state = {
             warehouseName: 'None',
             open: false,
-            options: [],
+            options: [1,2,3],
             ITEM_HEIGHT: 48
         }
     }
@@ -80,9 +80,9 @@ class WarehouseSelector extends Component {
                                 onClose={e => this.handleClose(e)}
                                 PaperProps={{
                                     style: {
-                                        marginLeft: '14rem',
-                                        maxHeight: ITEM_HEIGHT * 4.5,
-                                        width: '20ch',
+                                        // marginLeft: '14rem',
+                                        // maxHeight: ITEM_HEIGHT * 4.5,
+                                        // width: '20ch',
                                     },
                                 }}
                             >
