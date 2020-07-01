@@ -23,13 +23,17 @@ import AddTypeForm from './components/type/addType-form'
 import AddGoodsForm from './components/goods/addGoods-form'
 import AddReceivedNoteForm from './components/receivednote/receivednote-form'
 import AddDeliveryNoteForm from './components/deliverynote/deliverynote-form'
-import { loadWarehouse } from './actions/warehouse-action'
+import { loadWarehouse_selected_id } from './actions/warehouse-action'
 import HomeContent from './components/home/home-content'
 
 class App extends Component {
 
-  componentDidMount() {
+  componentWillMount() {
     store.dispatch(loadCustomer())
+  }
+
+  componentDidMount() {
+    store.dispatch(loadWarehouse_selected_id())
   }
 
   render() {
@@ -53,6 +57,7 @@ class App extends Component {
           <div style={{ margin: '2rem' }}>
             <Switch>
               <Redirect exact from='/' to='/login' />
+
               <Route exact path='/login' component={LoginForm} />
               <Route eaxct path='/signup' component={SignupForm} />
               <Route eaxct path='/home' component={() => Page(HomeContent)} />

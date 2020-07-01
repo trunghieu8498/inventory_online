@@ -83,7 +83,7 @@ class TypeSelector extends Component {
                         </div>
                         : null
                 }
-            </div >
+            </div>
         )
     }
 }
