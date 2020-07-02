@@ -1,16 +1,19 @@
 import axios from 'axios'
 import { ADD_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID, SELECT_WAREHOUSE } from "../constant"
 
-// export const loadWarehouse = () => dispatch => {
-//     const warehouse_id = localStorage.getItem('warehouse_id')
-//     dispatch({
-//         type: SELECT_WAREHOUSE,
-//         payload: warehouse_id
-//     })
-// }
+export const loadWarehouse_selected_id = () => dispatch => {
+    const local_warehouse_selected_id = JSON.parse(localStorage.getItem('warehouse_selected_id'))
+    if (local_warehouse_selected_id !== null) {
+        console.log('loaded local warehouse selected ! id = ', local_warehouse_selected_id)
+        dispatch({
+            type: SELECT_WAREHOUSE,
+            payload: local_warehouse_selected_id
+        })
+    }
+}
 
 export const selectWarehouse = (warehouse_id) => dispatch => {
-    console.log(warehouse_id)
+    // console.log(warehouse_id)
     dispatch({
         type: SELECT_WAREHOUSE,
         payload: warehouse_id

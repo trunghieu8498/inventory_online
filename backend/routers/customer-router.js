@@ -18,29 +18,31 @@ const getCustomerById = (req, res) => {
 
     pool.query('SELECT customer_id, email, fullName, birthday, numberPhone FROM CUSTOMER WHERE customer_id = $1', [id], (error, results) => {
         if (error) {
-            throw error
+            // throw error
+            res.status(400).json(error)
         }
+        console.log(results)
         res.status(200).json(results.rows[0])
     })
 }
 
 const addCustomer = (req, res) => {
+    console.log(req.body)
+    
     const { email, password, fullName, birthday, numberPhone } = req.body
 
-    console.log(req.body)
+    // console.log(req.body)
 
     pool.query('INSERT INTO CUSTOMER (email, password, fullName, birthday, numberPhone) VALUES ($1, $2, $3, $4, $5)', [email, password, fullName, birthday, numberPhone], (error, results) => {
         if (error) {
             throw error
         }
-        const customer = {
-            email: email,
-            password: password,
-            fullName: fullName,
-            birthday: birthday,
-            numberPhone: numberPhone,
-        }
-        res.status(201).json(customer)
+        pool.query('SELECT * FROM CUSTOMER WHERE email = $1', [email], (error, results) => {
+            if (error) {
+                throw error
+            }
+            res.status(200).json(results.rows[0])
+        })
     })
 }
 

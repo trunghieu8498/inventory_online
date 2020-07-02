@@ -3,7 +3,7 @@ import { GET_WAREHOUSES, GET_WAREHOUSE_BY_ID, ADD_WAREHOUSE, SELECT_WAREHOUSE, G
 const initialState = {
     warehouses: [], //warehouses of customer
     warehouse: null,
-    warehouse_selected_id: '', //id warehouse selecting
+    warehouse_selected_id: null, //id warehouse selecting
     warehouse_selected: null,
 }
 

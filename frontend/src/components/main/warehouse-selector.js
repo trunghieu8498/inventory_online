@@ -6,97 +6,126 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Typography } from '@material-ui/core';
 import { Grid } from '@material-ui/core'
+import { getWarehousesByCustomer_id, selectWarehouse } from '../../actions/warehouse-action'
 
 class WarehouseSelector extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            warehouseName: 'None',
-            open: false,
-            options: [],
-            ITEM_HEIGHT: 48
+            selectedIndex: 0,
+            anchorEl: null
         }
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidMount = () => {
+        this.handleSetStateSelectedIndex()
+    }
+
+    componentDidUpdate = (prevProps, prevStates) => {
+        const { selectedIndex } = this.state
+        const { selectWarehouse, warehouses } = this.props
+
+        if (prevStates.selectedIndex !== selectedIndex || selectedIndex === 0) {
+            selectWarehouse(warehouses[selectedIndex].warehouse_id)
+        }
+        if (prevProps.warehouses !== warehouses) {
+            this.handleSetStateSelectedIndex()
+        }
+    }
+
+    handleSetStateSelectedIndex = () => {
         const { warehouses, warehouse_selected_id } = this.props
-        if (warehouse_selected_id !== '' && prevProps.warehouse_selected_id !== warehouse_selected_id) {
-            var warehouseName = this.getWarehouseName(warehouse_selected_id, warehouses)
+        if (warehouses.length > 0) {
+            const index = this.handleFindIndex(warehouses, warehouse_selected_id)
             this.setState({
-                warehouseName: warehouseName
+                selectedIndex: index
             })
+            console.log(index)
         }
     }
 
-    getWarehouseName(warehouse_id, warehouses) {
-        try {
-            const warehouse = warehouses.find(warehouse => { return warehouse.warehouse_id === warehouse_id })
-            return warehouse.warehousename
-        }
-        catch{
-            return ''
+    handleFindIndex = (warehouses, warehouse_selected_id) => {
+        const index = this.props.warehouses.findIndex(x => x.warehouse_id === this.props.warehouse_selected_id)
+        if (index !== -1)
+            return index
+        else {
+            console.log('khong tim thay id ' + warehouse_selected_id + ' trong ds warehouse_id, reset index=0')
+            localStorage.setItem('warehouse_selected_id', warehouses[0].warehouse_id)
+            return 0
         }
     }
 
-    handleOpen = (e) => {
+    handleClickListItem = (event) => {
         this.setState({
-            open: true
+            anchorEl: event.currentTarget
         })
     }
 
-    handleClose = (e) => {
+    handleMenuItemClick = (event, index) => {
         this.setState({
-            open: false
+            selectedIndex: index,
+            anchorEl: null
+        })
+    }
+
+    handleClose = () => {
+        this.setState({
+            anchorEl: null
         })
     }
 
     render() {
-        const { options, ITEM_HEIGHT, warehouseName } = this.state
+        const { warehouses, warehouse_selected_id } = this.props
+        const { anchorEl, selectedIndex } = this.state
         return (
             <div>
-                <Grid
-                    container
-                    direction="row"
-                    justify="center"
-                    alignItems="center"
-                >
-                    <Grid item>
-                        <Typography>{warehouseName}</Typography>
-                    </Grid>
-                    <Grid item>
-                        <IconButton
-                            aria-label="more"
-                            aria-controls="long-menu"
-                            aria-haspopup="true"
-                            onClick={e => this.handleOpen()}
+                {warehouses.length ?
+                    <div style={{ marginLeft: '2rem' }}>
+                        <Grid
+                            container
+                            direction="row"
+                            justify="space-between"
+                            alignItems="center"
                         >
-                            <MoreVertIcon />
-                        </IconButton>
-                        <Grid item>
-                            <Menu
-                                id="long-menu"
-                                open={this.state.open}
-                                keepMounted
-                                onClose={e => this.handleClose(e)}
-                                PaperProps={{
-                                    style: {
-                                        marginLeft: '14rem',
-                                        maxHeight: ITEM_HEIGHT * 4.5,
-                                        width: '20ch',
-                                    },
-                                }}
-                            >
-                                {options.map((option) => (
-                                    <MenuItem key={option.warehouse_id}
-                                    //  selected={option === 'Pyxis'}
+                            <Grid item>
+                                <Typography>{warehouses[selectedIndex].warehousename}</Typography>
+                            </Grid>
+                            <Grid item>
+                                <div></div>
+                            </Grid>
+                            <Grid item>
+                                <IconButton
+                                    aria-label="more"
+                                    aria-controls="long-menu"
+                                    aria-haspopup="true"
+                                    onClick={(e) => this.handleClickListItem(e)}
+                                >
+                                    <MoreVertIcon />
+                                </IconButton>
+                                <Grid item>
+                                    <Menu
+                                        id="long-menu"
+                                        anchorEl={anchorEl}
+                                        keepMounted
+                                        open={Boolean(anchorEl)}
+                                        onClose={() => this.handleClose()}
                                     >
-                                        {option.warehousename}
-                                    </MenuItem>
-                                ))}
-                            </Menu>
+                                        {warehouses.map((warehouse, index) => (
+                                            <MenuItem
+                                                key={warehouse.warehouse_id}
+                                                // disabled={index === 0}
+                                                selected={index === selectedIndex}
+                                                onClick={(event) => this.handleMenuItemClick(event, index)}
+                                            >
+                                                {warehouse.warehousename}
+                                            </MenuItem>
+                                        ))}
+                                    </Menu>
+                                </Grid>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Grid>
+                    </div>
+                    : null}
             </div>
         )
     }
@@ -109,7 +138,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    // getWarehousesByCustomer_id
+    getWarehousesByCustomer_id,
+    selectWarehouse
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(WarehouseSelector)

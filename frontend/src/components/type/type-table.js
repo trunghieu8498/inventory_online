@@ -19,7 +19,13 @@ export class TypeTable extends Component {
     }
 
     componentDidMount() {
-        this.props.getTypesByWarehouse_id(this.props.warehouse_selected_id)
+        try {
+            if (this.props.warehouse_selected_id)
+                this.props.getTypesByWarehouse_id(this.props.warehouse_selected_id)
+        }
+        catch (err) {
+            console.log(err)
+        }
     }
 
     componentDidUpdate(prevProps) {
@@ -29,11 +35,12 @@ export class TypeTable extends Component {
                     data: this.props.types
                 })
 
-            if (prevProps.warehouse_selected !== this.props.warehouse_selected)
-                this.props.getTypesByWarehouse_id(this.props.warehouse_selected.warehouse_id)
+            if (prevProps.warehouse_selected_id !== this.props.warehouse_selected_id)
+                this.props.getTypesByWarehouse_id(this.props.warehouse_selected_id)
         }
         catch (err) {
             console.log(err)
+            console.log(this.props.warehouses)
         }
     }
 
