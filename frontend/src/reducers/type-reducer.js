@@ -1,8 +1,9 @@
-import { GET_TYPES, GET_TYPES_BY_WAREHOUSE_ID, ADD_TYPE } from "../constant"
+import { GET_TYPES, GET_TYPES_BY_WAREHOUSE_ID, ADD_TYPE, SELECT_TYPE_ID } from "../constant"
 
 const initialState = {
     types: [],
-    type: null
+    type: null,
+    type_selected_id: null
 }
 
 export default function (state = initialState, action) {
@@ -21,6 +22,11 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 // type: action.payload
+            }
+        case SELECT_TYPE_ID:
+            return {
+                ...state,
+                type_selected_id: action.payload
             }
         default:
             return state

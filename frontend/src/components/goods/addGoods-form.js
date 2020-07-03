@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { TextField, Grid, Card, Typography, Button, CardContent, CardActions } from '@material-ui/core'
-import { addType } from '../../actions/type-action'
+import { addGoods } from '../../actions/goods-action'
 import TypeSelector from '../type/type-selector'
 
 
@@ -23,9 +23,10 @@ class AddGoodsForm extends Component {
     }
 
     handleSubmit = (e) => {
-        const { goodsName } = this.state
+        const { goodsName, weight, inventoryNumber, description, costPrice, sellingPrice} = this.state
+        const {warehouse_selected_id, type_selected_id} = this.props
         e.preventDefault()
-        // this.props.addType(goodsName, this.props.warehouse_selected_id)
+        this.props.addGoods(goodsName, weight, inventoryNumber, description, costPrice, sellingPrice, warehouse_selected_id, type_selected_id)
         this.resetInput()
     }
 
@@ -75,35 +76,35 @@ class AddGoodsForm extends Component {
                                     <TextField name="weight"
                                         label="Khối lượng"
                                         variant="outlined"
-                                        value={this.state.goodsName}
+                                        value={this.state.weight}
                                         onChange={(e) => this.changeHandler(e)} />
                                 </Grid>
                                 <Grid item>
                                     <TextField name="description"
                                         label="Mô tả"
                                         variant="outlined"
-                                        value={this.state.goodsName}
+                                        value={this.state.description}
                                         onChange={(e) => this.changeHandler(e)} />
                                 </Grid>
                                 <Grid item>
                                     <TextField name="costPrice"
                                         label="Giá"
                                         variant="outlined"
-                                        value={this.state.goodsName}
+                                        value={this.state.costPrice}
                                         onChange={(e) => this.changeHandler(e)} />
                                 </Grid>
                                 <Grid item>
                                     <TextField name="sellingPrice"
                                         label="Giá bán"
                                         variant="outlined"
-                                        value={this.state.goodsName}
+                                        value={this.state.sellingPrice}
                                         onChange={(e) => this.changeHandler(e)} />
                                 </Grid>
                                 <Grid item>
                                     <TextField name="inventoryNumber"
                                         label="Số lượng tồn"
                                         variant="outlined"
-                                        value={this.state.goodsName}
+                                        value={this.state.inventoryNumber}
                                         onChange={(e) => this.changeHandler(e)} />
                                 </Grid>
                                 <Grid item>
@@ -125,11 +126,12 @@ class AddGoodsForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    warehouse_selected_id: state.warehouseReducer.warehouse_selected_id
+    warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
+    type_selected_id: state.typeReducer.type_selected_id
 })
 
 const mapDispatchToProps = {
-    // addType
+    addGoods
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(AddGoodsForm)

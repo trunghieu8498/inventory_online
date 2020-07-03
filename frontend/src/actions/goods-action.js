@@ -1,22 +1,22 @@
 import axios from 'axios'
-import { ADD_TYPE, GET_TYPES_BY_WAREHOUSE_ID, SELECT_TYPE_ID } from "../constant"
+import { ADD_GOODS, GET_GOODSS_BY_WAREHOUSE_ID } from "../constant"
 
-export const addType = (typeName, warehouse_id) => dispatch => {
+export const addGoods = (goodsName, weight, inventoryNumber, description, costPrice, sellingPrice, warehouse_id, type_id) => dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
-    const body = JSON.stringify({ typeName, warehouse_id })
-    console.log(body)
-    axios.post('http://localhost:8000/api/type/add', body, config)
+    const body = JSON.stringify({ goodsName, weight, inventoryNumber, description, costPrice, sellingPrice, warehouse_id, type_id })
+    // console.log(body)
+    axios.post('http://localhost:8000/api/goods/add', body, config)
         .then(res => {
             console.log(res.data)
             dispatch({
-                type: ADD_TYPE,
+                type: ADD_GOODS,
                 payload: res.data
             })
-            alert('Đã thêm loại mới')
+            alert('Đã thêm hàng mới')
         })
         .catch((err) => {
             // dispatch(returnErrors(err.res.data, err.res.status, 'LOGIN_FAIL'))
@@ -27,17 +27,17 @@ export const addType = (typeName, warehouse_id) => dispatch => {
         })
 }
 
-export const getTypesByWarehouse_id = (warehouse_id) => dispatch => {
+export const getGoodsByWarehouse_id = (warehouse_id) => dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
     if (warehouse_id !== '')
-        axios.get(`http://localhost:8000/api/type/get/${warehouse_id}`, config)
+        axios.get(`http://localhost:8000/api/goods/get/${warehouse_id}`, config)
             .then(res => {
                 dispatch({
-                    type: GET_TYPES_BY_WAREHOUSE_ID,
+                    type: GET_GOODSS_BY_WAREHOUSE_ID,
                     payload: res.data
                 })
             })
@@ -51,11 +51,3 @@ export const getTypesByWarehouse_id = (warehouse_id) => dispatch => {
     else
         alert('Hãy chọn kho trước khi xem')
 }
-
-export const selectType_id = (type_id) => dispatch => {
-    dispatch({
-        type: SELECT_TYPE_ID,
-        payload: type_id
-    })
-}
-

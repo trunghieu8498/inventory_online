@@ -25,7 +25,7 @@ class WarehouseSelector extends Component {
         const { selectedIndex } = this.state
         const { selectWarehouse, warehouses } = this.props
 
-        if (prevStates.selectedIndex !== selectedIndex || selectedIndex === 0) {
+        if (prevStates.selectedIndex !== selectedIndex || selectedIndex === 0 && warehouses.length > 0) {
             selectWarehouse(warehouses[selectedIndex].warehouse_id)
         }
         if (prevProps.warehouses !== warehouses) {
@@ -40,7 +40,7 @@ class WarehouseSelector extends Component {
             this.setState({
                 selectedIndex: index
             })
-            console.log(index)
+            // console.log(index)
         }
     }
 
