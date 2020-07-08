@@ -5,6 +5,7 @@ import authReducer from './auth-reducer'
 import warehouseReducer from './warehouse-reducer'
 import typeReducer from './type-reducer'
 import goodsReducer from './goods-reducer'
+import receivedNoteReducer from './receivedNote-reducer'
 
 export default combineReducers({
     customerReducer: customerReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
     warehouseReducer: warehouseReducer,
     typeReducer: typeReducer,
     goodsReducer: goodsReducer,
+    receivedNoteReducer: receivedNoteReducer
 })

@@ -1,5 +1,12 @@
 import axios from 'axios'
-import { ADD_GOODS, GET_GOODSS_BY_WAREHOUSE_ID } from "../constant"
+import { ADD_GOODS, GET_GOODSS_BY_WAREHOUSE_ID, SELECT_GOODS } from "../constant"
+
+export const selectGoods = (goods_selected_id) => dispatch => {
+    dispatch({
+        type: SELECT_GOODS,
+        payload: goods_selected_id
+    })
+}
 
 export const addGoods = (goodsName, weight, inventoryNumber, description, costPrice, sellingPrice, warehouse_id, type_id) => dispatch => {
     const config = {

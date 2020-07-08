@@ -19,6 +19,20 @@ export class ReceivedNoteDetailTable extends Component {
     };
   }
 
+  componentDidMount = () => {
+    this.setState({
+      rows: this.props.receivedNoteDetails
+    })
+  }
+
+  componentDidUpdate = (prevProps, prevStates) => {
+    const { receivedNoteDetails } = this.props
+    if (prevProps.receivedNoteDetails !== receivedNoteDetails)
+      this.setState({
+        rows: this.props.receivedNoteDetails
+      })
+  }
+
   render() {
     return (
       <div>
@@ -26,23 +40,23 @@ export class ReceivedNoteDetailTable extends Component {
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Dessert (100g serving)</TableCell>
-                <TableCell align="right">Calories</TableCell>
-                <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                <TableCell align="right">Protein&nbsp;(g)</TableCell>
+                <TableCell>ID</TableCell>
+                <TableCell align="right">Tên hàng</TableCell>
+                <TableCell align="right">Khối lượng&nbsp;(g)</TableCell>
+                <TableCell align="right">Giá nhập</TableCell>
+                <TableCell align="right">Số lượng nhập</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {this.state.rows.map((row) => (
                 <TableRow key={row.name}>
                   <TableCell component="th" scope="row">
-                    {row.name}
+                    {row.goods.goods_id}
                   </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right">{row.carbs}</TableCell>
-                  <TableCell align="right">{row.protein}</TableCell>
+                  <TableCell align="right">{row.goods.goodsname}</TableCell>
+                  <TableCell align="right">{row.goods.weight}</TableCell>
+                  <TableCell align="right">{row.costprice}</TableCell>
+                  <TableCell align="right">{row.quantity}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -52,5 +66,12 @@ export class ReceivedNoteDetailTable extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  receivedNoteDetails: state.receivedNoteReducer.receivedNoteDetails,
+});
 
-export default ReceivedNoteDetailTable;
+const mapDispatchToProps = {
+  // addType
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReceivedNoteDetailTable);

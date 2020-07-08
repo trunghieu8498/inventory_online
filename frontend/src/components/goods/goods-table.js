@@ -4,7 +4,7 @@ import { Grow, Button, Grid } from '@material-ui/core'
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { Link } from 'react-router-dom'
 import { SuggestCreateWarehouseForm } from '../warehouse/suggestCreateWarehouse-form'
-import { getGoodsByWarehouse_id } from '../../actions/goods-action'
+// import { getGoodsByWarehouse_id } from '../../actions/goods-action'
 
 export class GoodsTable extends Component {
     constructor(props) {
@@ -21,9 +21,12 @@ export class GoodsTable extends Component {
         }
     }
 
-    componentDidMount() {
-        if (this.props.warehouse_selected_id !== null)
-            this.props.getGoodsByWarehouse_id(this.props.warehouse_selected_id)
+    componentWillMount() {
+        // if (this.props.warehouse_selected_id !== null)
+        //     this.props.getGoodsByWarehouse_id(this.props.warehouse_selected_id)
+        this.setState({
+            data: this.props.goodss
+        })
     }
 
     componentDidUpdate(prevProps) {
@@ -34,8 +37,8 @@ export class GoodsTable extends Component {
                 data: goodss
             })
 
-        if (prevProps.warehouse_selected_id !== warehouse_selected_id)
-            getGoodsByWarehouse_id(this.props.warehouse_selected_id)
+        // if (prevProps.warehouse_selected_id !== warehouse_selected_id)
+        //     getGoodsByWarehouse_id(this.props.warehouse_selected_id)
     }
 
     render() {
@@ -82,7 +85,7 @@ export class GoodsTable extends Component {
         )
         return (
             <div>
-                {this.props.goodss.length ?
+                {this.props.warehouses.length ?
                     <div>
                         <Grid
                             container
@@ -106,12 +109,13 @@ export class GoodsTable extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    warehouses: state.warehouseReducer.warehouses,
     goodss: state.goodsReducer.goodss,
     warehouse_selected_id: state.warehouseReducer.warehouse_selected_id
 })
 
 const mapDispatchToProps = {
-    getGoodsByWarehouse_id
+    // getGoodsByWarehouse_id
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoodsTable)
