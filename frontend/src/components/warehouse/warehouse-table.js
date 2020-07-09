@@ -21,22 +21,25 @@ export class WarehouseTable extends Component {
         }
     }
 
-    componentDidMount() {
-        this.props.getWarehousesByCustomer_id(this.props.customer_id)
+    componentWillMount() {
+        // this.props.getWarehousesByCustomer_id(this.props.customer_id)
+        this.setState({
+            data: this.props.warehouses
+        })
     }
 
-    loadWarehouse() {
-        const warehouse_selected_id_before = localStorage.getItem('warehouse_selected_id')
-        this.props.selectWarehouse(warehouse_selected_id_before)
-    }
+    // loadWarehouse() {
+    //     const warehouse_selected_id_before = localStorage.getItem('warehouse_selected_id')
+    //     this.props.selectWarehouse(warehouse_selected_id_before)
+    // }
 
     componentDidUpdate(prevProps) {
         if (prevProps.warehouses !== this.props.warehouses)
             this.setState({
                 data: this.props.warehouses
             })
-        if (prevProps.customer_id !== this.props.customer_id)
-            this.props.getWarehousesByCustomer_id(this.props.customer_id)
+        // if (prevProps.customer_id !== this.props.customer_id)
+        //     this.props.getWarehousesByCustomer_id(this.props.customer_id)
     }
 
     selectWarehouseHandle = (warehouse_id) => {
@@ -57,7 +60,7 @@ export class WarehouseTable extends Component {
                             tooltip: 'Save User',
                             // Update: (e, rowData) => alert("You updated " + rowData.name),
                             // Delete: (e, rowData) => alert("You deleted " + rowData.name),
-                            select: (warehouse_id) => this.selectWarehouseHandle(warehouse_id)
+                            // select: (warehouse_id) => this.selectWarehouseHandle(warehouse_id)
                         },
                     ]}
                     components={{
@@ -68,8 +71,7 @@ export class WarehouseTable extends Component {
                         ),
                         Action: props => (
                             <div>
-                                {/* <Button onClick={(() => console.log(props.data.warehouse_id))}>test</Button> */}
-                                <Button variant="outlined" color="primary" onClick={() => props.action.select(props.data.warehouse_id)}>Chọn</Button>
+                                {/* <Button variant="outlined" color="primary" onClick={() => props.action.select(props.data.warehouse_id)}>Chọn</Button> */}
                                 {/* <IconButton aria-label="edit" style={{ color: '#009FFF' }}
                                     // onClick={(event) => props.action.Update(event, props.data)}
                                     >

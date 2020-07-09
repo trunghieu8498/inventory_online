@@ -12,6 +12,12 @@ import { logout } from '../../actions/auth-action'
 import { Redirect } from 'react-router-dom'
 
 class Navbar extends Component {
+
+    logoutHandle = () => {
+        this.props.logout()
+        window.location.href = "/login"
+    }
+
     render() {
         return (
             <div>
@@ -32,7 +38,8 @@ class Navbar extends Component {
                                 <div></div>
                             </Grid>
                             <Grid item>
-                                {this.props.isAuthenticated ? <Button color="inherit" onClick={() => this.props.logout()}>Logout</Button> : <Redirect to='/login'/>}
+                                {/* {this.props.isAuthenticated ? <Button color="inherit" onClick={() => this.props.logout()}>Logout</Button> : <Redirect to='/login'/>} */}
+                                {this.props.isAuthenticated ? <Button color="inherit" onClick={() => this.logoutHandle()}>Logout</Button> : null}
                             </Grid>
                         </Grid>
                     </Toolbar>

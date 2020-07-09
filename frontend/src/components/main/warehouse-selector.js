@@ -40,7 +40,7 @@ class WarehouseSelector extends Component {
             this.setState({
                 selectedIndex: index
             })
-            console.log(index)
+            // console.log(index)
         }
     }
 

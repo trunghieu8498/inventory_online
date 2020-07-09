@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { Grid } from '@material-ui/core'
 import { getTypesByWarehouse_id } from '../../actions/type-action'
+import { selectType_id } from '../../actions/type-action'
 
 class TypeSelector extends Component {
     constructor(props) {
@@ -19,7 +20,24 @@ class TypeSelector extends Component {
     }
 
     componentDidMount = () => {
-        this.props.getTypesByWarehouse_id(this.props.warehouse_selected_id)
+        const { types, warehouse_selected_id, getTypesByWarehouse_id, selectType_id } = this.props
+        const { selectedIndex } = this.state
+        
+        if (warehouse_selected_id !== null)
+            getTypesByWarehouse_id(warehouse_selected_id)
+    }
+
+    componentDidUpdate = (prevProps, prevStates) => {
+        const { selectedIndex } = this.state
+        const { types, warehouse_selected_id } = this.props
+        // console.log(types)
+        if (prevProps.warehouse_selected_id !== warehouse_selected_id)
+            this.props.getTypesByWarehouse_id(warehouse_selected_id)
+
+        if (prevStates.selectedIndex !== selectedIndex && types.length > 0 || selectedIndex === 0) {
+            console.log(types[selectedIndex].typename)
+            this.props.selectType_id(types[selectedIndex].type_id)
+        }
     }
 
     handleClickListItem = (event) => {
@@ -94,7 +112,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    getTypesByWarehouse_id
+    getTypesByWarehouse_id,
+    selectType_id
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TypeSelector)

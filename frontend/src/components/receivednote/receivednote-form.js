@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
+import React, { Component } from "react"
+import { connect } from "react-redux"
 import {
   TextField,
   Grid,
@@ -9,8 +9,9 @@ import {
   CardContent,
   CardActions,
 } from "@material-ui/core";
-import { addType } from "../../actions/type-action";
-import ReceivedNoteDetailTable from "./receivedNoteDetail-table";
+import { addType } from "../../actions/type-action"
+import ReceivedNoteDetailTable from "./receivedNoteDetail-table"
+import GoodsSelector from '../goods/goods-selector'
 
 class AddReceivedNoteForm extends Component {
   constructor(props) {
@@ -19,19 +20,13 @@ class AddReceivedNoteForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     var today = new Date();
     this.state = {
-      date:
-        today.getDate() +
-        " / " +
-        (today.getMonth() + 1) +
-        " / " +
-        today.getFullYear(),
+      date: today.getDate() + " / " + (today.getMonth() + 1) + " / " + today.getFullYear(),
     };
-    this.typeNameTextfield = React.createRef();
   }
 
   handleSubmit = (e) => {
+    e.preventDefault()
     // const { typeName } = this.state
-    // e.preventDefault()
     // this.props.addType(typeName, this.props.warehouse_selected_id)
     // this.resetInput()
   };
@@ -44,7 +39,7 @@ class AddReceivedNoteForm extends Component {
 
   resetInput = () => {
     this.setState({
-      typeName: "",
+      // typeName: "",
     });
   };
 
@@ -68,8 +63,6 @@ class AddReceivedNoteForm extends Component {
                     label="Ngày nhập"
                     variant="outlined"
                     value={this.state.date}
-                    inputRef={this.typeNameTextfield}
-                    autoFocus
                     onChange={(e) => this.changeHandler(e)}
                   />
                 </Grid>
@@ -80,9 +73,7 @@ class AddReceivedNoteForm extends Component {
                   justify="center"
                   alignItems="right"
                 >
-                  <Button variant="contained" size="medium" color="primary">
-                    Chọn hàng
-                  </Button>
+                  <GoodsSelector/>
                 </Grid>
 
                 <Grid item>

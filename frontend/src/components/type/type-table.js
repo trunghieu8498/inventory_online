@@ -18,30 +18,27 @@ export class TypeTable extends Component {
         }
     }
 
-    componentDidMount() {
-        try {
-            if (this.props.warehouse_selected_id)
-                this.props.getTypesByWarehouse_id(this.props.warehouse_selected_id)
-        }
-        catch (err) {
-            console.log(err)
-        }
+    componentWillMount() {
+        // try {
+        //     if (this.props.warehouse_selected_id)
+        //         this.props.getTypesByWarehouse_id(this.props.warehouse_selected_id)
+        // }
+        // catch (err) {
+        //     console.log(err)
+        // }
+        this.setState({
+            data: this.props.types
+        })
     }
 
     componentDidUpdate(prevProps) {
-        try {
-            if (prevProps.types !== this.props.types)
-                this.setState({
-                    data: this.props.types
-                })
+        if (prevProps.types !== this.props.types)
+            this.setState({
+                data: this.props.types
+            })
 
-            if (prevProps.warehouse_selected_id !== this.props.warehouse_selected_id)
-                this.props.getTypesByWarehouse_id(this.props.warehouse_selected_id)
-        }
-        catch (err) {
-            console.log(err)
-            console.log(this.props.warehouses)
-        }
+        // if (prevProps.warehouse_selected_id !== this.props.warehouse_selected_id)
+        //     this.props.getTypesByWarehouse_id(this.props.warehouse_selected_id)
     }
 
     render() {
