@@ -33,6 +33,12 @@ export class ReceivedNoteDetailTable extends Component {
       })
   }
 
+  resetForm = () => {
+    this.setState({
+      rows: []
+    })
+  }
+
   render() {
     return (
       <div>
@@ -68,7 +74,7 @@ export class ReceivedNoteDetailTable extends Component {
 }
 const mapStateToProps = (state) => ({
   receivedNoteDetails: state.receivedNoteReducer.receivedNoteDetails,
-});
+})
 
 const mapDispatchToProps = {
   // addType

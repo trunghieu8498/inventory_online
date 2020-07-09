@@ -12,6 +12,7 @@ import {
 import { addType } from "../../actions/type-action"
 import ReceivedNoteDetailTable from "./receivedNoteDetail-table"
 import GoodsSelector from '../goods/goods-selector'
+import { addReceivedNote } from '../../actions/receivedNote-action'
 
 class AddReceivedNoteForm extends Component {
   constructor(props) {
@@ -26,20 +27,14 @@ class AddReceivedNoteForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault()
-    // const { typeName } = this.state
-    // this.props.addType(typeName, this.props.warehouse_selected_id)
-    // this.resetInput()
+    const { date } = this.state
+    const { receivedNoteDetails, warehouse_selected_id } = this.props
+    this.props.addReceivedNote(date, warehouse_selected_id, receivedNoteDetails)
   };
 
   changeHandler = (e) => {
     this.setState({
       [e.target.name]: e.target.value,
-    });
-  };
-
-  resetInput = () => {
-    this.setState({
-      // typeName: "",
     });
   };
 
@@ -73,7 +68,7 @@ class AddReceivedNoteForm extends Component {
                   justify="center"
                   alignItems="right"
                 >
-                  <GoodsSelector/>
+                  <GoodsSelector />
                 </Grid>
 
                 <Grid item>
@@ -100,10 +95,12 @@ class AddReceivedNoteForm extends Component {
 
 const mapStateToProps = (state) => ({
   warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
+  receivedNoteDetails: state.receivedNoteReducer.receivedNoteDetails
 });
 
 const mapDispatchToProps = {
   // addType
+  addReceivedNote
 };
 
 export default connect(

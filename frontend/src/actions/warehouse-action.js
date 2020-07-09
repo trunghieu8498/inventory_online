@@ -2,7 +2,7 @@ import axios from 'axios'
 import { ADD_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID, SELECT_WAREHOUSE } from "../constant"
 
 export const loadWarehouse_selected_id = () => dispatch => {
-    const local_warehouse_selected_id = JSON.parse(localStorage.getItem('warehouse_selected_id'))
+    const local_warehouse_selected_id = localStorage.getItem('warehouse_selected_id') //JSON.Parse -> ko xai
     if (local_warehouse_selected_id !== null) {
         console.log('loaded local warehouse selected ! id = ', local_warehouse_selected_id)
         dispatch({

@@ -1,3 +1,5 @@
+var uniqid = require('uniqid');
+
 const getTypes = (req, res) => {
     pool.query('SELECT * FROM TYPE ORDER BY type_id ASC', (error, results) => {
         if (error) {
@@ -8,7 +10,7 @@ const getTypes = (req, res) => {
 }
 
 const getTypeByWarehouse_id = (req, res) => {
-    const warehouse_id = parseInt(req.params.id)
+    const warehouse_id = req.params.id
 
     pool.query('SELECT * FROM TYPE WHERE warehouse_id = $1', [warehouse_id], (error, results) => {
         if (error) {
@@ -19,7 +21,7 @@ const getTypeByWarehouse_id = (req, res) => {
 }
 
 const getTypeById = (req, res) => {
-    const type_id = parseInt(req.params.id)
+    const type_id = req.params.id
 
     pool.query('SELECT * FROM TYPE WHERE type_id = $1', [type_id], (error, results) => {
         if (error) {
@@ -30,13 +32,15 @@ const getTypeById = (req, res) => {
 }
 
 const addType = (req, res) => {
+    const type_id = uniqid()
     const { typeName, warehouse_id } = req.body
 
-    pool.query('INSERT INTO TYPE (typeName, warehouse_id) VALUES ($1, $2)', [typeName, warehouse_id], (error, results) => {
+    pool.query('INSERT INTO TYPE (type_id, typeName, warehouse_id) VALUES ($1, $2, $3)', [type_id, typeName, warehouse_id], (error, results) => {
         if (error) {
             throw error
         }
         const type = {
+            type_id: type_id,
             typeName: typeName,
             warehouse_id: warehouse_id
         }
@@ -45,7 +49,7 @@ const addType = (req, res) => {
 }
 
 const updateType = (req, res) => {
-    const type_id = parseInt(req.params.id)
+    const type_id = req.params.id
     const { typeName } = req.body
 
     pool.query(

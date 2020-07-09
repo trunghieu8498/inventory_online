@@ -1,4 +1,5 @@
 pool = require('../db')
+var uniqid = require('uniqid');
 
 const sayHello = (req, res) => {
     res.status(200).json('lo con cec')
@@ -14,8 +15,7 @@ const getCustomers = (req, res) => {
 }
 
 const getCustomerById = (req, res) => {
-    const id = parseInt(req.params.id)
-
+    const id = req.params.id
     pool.query('SELECT customer_id, email, fullName, birthday, numberPhone FROM CUSTOMER WHERE customer_id = $1', [id], (error, results) => {
         if (error) {
             // throw error
@@ -28,12 +28,12 @@ const getCustomerById = (req, res) => {
 
 const addCustomer = (req, res) => {
     console.log(req.body)
-    
+    const customer_id = uniqid()
     const { email, password, fullName, birthday, numberPhone } = req.body
 
     // console.log(req.body)
 
-    pool.query('INSERT INTO CUSTOMER (email, password, fullName, birthday, numberPhone) VALUES ($1, $2, $3, $4, $5)', [email, password, fullName, birthday, numberPhone], (error, results) => {
+    pool.query('INSERT INTO CUSTOMER (customer_id, email, password, fullName, birthday, numberPhone) VALUES ($1, $2, $3, $4, $5, $6)', [customer_id, email, password, fullName, birthday, numberPhone], (error, results) => {
         if (error) {
             throw error
         }
@@ -47,7 +47,7 @@ const addCustomer = (req, res) => {
 }
 
 const updateCustomer = (req, res) => {
-    const customer_id = parseInt(req.params.id)
+    const customer_id = req.params.id
     const { fullName, birthday, numberPhone } = req.body
 
     pool.query(
