@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom'
 import { getWarehousesByCustomer_id } from '../../actions/warehouse-action'
 import { getGoodsByWarehouse_id } from '../../actions/goods-action'
 import { getTypesByWarehouse_id} from '../../actions/type-action'
+import {getReceivedNotesByWarehouse_id} from '../../actions/receivedNote-action'
 
 class Sidebar extends Component {
 
@@ -33,6 +34,7 @@ class Sidebar extends Component {
         if (prevProps.warehouse_selected_id !== warehouse_selected_id){
             this.props.getGoodsByWarehouse_id(warehouse_selected_id)
             this.props.getTypesByWarehouse_id(warehouse_selected_id)
+            this.props.getReceivedNotesByWarehouse_id(warehouse_selected_id)
         }
     }
 
@@ -106,7 +108,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     getWarehousesByCustomer_id,
     getGoodsByWarehouse_id,
-    getTypesByWarehouse_id
+    getTypesByWarehouse_id,
+    getReceivedNotesByWarehouse_id
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar)

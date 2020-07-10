@@ -28,7 +28,8 @@ class WarehouseSelector extends Component {
         if (prevStates.selectedIndex !== selectedIndex || selectedIndex === 0 && warehouses.length > 0) {
             selectWarehouse(warehouses[selectedIndex].warehouse_id)
         }
-        if (prevProps.warehouses !== warehouses) {
+        if (prevProps.warehouses !== warehouses && warehouses.length > 0) {
+            selectWarehouse(warehouses[selectedIndex].warehouse_id)
             this.handleSetStateSelectedIndex()
         }
     }
