@@ -90,7 +90,7 @@ class AddGoodsForm extends Component {
                                     </Grid>
                                     <Grid item>
                                         <TextField name="costPrice"
-                                            label="Giá"
+                                            label="Giá vốn"
                                             variant="outlined"
                                             value={this.state.costPrice}
                                             onChange={(e) => this.changeHandler(e)} />

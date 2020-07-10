@@ -15,6 +15,13 @@ import { Link } from 'react-router-dom'
 import { getWarehousesByCustomer_id } from '../../actions/warehouse-action'
 import { getGoodsByWarehouse_id } from '../../actions/goods-action'
 import { getTypesByWarehouse_id} from '../../actions/type-action'
+//Icon
+import AllInboxIcon from '@material-ui/icons/AllInbox';
+import BallotIcon from '@material-ui/icons/Ballot';
+import ArchiveIcon from '@material-ui/icons/Archive';
+import UnarchiveIcon from '@material-ui/icons/Unarchive';
+import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
+
 import {getReceivedNotesByWarehouse_id} from '../../actions/receivedNote-action'
 
 class Sidebar extends Component {
@@ -49,7 +56,7 @@ class Sidebar extends Component {
                         <Link to='/goods' style={{ textDecoration: 'none' }}>
                             <MenuItem>
                                 <ListItemIcon>
-                                    <SendIcon fontSize="small" />
+                                    <AllInboxIcon fontSize="small" />
                                 </ListItemIcon>
                                 <Typography variant="inherit">Hàng hóa</Typography>
                             </MenuItem>
@@ -58,7 +65,7 @@ class Sidebar extends Component {
                         <Link to='/type' style={{ textDecoration: 'none' }}>
                             <MenuItem>
                                 <ListItemIcon>
-                                    <SendIcon fontSize="small" />
+                                    <BallotIcon fontSize="small" />
                                 </ListItemIcon>
                                 <Typography variant="inherit">Loại hàng</Typography>
                             </MenuItem>
@@ -67,7 +74,7 @@ class Sidebar extends Component {
                         <Link to='/receivednote' style={{ textDecoration: 'none' }}>
                             <MenuItem>
                                 <ListItemIcon>
-                                    <SendIcon fontSize="small" />
+                                    <ArchiveIcon fontSize="small" />
                                 </ListItemIcon>
                                 <Typography variant="inherit">Nhập kho</Typography>
                             </MenuItem>
@@ -76,7 +83,7 @@ class Sidebar extends Component {
                         <Link to='/deliverynote' style={{ textDecoration: 'none' }}>
                             <MenuItem>
                                 <ListItemIcon>
-                                    <SendIcon fontSize="small" />
+                                    <UnarchiveIcon fontSize="small" />
                                 </ListItemIcon>
                                 <Typography variant="inherit">Xuất kho</Typography>
                             </MenuItem>
@@ -85,7 +92,7 @@ class Sidebar extends Component {
                         <Link to='/warehouse' style={{ textDecoration: 'none' }}>
                             <MenuItem>
                                 <ListItemIcon>
-                                    <SendIcon fontSize="small" />
+                                    <AccountBalanceIcon fontSize="small" />
                                 </ListItemIcon>
                                 <Typography variant="inherit">Kho hàng</Typography>
                             </MenuItem>
