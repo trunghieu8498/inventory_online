@@ -4,7 +4,6 @@ import { Grow, Button, Grid } from '@material-ui/core'
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { Link } from 'react-router-dom'
 import { SuggestCreateWarehouseForm } from '../warehouse/suggestCreateWarehouse-form'
-import { getTypesByWarehouse_id } from '../../actions/type-action'
 import { MoonLoader } from "react-spinners";
 import { getTypesByWarehouse_id, deleteType } from '../../actions/type-action'
 import UpdateTypeModal from './updateType-modal'
@@ -73,7 +72,7 @@ export class TypeTable extends Component {
                         Action: props => (
                             <div>
                                 <UpdateTypeModal type_id={props.data.type_id}/>
-                                  
+
                                 <Button onClick={(e)=> props.action.Delete(e,props.data.type_id)}>
                                     Xóa
                                 </Button>                   

@@ -7,7 +7,6 @@ import { SuggestCreateWarehouseForm } from "../warehouse/suggestCreateWarehouse-
 // import { getWarehousesByCustomer_id } from '../../actions/warehouse-action'
 import { getReceivedNotesByWarehouse_id } from '../../actions/receivedNote-action'
 import ReceivedNoteDetailModal from '../receivednote/receivedNoteDetail-modal'
-import { getReceivedNotesByWarehouse_id } from "../../actions/receivedNote-action";
 import { MoonLoader } from "react-spinners";
 
 export class ReceivedNoteTable extends Component {
