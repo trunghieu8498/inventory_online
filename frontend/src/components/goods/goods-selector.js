@@ -7,7 +7,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert'
 import { Typography } from '@material-ui/core'
 import { Grid, Button } from '@material-ui/core'
 import { selectGoods } from '../../actions/goods-action'
-import {addReceivedNoteDetailToTable} from '../../actions/receivedNoteDetail-action'
+import {addReceivedNoteDetailToTable} from '../../actions/receivedNote-action'
 
 class GoodsSelector extends Component {
     constructor(props) {

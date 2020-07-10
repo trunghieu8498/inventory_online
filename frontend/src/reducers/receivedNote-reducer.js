@@ -1,23 +1,32 @@
-import { ADD_RECEIVED_NOTE_DETAIL } from '../constant'
+import { ADD_RECEIVED_NOTE_DETAIL, ADD_RECEIVED_NOTE, GET_RECEIVED_NOTES_BY_WAREHOUSE_ID } from '../constant'
 
 const initialState = {
-    receivedNoteDetails: []
+    receivedNoteDetails: [], //array of goods_id
+    receivedNotes: []
 }
 
 export default function (state = initialState, action) {
     switch (action.type) {
         case ADD_RECEIVED_NOTE_DETAIL:
-
             return {
                 ...state,
                 receivedNoteDetails: [...state.receivedNoteDetails, action.payload]
+            }
+        case ADD_RECEIVED_NOTE:
+            return {
+                ...state,
+            }
+        case GET_RECEIVED_NOTES_BY_WAREHOUSE_ID:
+            return {
+                ...state,
+                receivedNotes: action.payload
             }
         default:
             return state
     }
 }
 
-const receivedNoteDetailExists = (newReceivedNoteDetail, receivedNoteDetails) => {
+// const receivedNoteDetailExists = (newReceivedNoteDetail, receivedNoteDetails) => {
     // const index = this.props.receivedNoteDetails.findIndex(x => x.receivedNoteDetail_id === newReceivedNoteDetail)
     // if (index !== -1)
     //     return index
@@ -26,4 +35,4 @@ const receivedNoteDetailExists = (newReceivedNoteDetail, receivedNoteDetails) =>
     //     localStorage.setItem('warehouse_selected_id', warehouses[0].warehouse_id)
     //     return 0
     // }
-}
+// }

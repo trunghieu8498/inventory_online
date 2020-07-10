@@ -38,13 +38,13 @@ export class WarehouseTable extends Component {
             this.setState({
                 data: this.props.warehouses
             })
-        // if (prevProps.customer_id !== this.props.customer_id)
+        // if (prevProps.warehouses !== this.props.customer_id)
         //     this.props.getWarehousesByCustomer_id(this.props.customer_id)
     }
 
-    selectWarehouseHandle = (warehouse_id) => {
-        this.props.selectWarehouse(warehouse_id)
-    }
+    // selectWarehouseHandle = (warehouse_id) => {
+    //     this.props.selectWarehouse(warehouse_id)
+    // }
 
     render() {
         const warehouses = this.props.warehouses

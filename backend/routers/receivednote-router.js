@@ -1,6 +1,7 @@
 const pool = require('../db')
 const warehouseRouter = require('./warehouse-router')
 const receivedNoteDetail = require('./receivednotedetail-router')
+var uniqid = require('uniqid');
 
 const getReceivedNotes = (req, res) => {
     pool.query('SELECT * FROM RECEIVEDNOTE ORDER BY receivednote_id ASC', (error, results) => {
@@ -12,7 +13,7 @@ const getReceivedNotes = (req, res) => {
 }
 
 const getReceivedNoteById = (req, res) => {
-    const id = parseInt(req.params.id)
+    const id = req.params.id
     pool.query('SELECT * FROM RECEIVEDNOTE WHERE receivednote_id = $1', [id], (error, results) => {
         if (error) {
             throw error
@@ -21,20 +22,41 @@ const getReceivedNoteById = (req, res) => {
     })
 }
 
-const addReceivedNote = (req, res) => {
-    const {  date, warehouse_id } = req.body
+const getReceivedNoteByWarehouse_id = (req, res) => {
+    const id = req.params.id
+    pool.query('SELECT * FROM RECEIVEDNOTE WHERE warehouse_id = $1', [id], (error, results) => {
+        if (error)
+            throw error
+        res.status(200).json(results.rows)
+    })
 
-    pool.query('INSERT INTO RECEIVEDNOTE (date, warehouse_id) VALUES ($1, $2)', [date, warehouse_id], (error, results) => {
+}
+
+const addReceivedNote = (req, res) => {
+    const receivednote_id = uniqid()
+    const { date, warehouse_id, receivedNoteDetails } = req.body
+
+    pool.query('INSERT INTO RECEIVEDNOTE (receivednote_id, date, warehouse_id) VALUES ($1, $2, $3)', [receivednote_id, date, warehouse_id], (error, results) => {
         if (error) {
             throw error
         }
         const receivednote = {
+            receivednote_id: receivednote_id,
             date: date,
-            warehouse_id: warehouse_id,          
+            warehouse_id: warehouse_id,
+            receivednotedetails: receivedNoteDetails
         }
+        receivedNoteDetail.addListReceivedNoteDetail(receivedNoteDetails, receivednote_id)
         res.status(201).json(receivednote)
     })
 }
+
+//dang viet
+/*
+viet 1 ham insert 1 luc nhieu receivednotedetail ben receivecNoteDetail-router
+khi insert 1 receivedNote se tro toi ham do' de insert cac receivedNoteDetail theo id cua no
+*/
+
 
 // const addReceivedNote = (req, res) => {
 //     const { date, warehouse_id, receivedNoteDetails } = req.body
@@ -58,7 +80,7 @@ const addReceivedNote = (req, res) => {
 // }
 
 const updateReceivedNote = (req, res) => {
-    const receivednote_id = parseInt(req.params.id)
+    const receivednote_id = req.params.id
     const { date } = req.body
 
     pool.query(
@@ -82,4 +104,5 @@ module.exports = {
     getReceivedNoteById,
     addReceivedNote,
     updateReceivedNote,
+    getReceivedNoteByWarehouse_id
 }

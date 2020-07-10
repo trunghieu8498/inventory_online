@@ -58,6 +58,7 @@ app.put('/api/deliverynotedetail/update/:id', deliverynotedetail.updateDeliveryN
 
 app.get('/api/receivednotes', receivednote.getReceivedNotes)
 app.get('/api/receivednote/:id', receivednote.getReceivedNoteById)
+app.get('/api/receivednotes/get/:id', receivednote.getReceivedNoteByWarehouse_id)
 app.post('/api/receivednote/add', receivednote.addReceivedNote)
 app.put('/api/receivednote/update/:id', receivednote.updateReceivedNote)
 
@@ -65,6 +66,7 @@ app.get('/api/receivednotedetails', receivednotedetail.getReceivedNoteDetails)
 app.get('/api/receivednotedetail/:id', receivednotedetail.getReceivedNoteDetailById)
 app.post('/api/receivednotedetail/add', receivednotedetail.addReceivedNoteDetail)
 app.put('/api/receivednotedetail/update/:id', receivednotedetail.updateReceivedNoteDetail)
+app.post('/api/receivednotedetail/add/list', receivednotedetail.addListReceivedNoteDetail)
 
 app.get('/', (req, res) => {
     res.json({ info: 'Node.js, Express, and Postgres API' })

@@ -5,6 +5,7 @@ import MaterialTable, { MTableToolbar } from 'material-table';
 import { Link } from 'react-router-dom'
 import { SuggestCreateWarehouseForm } from '../warehouse/suggestCreateWarehouse-form'
 // import { getWarehousesByCustomer_id } from '../../actions/warehouse-action'
+import { getReceivedNotesByWarehouse_id } from '../../actions/receivedNote-action'
 
 export class ReceivedNoteTable extends Component {
     constructor(props) {
@@ -19,20 +20,24 @@ export class ReceivedNoteTable extends Component {
         }
     }
 
-    componentDidMount() 
-    {
-        //if (this.props.customer_id !== '')
-        // this.props.getWarehousesByCustomer_id(this.props.customer_id)
+    componentDidMount() {
+        const { warehouse_selected_id } = this.props
+        this.props.getReceivedNotesByWarehouse_id(warehouse_selected_id)
     }
 
     componentDidUpdate(prevProps) {
-        // if (prevProps.warehouses !== this.props.warehouses)
-        //     this.setState({
-        //         data: this.props.warehouses
-        //     })
+        const{receivedNotes, warehouse_selected_id} = this.props
+        if (prevProps.receivedNotes !== receivedNotes)
+            this.setDataTable(receivedNotes)
 
-        // if (prevProps.customer_id !== this.props.customer_id)
-        //     this.props.getWarehousesByCustomer_id(this.props.customer_id)
+        if (prevProps.warehouse_selected_id !== warehouse_selected_id)
+            this.props.getReceivedNotesByWarehouse_id(warehouse_selected_id)
+    }
+
+    setDataTable = (receivedNotes) => {
+        this.setState(({
+            data: receivedNotes
+        }))
     }
 
     render() {
@@ -104,10 +109,12 @@ export class ReceivedNoteTable extends Component {
 
 const mapStateToProps = (state) => ({
     warehouses: state.warehouseReducer.warehouses,
+    warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
+    receivedNotes: state.receivedNoteReducer.receivedNotes
 })
 
 const mapDispatchToProps = {
-    //getWarehousesByCustomer_id
+    getReceivedNotesByWarehouse_id
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReceivedNoteTable)

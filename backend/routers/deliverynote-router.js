@@ -1,5 +1,6 @@
 warehouseRouter = require('./warehouse-router')
 pool = require('../db')
+uniqid = require('uniqid');
 
 const getDeliveryNotes = (req, res) => {
     pool.query('SELECT * FROM DELIVERYNOTE ORDER BY deliverynote_id ASC', (error, results) => {
@@ -10,7 +11,8 @@ const getDeliveryNotes = (req, res) => {
     })
 }
 
-const getDeliveryNoteById = (req, res) => {const id = parseInt(req.params.id)
+const getDeliveryNoteById = (req, res) => {
+    const id = req.params.id
     pool.query('SELECT * FROM DELIVERYNOTE WHERE deliverynote_id = $1', [id], (error, results) => {
         if (error) {
             throw error
@@ -35,7 +37,7 @@ const addDeliveryNote = (req, res) => {
 }
 
 const updateDeliveryNote = (req, res) => {
-    const deliverynote_id = parseInt(req.params.id)
+    const deliverynote_id = req.params.id
     const { date } = req.body
 
     pool.query(

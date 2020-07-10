@@ -1,3 +1,5 @@
+const uniqid = require('uniqid');
+
 const getWarehouses = (req, res) => {
     pool.query('SELECT * FROM WAREHOUSE ORDER BY warehouse_id ASC', (error, results) => {
         if (error) {
@@ -8,7 +10,7 @@ const getWarehouses = (req, res) => {
 }
 
 const getWarehousesByCustomer_id = (req, res) => {
-    const customer_id = parseInt(req.params.id)
+    const customer_id = req.params.id
     console.log('customer_id', customer_id)
     try{
         pool.query('SELECT * FROM WAREHOUSE WHERE customer_id = $1', [customer_id], (error, results) => {
@@ -24,7 +26,7 @@ const getWarehousesByCustomer_id = (req, res) => {
 }
 
 const getWarehouseById = (req, res) => {
-    const id = parseInt(req.params.id)
+    const id = req.params.id
     console.log('loi ne',id)
     pool.query('SELECT * FROM WAREHOUSE WHERE warehouse_id = $1', [id], (error, results) => {
         if (error) {
@@ -35,12 +37,14 @@ const getWarehouseById = (req, res) => {
 }
 
 const addWarehouse = (req, res) => {
+    const warehouse_id = uniqid()
     const { warehouseName, address, description, customer_id } = req.body
-    pool.query('INSERT INTO WAREHOUSE (warehouseName, address, description, customer_id) VALUES ($1, $2, $3, $4)', [warehouseName, address, description, customer_id], (error, results) => {
+    pool.query('INSERT INTO WAREHOUSE (warehouse_id, warehouseName, address, description, customer_id) VALUES ($1, $2, $3, $4, $5)', [warehouse_id, warehouseName, address, description, customer_id], (error, results) => {
         if (error) {
             throw error
         }
         const warehouse = {
+            warehouse_id: warehouse_id,
             warehouseName: warehouseName,
             address: address,
             description: description,
@@ -51,7 +55,7 @@ const addWarehouse = (req, res) => {
 }
 
 const updateWarehouse = (req, res) => {
-    const warehouse_id = parseInt(req.params.id)
+    const warehouse_id = req.params.id
     const { warehouseName, address, description } = req.body
 
     pool.query(

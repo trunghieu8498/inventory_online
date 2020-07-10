@@ -33,6 +33,7 @@ export default function (state = initialState, action) {
         case ADD_WAREHOUSE:
             return {
                 ...state,
+                warehouses: [...state.warehouses, action.payload]
             }
         default:
             return state

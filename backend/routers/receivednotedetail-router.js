@@ -1,6 +1,7 @@
 const goodsRouter = require('./goods-router')
 const receivednoteRouter = require('./receivednote-router')
 const pool = require('../db')
+var uniqid = require('uniqid');
 
 const getReceivedNoteDetails = (req, res) => {
     pool.query('SELECT * FROM RECEIVEDNOTEDETAIL ORDER BY receivednotedetail_id ASC', (error, results) => {
@@ -11,7 +12,8 @@ const getReceivedNoteDetails = (req, res) => {
     })
 }
 
-const getReceivedNoteDetailById = (req, res) => {const id = parseInt(req.params.id)
+const getReceivedNoteDetailById = (req, res) => {
+    const id = req.params.id
     pool.query('SELECT * FROM RECEIVEDNOTEDETAIL WHERE receivednotedetail_id = $1', [id], (error, results) => {
         if (error) {
             throw error
@@ -21,37 +23,64 @@ const getReceivedNoteDetailById = (req, res) => {const id = parseInt(req.params.
 }
 
 const addReceivedNoteDetail = (req, res) => {
-    const {  quantity, costprice, goods_id, receivednote_id } = req.body
+    const receivednotedetail_id = uniqid()
+    const { quantity, costprice, goods_id, receivednote_id } = req.body
 
-    pool.query('INSERT INTO RECEIVEDNOTEDETAIL (quantity, costprice, goods_id, receivednote_id) VALUES ($1, $2, $3, $4)', 
-    [quantity, costprice, goods_id, receivednote_id], (error, results) => {
-        if (error) {
-            throw error
-        }
-        const receivednotedetail = {
-            quantity: quantity,
-            costprice: costprice,
-            goods_id: goods_id,
-            receivednote_id: receivednote_id
-        }
-        res.status(201).json(receivednotedetail)
+    pool.query('INSERT INTO RECEIVEDNOTEDETAIL (receivednotedetail_id, quantity, costprice, goods_id, receivednote_id) VALUES ($1, $2, $3, $4)',
+        [receivednotedetail_id, quantity, costprice, goods_id, receivednote_id], (error, results) => {
+            if (error) {
+                throw error
+            }
+            const receivednotedetail = {
+                receivednotedetail_id: receivednotedetail_id,
+                quantity: quantity,
+                costprice: costprice,
+                goods_id: goods_id,
+                receivednote_id: receivednote_id
+            }
+            res.status(201).json(receivednotedetail)
+        })
+}
+
+const addListReceivedNoteDetail = (receivedNoteDetails, receivedNote_id) => {
+    const receivednotedetail_id = uniqid()
+    // let array = []
+    receivedNoteDetails.forEach(_receivedNoteDetail => {
+        const { quantity, costprice, goods_id } = _receivedNoteDetail.goods
+        
+        pool.query('INSERT INTO RECEIVEDNOTEDETAIL (receivednotedetail_id, quantity, costprice, goods_id, receivednote_id) VALUES ($1, $2, $3, $4, $5)',
+            [receivednotedetail_id, quantity, costprice, goods_id, receivedNote_id], (error, results) => {
+                if (error) {
+                    throw error
+                }
+                // var newReceivedNoteDetail = {
+                //     quantity: quantity,
+                //     costprice: costprice,
+                //     goods_id: goods_id,
+                //     receivednote_id: receivedNote_id
+                // }
+                // array = [...array, newReceivedNoteDetail]
+            })
+        // console.log(2,goods_id)
     })
+    // console.log(3, array)
+    // res.status(200).json('Them received note detail thanh cong')
 }
 
 const updateReceivedNoteDetail = (req, res) => {
-    const receivednotedetail_id = parseInt(req.params.id)
+    const receivednotedetail_id = req.params.id
     const { quantity, costprice } = req.body
 
     pool.query(
         'UPDATE RECEIVEDNOTEDETAIL SET quantity = $1 , costprice =$2  WHERE receivednotedetail_id = $3',
-        [ quantity, costprice, receivednotedetail_id],
+        [quantity, costprice, receivednotedetail_id],
         (error, results) => {
             if (error) {
                 throw error
             }
             const receivednotedetail = {
-                quantity: quantity,  
-                costprice: costprice      
+                quantity: quantity,
+                costprice: costprice
             }
             res.status(201).json(receivednotedetail)
         }
@@ -64,4 +93,5 @@ module.exports = {
     getReceivedNoteDetailById,
     addReceivedNoteDetail,
     updateReceivedNoteDetail,
+    addListReceivedNoteDetail
 }
