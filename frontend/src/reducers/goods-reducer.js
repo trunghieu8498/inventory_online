@@ -1,4 +1,4 @@
-import { ADD_GOODS, GET_GOODSS_BY_WAREHOUSE_ID, SELECT_GOODS } from '../constant'
+import { ADD_GOODS, GET_GOODSS_BY_WAREHOUSE_ID, SELECT_GOODS, UPDATE_GOODS, DELETE_GOODS } from '../constant'
 
 const initialState = {
     goodss: [],
@@ -21,6 +21,14 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 goods_selected_id: action.payload
+            }
+        case UPDATE_GOODS:
+            return {
+                ...state,
+            }
+        case DELETE_GOODS:
+            return {
+                ...state,
             }
         default:
             return state
