@@ -5,6 +5,7 @@ import MaterialTable, { MTableToolbar } from 'material-table';
 import { Link } from 'react-router-dom'
 import { SuggestCreateWarehouseForm } from '../warehouse/suggestCreateWarehouse-form'
 // import { getGoodsByWarehouse_id } from '../../actions/goods-action'
+import UpdateGoodsModal from './updateGoods-modal'
 
 export class GoodsTable extends Component {
     constructor(props) {
@@ -48,15 +49,15 @@ export class GoodsTable extends Component {
                     title="DANH SÁCH HÀNG HÀNG HÓA"
                     columns={this.state.columns}
                     data={this.state.data}
-                    // actions={[
-                    //     {
-                    //         icon: 'save',
-                    //         tooltip: 'Save User',
-                    //         Update: (e, rowData) => alert("You updated " + rowData.name),
-                    //         Delete: (e, rowData) => alert("You deleted " + rowData.name),
-                    //     },
+                    actions={[
+                        {
+                            icon: 'save',
+                            tooltip: 'Save User',
+                            // Update: (e, rowData) => alert("You updated " + rowData.name),
+                            // Delete: (e, rowData) => alert("You deleted " + rowData.name),
+                        },
 
-                    // ]}
+                    ]}
                     components={{
                         Toolbar: props => (
                             <div style={{ backgroundColor: '#e8eaf5' }}>
@@ -64,7 +65,10 @@ export class GoodsTable extends Component {
                             </div>
                         ),
                         Action: props => (
-                            <div></div>
+                            <div>
+                                <UpdateGoodsModal goods_id={props.data.goods_id}/>
+                                
+                            </div>
                             // <Row>
                             //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
                             //         onClick={(event) => props.action.Update(event, props.data)}>

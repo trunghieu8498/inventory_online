@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { SuggestCreateWarehouseForm } from './suggestCreateWarehouse-form'
 import { getWarehousesByCustomer_id, selectWarehouse, loadWarehouse } from '../../actions/warehouse-action'
 import { IconButton, EditIcon } from '@material-ui/icons'
+import UpdateWarehouseModal from './updateWarehouse-modal'
 
 export class WarehouseTable extends Component {
     constructor(props) {
@@ -70,7 +71,8 @@ export class WarehouseTable extends Component {
                             </div>
                         ),
                         Action: props => (
-                            <div>
+                            <div>                         
+                                <UpdateWarehouseModal warehouse_id={props.data.warehouse_id}/>                                                   
                                 {/* <Button variant="outlined" color="primary" onClick={() => props.action.select(props.data.warehouse_id)}>Chọn</Button> */}
                                 {/* <IconButton aria-label="edit" style={{ color: '#009FFF' }}
                                     // onClick={(event) => props.action.Update(event, props.data)}

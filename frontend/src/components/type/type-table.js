@@ -4,7 +4,9 @@ import { Grow, Button, Grid } from '@material-ui/core'
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { Link } from 'react-router-dom'
 import { SuggestCreateWarehouseForm } from '../warehouse/suggestCreateWarehouse-form'
-import { getTypesByWarehouse_id } from '../../actions/type-action'
+import { getTypesByWarehouse_id, deleteType } from '../../actions/type-action'
+import UpdateTypeModal from './updateType-modal'
+
 
 export class TypeTable extends Component {
     constructor(props) {
@@ -48,15 +50,18 @@ export class TypeTable extends Component {
                     title="DANH SÁCH LOẠI HÀNG"
                     columns={this.state.columns}
                     data={this.state.data}
-                    // actions={[
-                    //     {
-                    //         icon: 'save',
-                    //         tooltip: 'Save User',
-                    //         Update: (e, rowData) => alert("You updated " + rowData.name),
-                    //         Delete: (e, rowData) => alert("You deleted " + rowData.name),
-                    //     },
+                    actions={[
+                        {
+                            icon: 'save',
+                            tooltip: 'Save User',
+                            // Update: (e, rowData) => alert("You updated " + rowData.name),
+                            Delete: (e, _id) => {
+                                console.log(_id)
+                                this.props.deleteType(e, _id)
+                            }
+                        },
 
-                    // ]}
+                    ]}
                     components={{
                         Toolbar: props => (
                             <div style={{ backgroundColor: '#e8eaf5' }}>
@@ -64,7 +69,14 @@ export class TypeTable extends Component {
                             </div>
                         ),
                         Action: props => (
-                            <div></div>
+                            <div>
+                                <UpdateTypeModal type_id={props.data.type_id}/>
+                                  
+                                <Button onClick={(e)=> props.action.Delete(e,props.data.type_id)}>
+                                    Xóa
+                                </Button>                   
+                            </div>
+                    
                             // <Row>
                             //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
                             //         onClick={(event) => props.action.Update(event, props.data)}>
@@ -115,7 +127,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-    getTypesByWarehouse_id
+    getTypesByWarehouse_id,
+    deleteType
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TypeTable)

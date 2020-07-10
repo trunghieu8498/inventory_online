@@ -56,12 +56,12 @@ const addGoods = (req, res) => {
 const updateGoods = (req, res) => {
     const goods_id = req.params.id
     const { goodsName, weight, description, costPrice, sellingPrice, inventoryNumber, type_id } = req.body
-
+    console.log(req.body)
     pool.query(
-        'UPDATE WAREHOUSE SET goodsName = $1, weight = $2, description = $3, costPrice = $4, sellingPrice = $5, inventoryNumber = $6, type_id = $7 WHERE goods_id = $8',
+        'UPDATE GOODS SET goodsName = $1, weight = $2, description = $3, costPrice = $4, sellingPrice = $5, inventoryNumber = $6, type_id = $7 WHERE goods_id = $8',
         [goodsName, weight, description, costPrice, sellingPrice, inventoryNumber, type_id, goods_id],
         (err, results) => {
-            if (error) {
+            if (err) {
                 throw err
             }
             const goods = {
@@ -73,6 +73,26 @@ const updateGoods = (req, res) => {
                 inventoryNumber: inventoryNumber,
                 type_id: type_id
             }
+            console.log('result', goods)
+            res.status(200).json(goods)
+        }
+    )
+}
+
+const deleteGoods = (req, res) => {
+    const goods_id = req.params.id
+    console.log(req.body)
+    pool.query(
+        'UPDATE GOODS SET available = 0 WHERE goods_id = $1',
+        [goods_id],
+        (err, results) => {
+            if (err) {
+                throw err
+            }
+            const goods = {
+                available: false
+            }
+            console.log('result', goods)
             res.status(200).json(goods)
         }
     )
@@ -83,6 +103,7 @@ module.exports = {
     getGoodsById,
     addGoods,
     updateGoods,
+    deleteGoods,
     getGoodsByWarehouse_id
     //deleteUser,
 }

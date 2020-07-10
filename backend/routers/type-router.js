@@ -51,17 +51,34 @@ const addType = (req, res) => {
 const updateType = (req, res) => {
     const type_id = req.params.id
     const { typeName } = req.body
-
+    console.log(type_id)
     pool.query(
-        'UPDATE WAREHOUSE SET typeName = $1 WHERE type_id = $2',
+        'UPDATE TYPE SET typeName = $1 WHERE type_id = $2',
         [typeName, type_id],
         (err, results) => {
-            if (error) {
+            if (err) {
                 throw err
             }
             const type = {
                 typeName: typeName,
-                warehouse_id: warehouse_id
+            }
+            res.status(200).json(type)
+        }
+    )
+}
+
+const deleteType = (req, res) => {
+    const type_id = req.params.id
+    console.log(type_id)
+    pool.query(
+        'UPDATE TYPE SET available = 0 WHERE type_id = $1',
+        [type_id],
+        (err, results) => {
+            if (err) {
+                throw err
+            }
+            const type = {
+                available: false
             }
             res.status(200).json(type)
         }
@@ -73,6 +90,7 @@ module.exports = {
     getTypeById,
     addType,
     updateType,
+    deleteType,
     getTypeByWarehouse_id
     //deleteUser,
 }
