@@ -5,6 +5,7 @@ import MaterialTable, { MTableToolbar } from 'material-table';
 import { Link } from 'react-router-dom'
 import { SuggestCreateWarehouseForm } from '../warehouse/suggestCreateWarehouse-form'
 import { getTypesByWarehouse_id } from '../../actions/type-action'
+import { MoonLoader } from "react-spinners";
 
 export class TypeTable extends Component {
     constructor(props) {
