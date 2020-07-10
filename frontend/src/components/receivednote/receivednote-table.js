@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { SuggestCreateWarehouseForm } from '../warehouse/suggestCreateWarehouse-form'
 // import { getWarehousesByCustomer_id } from '../../actions/warehouse-action'
 import { getReceivedNotesByWarehouse_id } from '../../actions/receivedNote-action'
+import ReceivedNoteDetailModal from '../receivednote/receivedNoteDetail-modal'
 
 export class ReceivedNoteTable extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ export class ReceivedNoteTable extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        const{receivedNotes, warehouse_selected_id} = this.props
+        const { receivedNotes, warehouse_selected_id } = this.props
         if (prevProps.receivedNotes !== receivedNotes)
             this.setDataTable(receivedNotes)
 
@@ -47,15 +48,15 @@ export class ReceivedNoteTable extends Component {
                     title="DANH SÁCH PHIẾU NHẬP KHO"
                     columns={this.state.columns}
                     data={this.state.data}
-                    // actions={[
-                    //     {
-                    //         icon: 'save',
-                    //         tooltip: 'Save User',
-                    //         Update: (e, rowData) => alert("You updated " + rowData.name),
-                    //         Delete: (e, rowData) => alert("You deleted " + rowData.name),
-                    //     },
+                    actions={[
+                        {
+                            icon: 'save',
+                            tooltip: 'Save User',
+                            // Update: (e, rowData) => alert("You updated " + rowData.name),
+                            // Delete: (e, rowData) => alert("You deleted " + rowData.name),
+                        },
 
-                    // ]}
+                    ]}
                     components={{
                         Toolbar: props => (
                             <div style={{ backgroundColor: '#e8eaf5' }}>
@@ -63,7 +64,9 @@ export class ReceivedNoteTable extends Component {
                             </div>
                         ),
                         Action: props => (
-                            <div></div>
+                            <div style={{ width: '10rem' }}>
+                                <ReceivedNoteDetailModal />
+                            </div>
                             // <Row>
                             //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
                             //         onClick={(event) => props.action.Update(event, props.data)}>
