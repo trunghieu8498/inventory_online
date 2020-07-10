@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ADD_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID, SELECT_WAREHOUSE } from "../constant"
+import { ADD_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID, SELECT_WAREHOUSE, UPDATE_WAREHOUSE, DELETE_WAREHOUSE } from "../constant"
 
 export const loadWarehouse_selected_id = () => dispatch => {
     const local_warehouse_selected_id = localStorage.getItem('warehouse_selected_id') //JSON.Parse -> ko xai
@@ -73,4 +73,46 @@ export const getWarehousesByCustomer_id = (customer_id) => dispatch => {
         catch (err) {
             console.log(err)
         }
+}
+
+export const updateWarehouse = (warehouse_id, warehouseName, address, description) => dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    console.log(warehouse_id)
+    const body = JSON.stringify({warehouseName, address, description })
+    axios.put(`http://localhost:8000/api/warehouse/update/${warehouse_id}`, body, config)
+        .then(res => {
+            console.log(res.data)
+            dispatch({
+                type: UPDATE_WAREHOUSE,
+            })
+            alert('Đã sửa kho hàng')
+        })
+        .catch((err) => {
+            alert(err.res.data)
+        })
+}
+
+export const deleteWarehouse = (warehouse_id) => dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    console.log('id ne` ',warehouse_id)
+    const body = JSON.stringify({})
+    axios.put(`http://localhost:8000/api/warehouse/delete/${warehouse_id}`, body, config)
+        .then(res => {
+            console.log(res.data)
+            dispatch({
+                type: DELETE_WAREHOUSE,
+            })
+            alert('Xóa thành công')
+        })
+        .catch((err) => {
+            alert(err.res.data)
+        })
 }

@@ -11,6 +11,15 @@ import {
 } from "../../actions/warehouse-action";
 import { IconButton, EditIcon } from "@material-ui/icons";
 import { MoonLoader } from "react-spinners";
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Grow, Button, Grid } from '@material-ui/core'
+import MaterialTable, { MTableToolbar } from 'material-table';
+import { Link } from 'react-router-dom'
+import { SuggestCreateWarehouseForm } from './suggestCreateWarehouse-form'
+import { getWarehousesByCustomer_id, selectWarehouse, loadWarehouse } from '../../actions/warehouse-action'
+import { IconButton, EditIcon } from '@material-ui/icons'
+import UpdateWarehouseModal from './updateWarehouse-modal'
 
 export class WarehouseTable extends Component {
   constructor(props) {
@@ -78,6 +87,34 @@ export class WarehouseTable extends Component {
               <div>
                 {/* <Button variant="outlined" color="primary" onClick={() => props.action.select(props.data.warehouse_id)}>Chọn</Button> */}
                 {/* <IconButton aria-label="edit" style={{ color: '#009FFF' }}
+    render() {
+        const warehouses = this.props.warehouses
+        const table = (
+            <Grow in={true}>
+                <MaterialTable
+                    title="DANH SÁCH KHO"
+                    columns={this.state.columns}
+                    data={this.state.data}
+                    actions={[
+                        {
+                            icon: 'save',
+                            tooltip: 'Save User',
+                            // Update: (e, rowData) => alert("You updated " + rowData.name),
+                            // Delete: (e, rowData) => alert("You deleted " + rowData.name),
+                            // select: (warehouse_id) => this.selectWarehouseHandle(warehouse_id)
+                        },
+                    ]}
+                    components={{
+                        Toolbar: props => (
+                            <div style={{ backgroundColor: '#e8eaf5' }}>
+                                <MTableToolbar {...props} />
+                            </div>
+                        ),
+                        Action: props => (
+                            <div>                         
+                                <UpdateWarehouseModal warehouse_id={props.data.warehouse_id}/>                                                   
+                                {/* <Button variant="outlined" color="primary" onClick={() => props.action.select(props.data.warehouse_id)}>Chọn</Button> */}
+                                {/* <IconButton aria-label="edit" style={{ color: '#009FFF' }}
                                     // onClick={(event) => props.action.Update(event, props.data)}
                                     >
                                     <EditIcon />

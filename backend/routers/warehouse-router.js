@@ -57,12 +57,12 @@ const addWarehouse = (req, res) => {
 const updateWarehouse = (req, res) => {
     const warehouse_id = req.params.id
     const { warehouseName, address, description } = req.body
-
+    console.log(req.body)
     pool.query(
         'UPDATE WAREHOUSE SET warehouseName = $1, address = $2, description = $3  WHERE warehouse_id = $4',
         [warehouseName, address, description, warehouse_id],
         (err, results) => {
-            if (error) {
+            if (err) {
                 throw err
             }
             const warehouse = {
@@ -75,11 +75,30 @@ const updateWarehouse = (req, res) => {
     )
 }
 
+const deleteWarehouse = (req, res) => {
+    const warehouse_id = req.params.id
+    console.log(req.body)
+    pool.query(
+        'UPDATE WAREHOUSE SET available = 0  WHERE warehouse_id = $1',
+        [warehouse_id],
+        (err, results) => {
+            if (err) {
+                throw err
+            }
+            const warehouse = {
+                available : false
+            }
+            res.status(200).json(warehouse)
+        }
+    )
+}
+
 module.exports = {
     getWarehouses,
     getWarehouseById,
     addWarehouse,
     updateWarehouse,
+    deleteWarehouse,
     getWarehousesByCustomer_id
     //deleteUser,
 }

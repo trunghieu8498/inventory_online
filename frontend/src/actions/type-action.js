@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ADD_TYPE, GET_TYPES_BY_WAREHOUSE_ID, SELECT_TYPE_ID } from "../constant"
+import { ADD_TYPE, GET_TYPES_BY_WAREHOUSE_ID, SELECT_TYPE_ID, UPDATE_TYPE, DELETE_TYPE } from "../constant"
 
 export const addType = (typeName, warehouse_id) => dispatch => {
     const config = {
@@ -59,3 +59,44 @@ export const selectType_id = (type_id) => dispatch => {
     })
 }
 
+export const updateType = (type_id,typeName) => dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    console.log(type_id)
+    const body = JSON.stringify({typeName })
+    axios.put(`http://localhost:8000/api/type/update/${type_id}`, body, config)
+        .then(res => {
+            console.log(res.data)
+            dispatch({
+                type: UPDATE_TYPE,
+            })
+            alert('Đã sửa loại hàng')
+        })
+        .catch((err) => {
+            alert(err.res.data)
+        })
+}
+
+export const deleteType = (type_id) => dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    console.log('id ne` ',type_id)
+    const body = JSON.stringify({})
+    axios.put(`http://localhost:8000/api/type/delete/${type_id}`, body, config)
+        .then(res => {
+            console.log(res.data)
+            dispatch({
+                type: DELETE_TYPE,
+            })
+            alert('Xóa thành công')
+        })
+        .catch((err) => {
+            alert(err.res.data)
+        })
+}

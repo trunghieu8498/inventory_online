@@ -1,4 +1,4 @@
-import { GET_WAREHOUSES, GET_WAREHOUSE_BY_ID, ADD_WAREHOUSE, SELECT_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID } from '../constant'
+import { GET_WAREHOUSES, GET_WAREHOUSE_BY_ID, ADD_WAREHOUSE, SELECT_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID, UPDATE_WAREHOUSE, DELETE_WAREHOUSE } from '../constant'
 
 const initialState = {
     warehouses: [], //warehouses of customer
@@ -34,6 +34,14 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 warehouses: [...state.warehouses, action.payload]
+            }
+        case UPDATE_WAREHOUSE:
+            return{
+                ...state,
+            }
+        case DELETE_WAREHOUSE:
+            return{
+                ...state,
             }
         default:
             return state

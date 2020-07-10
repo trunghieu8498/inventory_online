@@ -8,6 +8,7 @@ import { SuggestCreateWarehouseForm } from "../warehouse/suggestCreateWarehouse-
 import { MoonLoader } from "react-spinners";
 // import { makeStyles } from "@material-ui/core/styles";
 // import LinearProgress from "@material-ui/core/LinearProgress";
+import UpdateGoodsModal from './updateGoods-modal'
 
 export class GoodsTable extends Component {
   constructor(props) {
@@ -48,48 +49,90 @@ export class GoodsTable extends Component {
     //     getGoodsByWarehouse_id(this.props.warehouse_selected_id)
   }
 
-  render() {
-    const table = (
-      <Grow in={true}>
-        <MaterialTable
-          title="DANH SÁCH HÀNG HÀNG HÓA"
-          columns={this.state.columns}
-          data={this.state.data}
-          // actions={[
-          //     {
-          //         icon: 'save',
-          //         tooltip: 'Save User',
-          //         Update: (e, rowData) => alert("You updated " + rowData.name),
-          //         Delete: (e, rowData) => alert("You deleted " + rowData.name),
-          //     },
+  // render() {
+  //   const table = (
+  //     <Grow in={true}>
+  //       <MaterialTable
+  //         title="DANH SÁCH HÀNG HÀNG HÓA"
+  //         columns={this.state.columns}
+  //         data={this.state.data}
+  //         // actions={[
+  //         //     {
+  //         //         icon: 'save',
+  //         //         tooltip: 'Save User',
+  //         //         Update: (e, rowData) => alert("You updated " + rowData.name),
+  //         //         Delete: (e, rowData) => alert("You deleted " + rowData.name),
+  //         //     },
 
-          // ]}
-          components={{
-            Toolbar: (props) => (
-              <div style={{ backgroundColor: "#e8eaf5" }}>
-                <MTableToolbar {...props} />
-              </div>
-            ),
-            Action: (props) => (
-              <div></div>
-              // <Row>
-              //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
-              //         onClick={(event) => props.action.Update(event, props.data)}>
-              //         <EditIcon />
-              //     </IconButton>
-              //     <IconButton aria-label="delete" style={{ color: '#ec2F4B' }}
-              //         // onClick={(e) => { this.handleDelete(e, _id) }}
-              //         onClick={(event) => props.action.Update(event, props.data)}
-              //     >
-              //         <DeleteIcon />
-              //     </IconButton>
-              // </Row>
-            ),
-          }}
-        />
-      </Grow>
-    );
+  //         // ]}
+  //         components={{
+  //           Toolbar: (props) => (
+  //             <div style={{ backgroundColor: "#e8eaf5" }}>
+  //               <MTableToolbar {...props} />
+  //             </div>
+  //           ),
+  //           Action: (props) => (
+  //             <div></div>
+  //             // <Row>
+  //             //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
+  //             //         onClick={(event) => props.action.Update(event, props.data)}>
+  //             //         <EditIcon />
+  //             //     </IconButton>
+  //             //     <IconButton aria-label="delete" style={{ color: '#ec2F4B' }}
+  //             //         // onClick={(e) => { this.handleDelete(e, _id) }}
+  //             //         onClick={(event) => props.action.Update(event, props.data)}
+  //             //     >
+  //             //         <DeleteIcon />
+  //             //     </IconButton>
+  //             // </Row>
+  //           ),
+  //         }}
+  //       />
+  //     </Grow>
+  //   );
+    render() {
+        const table = (
+            <Grow in={true}>
+                <MaterialTable
+                    title="DANH SÁCH HÀNG HÀNG HÓA"
+                    columns={this.state.columns}
+                    data={this.state.data}
+                    actions={[
+                        {
+                            icon: 'save',
+                            tooltip: 'Save User',
+                            // Update: (e, rowData) => alert("You updated " + rowData.name),
+                            // Delete: (e, rowData) => alert("You deleted " + rowData.name),
+                        },
 
+                    ]}
+                    components={{
+                        Toolbar: props => (
+                            <div style={{ backgroundColor: '#e8eaf5' }}>
+                                <MTableToolbar {...props} />
+                            </div>
+                        ),
+                        Action: props => (
+                            <div>
+                                <UpdateGoodsModal goods_id={props.data.goods_id}/>
+                                
+                            </div>
+                            // <Row>
+                            //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
+                            //         onClick={(event) => props.action.Update(event, props.data)}>
+                            //         <EditIcon />
+                            //     </IconButton>
+                            //     <IconButton aria-label="delete" style={{ color: '#ec2F4B' }}
+                            //         // onClick={(e) => { this.handleDelete(e, _id) }}
+                            //         onClick={(event) => props.action.Update(event, props.data)}
+                            //     >
+                            //         <DeleteIcon />
+                            //     </IconButton>
+                            // </Row>
+                        ),
+                      }}/>
+              </Grow>
+    )
     if (this.props.warehouses.length > 0) {
       return (
         <div>
@@ -116,7 +159,7 @@ export class GoodsTable extends Component {
         </div>
       );
     } else {
-      return (
+      return(
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item>
             <div style={{ float: "center" }}>
@@ -134,10 +177,12 @@ export class GoodsTable extends Component {
             </div>
           </Grid>
         </Grid>
-      );
+      )
     }
   }
 }
+
+
 
 const mapStateToProps = (state) => ({
   warehouses: state.warehouseReducer.warehouses,
