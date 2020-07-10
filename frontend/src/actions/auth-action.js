@@ -63,6 +63,7 @@ export const signup = (email, password, fullName, birthday, numberPhone) => disp
             'Content-Type': 'application/json'
         }
     }
+    console.log({ email, password, fullName, birthday, numberPhone })
     const body = JSON.stringify({ email, password, fullName, birthday, numberPhone });
     axios.post('http://localhost:8000/api/signup', body, config)
         .then(res => {
