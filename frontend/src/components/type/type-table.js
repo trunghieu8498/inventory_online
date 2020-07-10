@@ -84,28 +84,51 @@ export class TypeTable extends Component {
                 />
             </Grow>
         )
-        return (
-            <div>
-                {this.props.warehouses.length > 0 ?
-                    <div>
-                        <Grid
-                            container
-                            direction="row"
-                            justify="flex-end"
-                            alignItems="flex-start"
-                            style={{ marginBottom: '1rem' }}
-                        >
-                            <Link to='/type/add' style={{ textDecoration: 'none' }} >
-                                <Button variant="contained" size="small" color="primary">Thêm loại hàng</Button>
-                            </Link>
-                        </Grid>
-                        {table}
+        if(this.props.warehouses.length > 0){
+            return (
+                <div>
+                    {this.props.warehouses.length ?
+                        <div>
+                            <Grid
+                                container
+                                direction="row"
+                                justify="flex-end"
+                                alignItems="flex-start"
+                                style={{ marginBottom: '1rem' }}
+                            >
+                                <Link to='/type/add' style={{ textDecoration: 'none' }} >
+                                    <Button variant="contained" size="small" color="primary">Thêm loại hàng</Button>
+                                </Link>
+                            </Grid>
+                            {table}
+                        </div>
+                        :
+                        <SuggestCreateWarehouseForm />
+                    }
+                </div>
+            );
+        }else{
+            return (
+                <Grid container direction="row" justify="center" alignItems="center">
+                  <Grid item>
+                    <div style={{ float: "center" }}>
+                      <MoonLoader
+                        color="#33bbff"
+                        size="60"
+                        animation="border"
+                        role="status"
+                        style={{ height: "10vh", width: "10vh" }}
+                      >
+                        <span>
+                          <strong style={{ fontSize: "5vh" }}>Loading...</strong>
+                        </span>
+                      </MoonLoader>
                     </div>
-                    :
-                    <SuggestCreateWarehouseForm />
-                }
-            </div>
-        )
+                  </Grid>
+                </Grid>
+              );
+        }
+        
     }
 }
 
