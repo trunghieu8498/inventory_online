@@ -45,6 +45,8 @@ export class TypeTable extends Component {
     }
 
     render() {
+        const { warehouses, isLoading } = this.props
+
         const table = (
             <Grow in={true}>
                 <MaterialTable
@@ -71,13 +73,13 @@ export class TypeTable extends Component {
                         ),
                         Action: props => (
                             <div>
-                                <UpdateTypeModal type_id={props.data.type_id}/>
+                                <UpdateTypeModal type_id={props.data.type_id} />
 
-                                <Button onClick={(e)=> props.action.Delete(e,props.data.type_id)}>
+                                <Button onClick={(e) => props.action.Delete(e, props.data.type_id)}>
                                     Xóa
-                                </Button>                   
+                                </Button>
                             </div>
-                    
+
                             // <Row>
                             //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
                             //         onClick={(event) => props.action.Update(event, props.data)}>
@@ -96,10 +98,10 @@ export class TypeTable extends Component {
                 />
             </Grow>
         )
-        if(this.props.warehouses.length > 0){
+        if (!isLoading) {
             return (
                 <div>
-                    {this.props.warehouses.length ?
+                    {warehouses.length ?
                         <div>
                             <Grid
                                 container
@@ -119,35 +121,36 @@ export class TypeTable extends Component {
                     }
                 </div>
             );
-        }else{
+        } else {
             return (
                 <Grid container direction="row" justify="center" alignItems="center">
-                  <Grid item>
-                    <div style={{ float: "center" }}>
-                      <MoonLoader
-                        color="#33bbff"
-                        size="60"
-                        animation="border"
-                        role="status"
-                        style={{ height: "10vh", width: "10vh" }}
-                      >
-                        <span>
-                          <strong style={{ fontSize: "5vh" }}>Loading...</strong>
-                        </span>
-                      </MoonLoader>
-                    </div>
-                  </Grid>
+                    <Grid item>
+                        <div style={{ float: "center" }}>
+                            <MoonLoader
+                                color="#33bbff"
+                                size="60"
+                                animation="border"
+                                role="status"
+                                style={{ height: "10vh", width: "10vh" }}
+                            >
+                                <span>
+                                    <strong style={{ fontSize: "5vh" }}>Loading...</strong>
+                                </span>
+                            </MoonLoader>
+                        </div>
+                    </Grid>
                 </Grid>
-              );
+            );
         }
-        
+
     }
 }
 
 const mapStateToProps = (state) => ({
     types: state.typeReducer.types,
     warehouses: state.warehouseReducer.warehouses,
-    warehouse_selected_id: state.warehouseReducer.warehouse_selected_id
+    warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
+    isLoading: state.loadReducer.isLoading
 })
 
 const mapDispatchToProps = {

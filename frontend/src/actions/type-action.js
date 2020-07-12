@@ -1,5 +1,7 @@
 import axios from 'axios'
 import { ADD_TYPE, GET_TYPES_BY_WAREHOUSE_ID, SELECT_TYPE_ID, UPDATE_TYPE, DELETE_TYPE } from "../constant"
+import { setIsLoading, setIsLoaded } from './load-action'
+
 
 export const addType = (typeName, warehouse_id) => dispatch => {
     const config = {
@@ -8,10 +10,8 @@ export const addType = (typeName, warehouse_id) => dispatch => {
         }
     }
     const body = JSON.stringify({ typeName, warehouse_id })
-    console.log(body)
     axios.post('http://localhost:8000/api/type/add', body, config)
         .then(res => {
-            console.log(res.data)
             dispatch({
                 type: ADD_TYPE,
                 payload: res.data
@@ -28,6 +28,7 @@ export const addType = (typeName, warehouse_id) => dispatch => {
 }
 
 export const getTypesByWarehouse_id = (warehouse_id) => dispatch => {
+    dispatch(setIsLoading())
     const config = {
         headers: {
             'Content-Type': 'application/json'
@@ -40,6 +41,7 @@ export const getTypesByWarehouse_id = (warehouse_id) => dispatch => {
                     type: GET_TYPES_BY_WAREHOUSE_ID,
                     payload: res.data
                 })
+                dispatch(setIsLoaded())
             })
             .catch((err) => {
                 // dispatch(returnErrors(err.res.data, err.res.status, 'LOGIN_FAIL'))
@@ -47,6 +49,7 @@ export const getTypesByWarehouse_id = (warehouse_id) => dispatch => {
                 //     type: LOGIN_FAIL
                 // })
                 alert(err)
+                dispatch(setIsLoaded())
             })
     else
         alert('Hãy chọn kho trước khi xem')
@@ -59,44 +62,48 @@ export const selectType_id = (type_id) => dispatch => {
     })
 }
 
-export const updateType = (type_id,typeName) => dispatch => {
+export const updateType = (type_id, typeName) => dispatch => {
+    dispatch(setIsLoading())
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
-    console.log(type_id)
-    const body = JSON.stringify({typeName })
+    const body = JSON.stringify({ typeName })
     axios.put(`http://localhost:8000/api/type/update/${type_id}`, body, config)
         .then(res => {
-            console.log(res.data)
             dispatch({
                 type: UPDATE_TYPE,
+                payload: res.data
             })
             alert('Đã sửa loại hàng')
+            dispatch(setIsLoaded())
         })
         .catch((err) => {
             alert(err.res.data)
+            dispatch(setIsLoaded())
         })
 }
 
 export const deleteType = (type_id) => dispatch => {
+    dispatch(setIsLoading())
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
-    console.log('id ne` ',type_id)
     const body = JSON.stringify({})
     axios.put(`http://localhost:8000/api/type/delete/${type_id}`, body, config)
         .then(res => {
-            console.log(res.data)
             dispatch({
                 type: DELETE_TYPE,
+                payload: res.data
             })
             alert('Xóa thành công')
+            dispatch(setIsLoaded())
         })
         .catch((err) => {
             alert(err.res.data)
+            dispatch(setIsLoaded())
         })
 }

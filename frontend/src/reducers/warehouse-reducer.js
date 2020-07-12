@@ -38,10 +38,12 @@ export default function (state = initialState, action) {
         case UPDATE_WAREHOUSE:
             return{
                 ...state,
+                warehouses: action.payload
             }
         case DELETE_WAREHOUSE:
             return{
                 ...state,
+                warehouses: action.payload
             }
         default:
             return state

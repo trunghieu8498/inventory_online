@@ -49,7 +49,8 @@ export class WarehouseTable extends Component {
   // }
 
   render() {
-    const warehouses = this.props.warehouses;
+    const { warehouses, isLoading } = this.props;
+
     const table = (
       <Grow in={true}>
         <MaterialTable
@@ -73,56 +74,19 @@ export class WarehouseTable extends Component {
             ),
             Action: (props) => (
               <div>
+                <UpdateWarehouseModal warehouse_id={props.data.warehouse_id} />
                 {/* <Button variant="outlined" color="primary" onClick={() => props.action.select(props.data.warehouse_id)}>Chọn</Button> */}
-                {/* <IconButton aria-label="edit" style={{ color: '#009FFF' }}
-    render() {
-        const warehouses = this.props.warehouses
-        const table = (
-            <Grow in={true}>
-                <MaterialTable
-                    title="DANH SÁCH KHO"
-                    columns={this.state.columns}
-                    data={this.state.data}
-                    actions={[
-                        {
-                            icon: 'save',
-                            tooltip: 'Save User',
-                            // Update: (e, rowData) => alert("You updated " + rowData.name),
-                            // Delete: (e, rowData) => alert("You deleted " + rowData.name),
-                            // select: (warehouse_id) => this.selectWarehouseHandle(warehouse_id)
-                        },
-                    ]}
-                    components={{
-                        Toolbar: props => (
-                            <div style={{ backgroundColor: '#e8eaf5' }}>
-                                <MTableToolbar {...props} />
-                            </div>
-                        ),
-                        Action: props => (
-                            <div>                         
-                                <UpdateWarehouseModal warehouse_id={props.data.warehouse_id}/>                                                   
-                                {/* <Button variant="outlined" color="primary" onClick={() => props.action.select(props.data.warehouse_id)}>Chọn</Button> */}
-                {/* <IconButton aria-label="edit" style={{ color: '#009FFF' }}
-                                    // onClick={(event) => props.action.Update(event, props.data)}
-                                    >
-                                    <EditIcon />
-                                </IconButton>
-                                <IconButton aria-label="delete" style={{ color: '#ec2F4B' }}
-                                    // onClick={(e) => { this.handleDelete(e, _id) }}
-                                    // onClick={(event) => props.action.Update(event, props.data)}
-                                >
-                                    <DeleteIcon />
-                                </IconButton> */}
               </div>
             ),
           }}
         />
       </Grow>
-    );
-    if (this.props.warehouses.length > 0) {
+    )
+
+    if (!isLoading) {
       return (
         <div>
-          {this.props.warehouses.length ? (
+          {warehouses.length ? (
             <div>
               <Grid
                 container
@@ -171,6 +135,7 @@ export class WarehouseTable extends Component {
 const mapStateToProps = (state) => ({
   warehouses: state.warehouseReducer.warehouses,
   customer_id: state.authReducer.customer_id,
+  isLoading: state.loadReducer.isLoading
 });
 
 const mapDispatchToProps = {

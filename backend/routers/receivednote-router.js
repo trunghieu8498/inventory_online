@@ -87,13 +87,13 @@ const updateReceivedNote = (req, res) => {
         'UPDATE RECEIVEDNOTE SET date = $1 WHERE receivednote_id = $2',
         [date, receivednote_id],
         (error, results) => {
-            if (error) {
+            if (error)
                 throw error
-            }
-            const receivednote = {
-                date: date,
-            }
-            res.status(201).json(receivednote)
+            pool.query('SELECT * FROM RECEIVEDNOTE', [], (error, results) => {
+                if (error)
+                    throw error
+                res.status(201).json(results.rows)
+            })
         }
     )
 }

@@ -42,6 +42,8 @@ export class ReceivedNoteTable extends Component {
     });
   };
   render() {
+    const { warehouses, isLoading } = this.props
+
     const table = (
       <Grow in={true}>
         <MaterialTable
@@ -85,10 +87,10 @@ export class ReceivedNoteTable extends Component {
         />
       </Grow>
     )
-    if (this.props.warehouses.length > 0) {
+    if (!isLoading) {
       return (
         <div>
-          {this.props.warehouses.length ? (
+          {warehouses.length ? (
             <div>
               <Grid
                 container
@@ -138,6 +140,7 @@ const mapStateToProps = (state) => ({
   warehouses: state.warehouseReducer.warehouses,
   warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
   receivedNotes: state.receivedNoteReducer.receivedNotes,
+  isLoading: state.loadReducer.isLoading
 });
 
 const mapDispatchToProps = {
