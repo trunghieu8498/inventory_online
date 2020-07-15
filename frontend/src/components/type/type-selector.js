@@ -23,8 +23,8 @@ class TypeSelector extends Component {
         const { types, warehouse_selected_id, getTypesByWarehouse_id, selectType_id } = this.props
         const { selectedIndex } = this.state
         
-        if (warehouse_selected_id !== null)
-            getTypesByWarehouse_id(warehouse_selected_id)
+        // if (warehouse_selected_id !== null) => note: lam updategoods modal ko hoat dong
+        //     getTypesByWarehouse_id(warehouse_selected_id)
     }
 
     componentDidUpdate = (prevProps, prevStates) => {
