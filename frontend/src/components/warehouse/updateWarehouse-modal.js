@@ -4,7 +4,9 @@ import Modal from '@material-ui/core/Modal';
 import { TextField, Grid, Card, Typography, Button, CardContent, CardActions } from '@material-ui/core'
 import {updateWarehouse} from '../../actions/warehouse-action'
 import { connect } from 'react-redux'
-
+//icon
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 class UpdateWarehouseModal extends Component {
     constructor(props) {
@@ -104,9 +106,9 @@ render(){
 
     return (
         <div>
-          <button type="button" onClick={()=> this.handleOpen()}>
-           Sửa Kho Hàng
-          </button>
+          <IconButton type="button" onClick={()=> this.handleOpen()}>
+           <EditIcon/>
+          </IconButton>
           <Modal
             open={this.state.show}
             onClose={()=> this.handleClose()}
