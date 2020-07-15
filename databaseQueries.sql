@@ -7,6 +7,12 @@ Tạo database:
         (Nếu ko biết user là gì mở Shell của postgreSQL lên, nhập \l rồi xem ở database vừa tạo cột owner là gì)
 */
 
+CREATE TABLE ADMIN (
+	admin_id varchar(20) PRIMARY KEY,
+	email varchar(30) UNIQUE NOT NULL,
+	password varchar(20) NOT NULL
+);
+
 CREATE TABLE CUSTOMER (
 	customer_id varchar(20) PRIMARY KEY,
 	email varchar(30) UNIQUE NOT NULL,
@@ -14,8 +20,7 @@ CREATE TABLE CUSTOMER (
 	fullName varchar(30) NOT NULL,
 	birthday date,
 	numberPhone varchar(12),
-	available boolean DEFAULT true,
-	isAdmin boolean DEFAULT false
+	available boolean DEFAULT true
 );
 
 CREATE TABLE WAREHOUSE(
@@ -109,7 +114,10 @@ CREATE TABLE DELIVERYNOTEDETAIL(
 		ON UPDATE NO ACTION ON DELETE NO ACTION
 );
 
---INSERT INTO CUSTOMER (email, password, fullName, birthday, numberPhone) VALUES ('hieu', '123', 'Trinh Trung Hieu', '04/08/1998', '0947303707')
+INSERT INTO ADMIN (admin_id, email, password) VALUES ('adminID','admin', '123');
+INSERT INTO CUSTOMER (customer_id, email, password, fullName, birthday, numberPhone) VALUES ('customer_01','hieu','123','Trung Hieu','04/08/1998','0947303707');
+INSERT INTO WAREHOUSE (warehouse_id, warehouseName, address, description, customer_id) VALUES ('warehouse_01', 'kho 1','diachine', 'motane', 'customer_01');
+INSERT INTO TYPE (type_id, typename, warehouse_id) VALUES ('type_01', 'Loai 1', 'warehouse_01');
+INSERT INTO GOODS (goods_id, goodsname, weight, description, costprice, sellingprice, inventorynumber, warehouse_id, type_id) VALUES ('goods_01', 'hang 1', 1, 'mota ne', 10, 12, 100, 'warehouse_01', 'type_01');
 
---DROP DATABASE inventoryonlinedb;
---DROP TABLE TYPE, CUSTOMER, WAREHOUSE, GOODS, DELIVERYNOTE, DELIVERYNOTEDETAIL, RECEIVEDNOTE, RECEIVEDNOTEDETAIL;
+--DROP TABLE ADMIN, TYPE, CUSTOMER, WAREHOUSE, GOODS, DELIVERYNOTE, DELIVERYNOTEDETAIL, RECEIVEDNOTE, RECEIVEDNOTEDETAIL;
