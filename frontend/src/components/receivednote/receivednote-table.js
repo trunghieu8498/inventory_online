@@ -5,7 +5,8 @@ import MaterialTable, { MTableToolbar } from "material-table";
 import { Link } from "react-router-dom";
 import { SuggestCreateWarehouseForm } from "../warehouse/suggestCreateWarehouse-form";
 // import { getWarehousesByCustomer_id } from '../../actions/warehouse-action'
-import { getReceivedNotesByWarehouse_id } from "../../actions/receivedNote-action";
+import { getReceivedNotesByWarehouse_id } from '../../actions/receivedNote-action'
+import ReceivedNoteDetailModal from '../receivednote/receivedNoteDetail-modal'
 import { MoonLoader } from "react-spinners";
 
 export class ReceivedNoteTable extends Component {
@@ -40,31 +41,34 @@ export class ReceivedNoteTable extends Component {
       data: receivedNotes,
     });
   };
-
   render() {
+    const { warehouses, isLoading } = this.props
+
     const table = (
       <Grow in={true}>
         <MaterialTable
           title="DANH SÁCH PHIẾU NHẬP KHO"
           columns={this.state.columns}
           data={this.state.data}
-          // actions={[
-          //     {
-          //         icon: 'save',
-          //         tooltip: 'Save User',
-          //         Update: (e, rowData) => alert("You updated " + rowData.name),
-          //         Delete: (e, rowData) => alert("You deleted " + rowData.name),
-          //     },
+          actions={[
+            {
+              icon: 'save',
+              tooltip: 'Save User',
+              // Update: (e, rowData) => alert("You updated " + rowData.name),
+              // Delete: (e, rowData) => alert("You deleted " + rowData.name),
+            },
 
-          // ]}
+          ]}
           components={{
-            Toolbar: (props) => (
-              <div style={{ backgroundColor: "#e8eaf5" }}>
+            Toolbar: props => (
+              <div style={{ backgroundColor: '#e8eaf5' }}>
                 <MTableToolbar {...props} />
               </div>
             ),
-            Action: (props) => (
-              <div></div>
+            Action: props => (
+              <div style={{ width: '10rem' }}>
+                <ReceivedNoteDetailModal />
+              </div>
               // <Row>
               //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
               //         onClick={(event) => props.action.Update(event, props.data)}>
@@ -78,14 +82,15 @@ export class ReceivedNoteTable extends Component {
               //     </IconButton>
               // </Row>
             ),
+
           }}
         />
       </Grow>
-    );
-    if (this.props.warehouses.length > 0) {
+    )
+    if (!isLoading) {
       return (
         <div>
-          {this.props.warehouses.length ? (
+          {warehouses.length ? (
             <div>
               <Grid
                 container
@@ -103,8 +108,8 @@ export class ReceivedNoteTable extends Component {
               {table}
             </div>
           ) : (
-            <SuggestCreateWarehouseForm />
-          )}
+              <SuggestCreateWarehouseForm />
+            )}
         </div>
       );
     } else {
@@ -135,6 +140,7 @@ const mapStateToProps = (state) => ({
   warehouses: state.warehouseReducer.warehouses,
   warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
   receivedNotes: state.receivedNoteReducer.receivedNotes,
+  isLoading: state.loadReducer.isLoading
 });
 
 const mapDispatchToProps = {

@@ -21,7 +21,7 @@ export default function (state = initialState, action) {
         case ADD_TYPE:
             return {
                 ...state,
-                // type: action.payload
+                types: [...state.types, action.payload]
             }
         case SELECT_TYPE_ID:
             return {
@@ -31,10 +31,12 @@ export default function (state = initialState, action) {
         case UPDATE_TYPE:
             return {
                 ...state,
+                types: action.payload
             }
         case DELETE_TYPE:
             return {
                 ...state,
+                types: action.payload
             }
         default:
             return state

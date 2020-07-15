@@ -11,8 +11,7 @@ const getWarehouses = (req, res) => {
 
 const getWarehousesByCustomer_id = (req, res) => {
     const customer_id = req.params.id
-    console.log('customer_id', customer_id)
-    try{
+    try {
         pool.query('SELECT * FROM WAREHOUSE WHERE customer_id = $1', [customer_id], (error, results) => {
             if (error) {
                 throw error
@@ -27,7 +26,6 @@ const getWarehousesByCustomer_id = (req, res) => {
 
 const getWarehouseById = (req, res) => {
     const id = req.params.id
-    console.log('loi ne',id)
     pool.query('SELECT * FROM WAREHOUSE WHERE warehouse_id = $1', [id], (error, results) => {
         if (error) {
             throw error
@@ -57,20 +55,17 @@ const addWarehouse = (req, res) => {
 const updateWarehouse = (req, res) => {
     const warehouse_id = req.params.id
     const { warehouseName, address, description } = req.body
-    console.log(req.body)
     pool.query(
         'UPDATE WAREHOUSE SET warehouseName = $1, address = $2, description = $3  WHERE warehouse_id = $4',
         [warehouseName, address, description, warehouse_id],
         (err, results) => {
-            if (err) {
+            if (err)
                 throw err
-            }
-            const warehouse = {
-                warehouseName: warehouseName,
-                address: address,
-                description: description,
-            }
-            res.status(200).json(warehouse)
+            pool.query('SELECT * FROM WAREHOUSE', [], (error, results) => {
+                if (error)
+                    throw error
+                res.status(200).json(results.rows)
+            })
         }
     )
 }
@@ -85,10 +80,11 @@ const deleteWarehouse = (req, res) => {
             if (err) {
                 throw err
             }
-            const warehouse = {
-                available : false
-            }
-            res.status(200).json(warehouse)
+            pool.query('SELECT * FROM WAREHOUSE', [], (error, results) => {
+                if (error)
+                    throw error
+                res.status(200).json(results.rows)
+            })
         }
     )
 }

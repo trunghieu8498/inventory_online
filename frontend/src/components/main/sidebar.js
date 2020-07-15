@@ -11,7 +11,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { getWarehousesByCustomer_id } from '../../actions/warehouse-action'
 import { getGoodsByWarehouse_id } from '../../actions/goods-action'
-import { getTypesByWarehouse_id} from '../../actions/type-action'
+import { getTypesByWarehouse_id } from '../../actions/type-action'
 //Icon
 import AllInboxIcon from '@material-ui/icons/AllInbox';
 import BallotIcon from '@material-ui/icons/Ballot';
@@ -19,7 +19,7 @@ import ArchiveIcon from '@material-ui/icons/Archive';
 import UnarchiveIcon from '@material-ui/icons/Unarchive';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 
-import {getReceivedNotesByWarehouse_id} from '../../actions/receivedNote-action'
+import { getReceivedNotesByWarehouse_id } from '../../actions/receivedNote-action'
 
 class Sidebar extends Component {
 
@@ -30,12 +30,11 @@ class Sidebar extends Component {
     componentDidUpdate = (prevProps) => {
         const { customer_id, warehouses, goodss, warehouse_selected_id } = this.props
 
-        if (prevProps.customer_id !== customer_id){
-            console.log('change')
+        if (prevProps.customer_id !== customer_id) {
             this.props.getWarehousesByCustomer_id(customer_id)
         }
 
-        if (prevProps.warehouse_selected_id !== warehouse_selected_id){
+        if (prevProps.warehouse_selected_id !== warehouse_selected_id && warehouse_selected_id !== '') {
             this.props.getGoodsByWarehouse_id(warehouse_selected_id)
             this.props.getTypesByWarehouse_id(warehouse_selected_id)
             this.props.getReceivedNotesByWarehouse_id(warehouse_selected_id)

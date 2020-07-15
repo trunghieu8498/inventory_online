@@ -48,95 +48,53 @@ export class GoodsTable extends Component {
     // if (prevProps.warehouse_selected_id !== warehouse_selected_id)
     //     getGoodsByWarehouse_id(this.props.warehouse_selected_id)
   }
+  render() {
+    const { warehouses, isLoading } = this.props
 
-  // render() {
-  //   const table = (
-  //     <Grow in={true}>
-  //       <MaterialTable
-  //         title="DANH SÁCH HÀNG HÀNG HÓA"
-  //         columns={this.state.columns}
-  //         data={this.state.data}
-  //         // actions={[
-  //         //     {
-  //         //         icon: 'save',
-  //         //         tooltip: 'Save User',
-  //         //         Update: (e, rowData) => alert("You updated " + rowData.name),
-  //         //         Delete: (e, rowData) => alert("You deleted " + rowData.name),
-  //         //     },
-
-  //         // ]}
-  //         components={{
-  //           Toolbar: (props) => (
-  //             <div style={{ backgroundColor: "#e8eaf5" }}>
-  //               <MTableToolbar {...props} />
-  //             </div>
-  //           ),
-  //           Action: (props) => (
-  //             <div></div>
-  //             // <Row>
-  //             //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
-  //             //         onClick={(event) => props.action.Update(event, props.data)}>
-  //             //         <EditIcon />
-  //             //     </IconButton>
-  //             //     <IconButton aria-label="delete" style={{ color: '#ec2F4B' }}
-  //             //         // onClick={(e) => { this.handleDelete(e, _id) }}
-  //             //         onClick={(event) => props.action.Update(event, props.data)}
-  //             //     >
-  //             //         <DeleteIcon />
-  //             //     </IconButton>
-  //             // </Row>
-  //           ),
-  //         }}
-  //       />
-  //     </Grow>
-  //   );
-    render() {
-        const table = (
-            <Grow in={true}>
-                <MaterialTable
-                    title="DANH SÁCH HÀNG HÀNG HÓA"
-                    columns={this.state.columns}
-                    data={this.state.data}
-                    actions={[
-                        {
-                            icon: 'save',
-                            tooltip: 'Save User',
-                            // Update: (e, rowData) => alert("You updated " + rowData.name),
-                            // Delete: (e, rowData) => alert("You deleted " + rowData.name),
-                        },
-
-                    ]}
-                    components={{
-                        Toolbar: props => (
-                            <div style={{ backgroundColor: '#e8eaf5' }}>
-                                <MTableToolbar {...props} />
-                            </div>
-                        ),
-                        Action: props => (
-                            <div>
-                                <UpdateGoodsModal goods_id={props.data.goods_id}/>
-                                
-                            </div>
-                            // <Row>
-                            //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
-                            //         onClick={(event) => props.action.Update(event, props.data)}>
-                            //         <EditIcon />
-                            //     </IconButton>
-                            //     <IconButton aria-label="delete" style={{ color: '#ec2F4B' }}
-                            //         // onClick={(e) => { this.handleDelete(e, _id) }}
-                            //         onClick={(event) => props.action.Update(event, props.data)}
-                            //     >
-                            //         <DeleteIcon />
-                            //     </IconButton>
-                            // </Row>
-                        ),
-                      }}/>
-              </Grow>
+    const table = (
+      <Grow in={true}>
+        <MaterialTable
+          title="DANH SÁCH HÀNG HÀNG HÓA"
+          columns={this.state.columns}
+          data={this.state.data}
+          actions={[
+            {
+              icon: 'save',
+              tooltip: 'Save User',
+              // Update: (e, rowData) => alert("You updated " + rowData.name),
+              // Delete: (e, rowData) => alert("You deleted " + rowData.name),
+            },
+          ]}
+          components={{
+            Toolbar: props => (
+              <div style={{ backgroundColor: '#e8eaf5' }}>
+                <MTableToolbar {...props} />
+              </div>
+            ),
+            Action: props => (
+              <div>
+                <UpdateGoodsModal goods_id={props.data.goods_id} />
+              </div>
+              // <Row>
+              //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
+              //         onClick={(event) => props.action.Update(event, props.data)}>
+              //         <EditIcon />
+              //     </IconButton>
+              //     <IconButton aria-label="delete" style={{ color: '#ec2F4B' }}
+              //         // onClick={(e) => { this.handleDelete(e, _id) }}
+              //         onClick={(event) => props.action.Update(event, props.data)}
+              //     >
+              //         <DeleteIcon />
+              //     </IconButton>
+              // </Row>
+            ),
+          }} />
+      </Grow>
     )
-    if (this.props.warehouses.length > 0) {
+    if (!isLoading) {
       return (
         <div>
-          {this.props.warehouses.length ? (
+          {warehouses.length ? (
             <div>
               <Grid
                 container
@@ -154,12 +112,12 @@ export class GoodsTable extends Component {
               {table}
             </div>
           ) : (
-            <SuggestCreateWarehouseForm />
-          )}
+              <SuggestCreateWarehouseForm />
+            )}
         </div>
       );
     } else {
-      return(
+      return (
         <Grid container direction="row" justify="center" alignItems="center">
           <Grid item>
             <div style={{ float: "center" }}>
@@ -188,6 +146,7 @@ const mapStateToProps = (state) => ({
   warehouses: state.warehouseReducer.warehouses,
   goodss: state.goodsReducer.goodss,
   warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
+  isLoading: state.loadReducer.isLoading
 });
 
 const mapDispatchToProps = {

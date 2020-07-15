@@ -56,7 +56,6 @@ const addGoods = (req, res) => {
 const updateGoods = (req, res) => {
     const goods_id = req.params.id
     const { goodsName, weight, description, costPrice, sellingPrice, inventoryNumber, type_id } = req.body
-    console.log(req.body)
     pool.query(
         'UPDATE GOODS SET goodsName = $1, weight = $2, description = $3, costPrice = $4, sellingPrice = $5, inventoryNumber = $6, type_id = $7 WHERE goods_id = $8',
         [goodsName, weight, description, costPrice, sellingPrice, inventoryNumber, type_id, goods_id],
@@ -64,24 +63,17 @@ const updateGoods = (req, res) => {
             if (err) {
                 throw err
             }
-            const goods = {
-                goodsName: goodsName,
-                weight: weight,
-                description: description,
-                costPrice: costPrice,
-                sellingPrice: sellingPrice,
-                inventoryNumber: inventoryNumber,
-                type_id: type_id
-            }
-            console.log('result', goods)
-            res.status(200).json(goods)
+            pool.query('SELECT * FROM GOODS', [], (error, results) => {
+                if (error)
+                    throw error
+                res.status(200).json(results.rows)
+            })
         }
     )
 }
 
 const deleteGoods = (req, res) => {
     const goods_id = req.params.id
-    console.log(req.body)
     pool.query(
         'UPDATE GOODS SET available = 0 WHERE goods_id = $1',
         [goods_id],
@@ -89,11 +81,11 @@ const deleteGoods = (req, res) => {
             if (err) {
                 throw err
             }
-            const goods = {
-                available: false
-            }
-            console.log('result', goods)
-            res.status(200).json(goods)
+            pool.query('SELECT * FROM TYPE', [], (error, results) => {
+                if (error)
+                    throw error
+                res.status(200).json(results.rows)
+            })
         }
     )
 }

@@ -15,7 +15,8 @@ export default function (state = initialState, action) {
             }
         case ADD_GOODS:
             return {
-                ...state
+                ...state,
+                goodss: [...state.goodss, action.payload]
             }
         case SELECT_GOODS:
             return {
@@ -25,10 +26,12 @@ export default function (state = initialState, action) {
         case UPDATE_GOODS:
             return {
                 ...state,
+                goodss: action.payload
             }
         case DELETE_GOODS:
             return {
                 ...state,
+                goodss: action.payload
             }
         default:
             return state

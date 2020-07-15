@@ -41,7 +41,7 @@ const addType = (req, res) => {
         }
         const type = {
             type_id: type_id,
-            typeName: typeName,
+            typename: typeName,
             warehouse_id: warehouse_id
         }
         res.status(201).json(type)
@@ -59,10 +59,11 @@ const updateType = (req, res) => {
             if (err) {
                 throw err
             }
-            const type = {
-                typeName: typeName,
-            }
-            res.status(200).json(type)
+            pool.query('SELECT * FROM TYPE', [], (error, results) => {
+                if (error)
+                    throw error
+                res.status(200).json(results.rows)
+            })
         }
     )
 }
@@ -77,10 +78,11 @@ const deleteType = (req, res) => {
             if (err) {
                 throw err
             }
-            const type = {
-                available: false
-            }
-            res.status(200).json(type)
+            pool.query('SELECT * FROM TYPE', [], (error, results) => {
+                if (error)
+                    throw error
+                res.status(200).json(results.rows)
+            })
         }
     )
 }

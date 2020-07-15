@@ -21,7 +21,6 @@ const getCustomerById = (req, res) => {
             // throw error
             res.status(400).json(error)
         }
-        console.log(results)
         res.status(200).json(results.rows[0])
     })
 }
@@ -37,12 +36,15 @@ const addCustomer = (req, res) => {
         if (error) {
             throw error
         }
-        pool.query('SELECT * FROM CUSTOMER WHERE email = $1', [email], (error, results) => {
-            if (error) {
-                throw error
-            }
-            res.status(200).json(results.rows[0])
-        })
+        const customer = {
+            customer_id: customer_id,
+            email: email,
+            password: password,
+            fullname: fullName,
+            birthday: birthday,
+            numberphone: numberPhone
+        }
+            res.status(200).json(customer)
     })
 }
 
