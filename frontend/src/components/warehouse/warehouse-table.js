@@ -4,7 +4,7 @@ import { Grow, Button, Grid } from "@material-ui/core";
 import MaterialTable, { MTableToolbar } from "material-table";
 import { Link } from "react-router-dom";
 import { SuggestCreateWarehouseForm } from "./suggestCreateWarehouse-form";
-import { getWarehousesByCustomer_id, selectWarehouse, loadWarehouse } from "../../actions/warehouse-action";
+import { getWarehousesByCustomer_id, selectWarehouse, loadWarehouse, deleteWarehouse } from "../../actions/warehouse-action";
 import { IconButton, EditIcon } from "@material-ui/icons";
 import { MoonLoader } from "react-spinners";
 import UpdateWarehouseModal from './updateWarehouse-modal'
@@ -64,6 +64,10 @@ export class WarehouseTable extends Component {
               // Update: (e, rowData) => alert("You updated " + rowData.name),
               // Delete: (e, rowData) => alert("You deleted " + rowData.name),
               // select: (warehouse_id) => this.selectWarehouseHandle(warehouse_id)
+              Delete: (_id) => {
+                // console.log(_id)
+                this.props.deleteWarehouse(_id)
+            }
             },
           ]}
           components={{
@@ -75,6 +79,11 @@ export class WarehouseTable extends Component {
             Action: (props) => (
               <div>
                 <UpdateWarehouseModal warehouse_id={props.data.warehouse_id} />
+                <Button 
+                  onClick={() => props.action.Delete(props.data.warehouse_id)}>
+                  {/* onClick={(e) => console.log('id ne` ',props.data.type_id)}> */}                                   
+                  Xóa
+                </Button>
                 {/* <Button variant="outlined" color="primary" onClick={() => props.action.select(props.data.warehouse_id)}>Chọn</Button> */}
               </div>
             ),
@@ -141,6 +150,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   getWarehousesByCustomer_id,
   selectWarehouse,
+  deleteWarehouse
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WarehouseTable);

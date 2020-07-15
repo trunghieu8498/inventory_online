@@ -12,11 +12,11 @@ const getTypes = (req, res) => {
 const getTypeByWarehouse_id = (req, res) => {
     const warehouse_id = req.params.id
 
-    pool.query('SELECT * FROM TYPE WHERE warehouse_id = $1', [warehouse_id], (error, results) => {
+    pool.query('SELECT * FROM TYPE WHERE warehouse_id = $1 AND available = true' , [warehouse_id], (error, results) => {
         if (error) {
             throw error
         }
-        res.status(200).json(results.rows)
+        res.status(200).json(results.rows) 
     })
 }
 
@@ -72,8 +72,8 @@ const deleteType = (req, res) => {
     const type_id = req.params.id
     console.log(type_id)
     pool.query(
-        'UPDATE TYPE SET available = 0 WHERE type_id = $1',
-        [type_id],
+        'UPDATE TYPE SET available = $1 WHERE type_id = $2',
+        [false,type_id],
         (err, results) => {
             if (err) {
                 throw err

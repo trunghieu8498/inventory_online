@@ -12,7 +12,7 @@ const getWarehouses = (req, res) => {
 const getWarehousesByCustomer_id = (req, res) => {
     const customer_id = req.params.id
     try {
-        pool.query('SELECT * FROM WAREHOUSE WHERE customer_id = $1', [customer_id], (error, results) => {
+        pool.query('SELECT * FROM WAREHOUSE WHERE customer_id = $1 AND available = true', [customer_id], (error, results) => {
             if (error) {
                 throw error
             }
@@ -74,8 +74,8 @@ const deleteWarehouse = (req, res) => {
     const warehouse_id = req.params.id
     console.log(req.body)
     pool.query(
-        'UPDATE WAREHOUSE SET available = 0  WHERE warehouse_id = $1',
-        [warehouse_id],
+        'UPDATE WAREHOUSE SET available = $1  WHERE warehouse_id = $2',
+        [false, warehouse_id],
         (err, results) => {
             if (err) {
                 throw err

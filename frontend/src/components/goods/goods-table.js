@@ -4,7 +4,7 @@ import { Grow, Button, Grid } from "@material-ui/core";
 import MaterialTable, { MTableToolbar } from "material-table";
 import { Link } from "react-router-dom";
 import { SuggestCreateWarehouseForm } from "../warehouse/suggestCreateWarehouse-form";
-// import { getGoodsByWarehouse_id } from '../../actions/goods-action'
+import { getGoodsByWarehouse_id, deleteGoods } from '../../actions/goods-action'
 import { MoonLoader } from "react-spinners";
 // import { makeStyles } from "@material-ui/core/styles";
 // import LinearProgress from "@material-ui/core/LinearProgress";
@@ -63,7 +63,11 @@ export class GoodsTable extends Component {
               tooltip: 'Save User',
               // Update: (e, rowData) => alert("You updated " + rowData.name),
               // Delete: (e, rowData) => alert("You deleted " + rowData.name),
-            },
+              Delete: (_id) => {
+                // console.log(_id)
+                this.props.deleteGoods(_id)
+              },
+            }
           ]}
           components={{
             Toolbar: props => (
@@ -74,6 +78,11 @@ export class GoodsTable extends Component {
             Action: props => (
               <div>
                 <UpdateGoodsModal goods_id={props.data.goods_id} />
+                <Button
+                  onClick={() => props.action.Delete(props.data.goods_id)}>
+                  {/* onClick={(e) => console.log('id ne` ',props.data.type_id)}> */}
+                    Xóa
+                </Button>
               </div>
               // <Row>
               //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
@@ -150,7 +159,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  // getGoodsByWarehouse_id
+  getGoodsByWarehouse_id,
+  deleteGoods
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoodsTable);
