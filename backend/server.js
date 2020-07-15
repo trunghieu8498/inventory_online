@@ -69,6 +69,7 @@ app.put('/api/receivednote/update/:id', receivednote.updateReceivedNote)
 
 app.get('/api/receivednotedetails', receivednotedetail.getReceivedNoteDetails)
 app.get('/api/receivednotedetail/:id', receivednotedetail.getReceivedNoteDetailById)
+app.get('/api/receivednotedetail/get/:id', receivednotedetail.getReceivedNoteDetailByReceivedNoteId)
 app.post('/api/receivednotedetail/add', receivednotedetail.addReceivedNoteDetail)
 app.put('/api/receivednotedetail/update/:id', receivednotedetail.updateReceivedNoteDetail)
 app.post('/api/receivednotedetail/add/list', receivednotedetail.addListReceivedNoteDetail)

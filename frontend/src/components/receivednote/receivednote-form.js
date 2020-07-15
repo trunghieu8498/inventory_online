@@ -22,7 +22,7 @@ class AddReceivedNoteForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     var today = new Date();
     this.state = {
-      date: today.getDate() + " / " + (today.getMonth() + 1) + " / " + today.getFullYear(),
+      date: (today.getMonth() + 1) + " / " + today.getDate() +  " / " + today.getFullYear(),
     }
   }
 
