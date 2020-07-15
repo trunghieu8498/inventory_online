@@ -11,14 +11,6 @@ import {
 } from "../../actions/warehouse-action";
 import { IconButton, EditIcon } from "@material-ui/icons";
 import { MoonLoader } from "react-spinners";
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { Grow, Button, Grid } from '@material-ui/core'
-import MaterialTable, { MTableToolbar } from 'material-table';
-import { Link } from 'react-router-dom'
-import { SuggestCreateWarehouseForm } from './suggestCreateWarehouse-form'
-import { getWarehousesByCustomer_id, selectWarehouse, loadWarehouse } from '../../actions/warehouse-action'
-import { IconButton, EditIcon } from '@material-ui/icons'
 import UpdateWarehouseModal from './updateWarehouse-modal'
 
 export class WarehouseTable extends Component {
