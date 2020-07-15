@@ -12,7 +12,7 @@ const getGoods = (req, res) => {
 const getGoodsByWarehouse_id = (req, res) => {
     const warehouse_id = req.params.id
 
-    pool.query('SELECT * FROM GOODS WHERE warehouse_id = $1', [warehouse_id], (error, results) => {
+    pool.query('SELECT * FROM GOODS WHERE warehouse_id = $1 AND available = true', [warehouse_id], (error, results) => {
         if (error) {
             throw error
         }
@@ -75,13 +75,13 @@ const updateGoods = (req, res) => {
 const deleteGoods = (req, res) => {
     const goods_id = req.params.id
     pool.query(
-        'UPDATE GOODS SET available = 0 WHERE goods_id = $1',
-        [goods_id],
+        'UPDATE GOODS SET available = $1 WHERE goods_id = $2',
+        [false, goods_id],
         (err, results) => {
             if (err) {
                 throw err
             }
-            pool.query('SELECT * FROM TYPE', [], (error, results) => {
+            pool.query('SELECT * FROM GOODS', [], (error, results) => {
                 if (error)
                     throw error
                 res.status(200).json(results.rows)

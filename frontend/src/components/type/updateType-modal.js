@@ -24,7 +24,6 @@ class UpdateTypeModal extends Component {
         e.preventDefault()
         console.log(type_id)
         this.props.updateType(this.props.type_id,typeName)
-
         this.resetInput()
     }
 

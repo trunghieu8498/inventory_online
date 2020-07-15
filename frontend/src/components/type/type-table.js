@@ -58,9 +58,9 @@ export class TypeTable extends Component {
                             icon: 'save',
                             tooltip: 'Save User',
                             // Update: (e, rowData) => alert("You updated " + rowData.name),
-                            Delete: (e, _id) => {
-                                console.log(_id)
-                                this.props.deleteType(e, _id)
+                            Delete: (_id) => {
+                                // console.log(_id)
+                                this.props.deleteType(_id)
                             }
                         },
 
@@ -75,7 +75,10 @@ export class TypeTable extends Component {
                             <div>
                                 <UpdateTypeModal type_id={props.data.type_id} />
 
-                                <Button onClick={(e) => props.action.Delete(e, props.data.type_id)}>
+                                <Button 
+                                    onClick={() => props.action.Delete(props.data.type_id)}>
+                                    {/* onClick={(e) => console.log('id ne` ',props.data.type_id)}> */}
+                                    
                                     Xóa
                                 </Button>
                             </div>
