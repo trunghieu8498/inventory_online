@@ -12,6 +12,17 @@ const getReceivedNoteDetails = (req, res) => {
     })
 }
 
+const getReceivedNoteDetailByReceivedNoteId = (req, res) => {
+    const id = req.params.id
+    console.log(id)
+    pool.query('SELECT * FROM RECEIVEDNOTEDETAIL WHERE receivednote_id = $1', [id], (error, results) => {
+        if (error) {
+            throw error
+        }
+        res.status(200).json(results.rows)
+    })
+}
+
 const getReceivedNoteDetailById = (req, res) => {
     const id = req.params.id
     pool.query('SELECT * FROM RECEIVEDNOTEDETAIL WHERE receivednotedetail_id = $1', [id], (error, results) => {
@@ -93,5 +104,6 @@ module.exports = {
     getReceivedNoteDetailById,
     addReceivedNoteDetail,
     updateReceivedNoteDetail,
-    addListReceivedNoteDetail
+    addListReceivedNoteDetail,
+    getReceivedNoteDetailByReceivedNoteId
 }

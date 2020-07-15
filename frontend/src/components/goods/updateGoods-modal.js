@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -31,12 +32,12 @@ class UpdateGoodsModal extends Component {
         this.props.updateGoods(this.props.goods_id, goodsName, weight, description, costPrice, sellingPrice, inventoryNumber, type_id)
         this.resetInput()
     }
-
-    changeHandler = (e) => {
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
+    
+  changeHandler = (e) => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
 
     resetInput = () => {
         this.setState({
@@ -159,4 +160,4 @@ const mapDispatchToProps = {
     updateGoods
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateGoodsModal)
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateGoodsModal);

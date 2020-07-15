@@ -4,7 +4,10 @@ import Modal from '@material-ui/core/Modal';
 import { TextField, Grid, Card, Typography, Button, CardContent, CardActions } from '@material-ui/core'
 import {updateType} from '../../actions/type-action'
 import { connect } from 'react-redux'
-
+//icon
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 class UpdateTypeModal extends Component {
     constructor(props) {
@@ -90,9 +93,9 @@ render(){
 
     return (
         <div>
-          <button type="button" onClick={()=> this.handleOpen()}>
-           Sửa Loại Hàng
-          </button>
+          <IconButton type="button" onClick={()=> this.handleOpen()}>
+           <EditIcon/>
+          </IconButton>
           <Modal
             open={this.state.show}
             onClose={()=> this.handleClose()}

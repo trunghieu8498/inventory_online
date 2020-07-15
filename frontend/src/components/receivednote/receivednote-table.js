@@ -67,7 +67,7 @@ export class ReceivedNoteTable extends Component {
             ),
             Action: props => (
               <div style={{ width: '10rem' }}>
-                <ReceivedNoteDetailModal />
+                <ReceivedNoteDetailModal receivedNoteId = {props.data.receivednote_id}/>
               </div>
               // <Row>
               //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
