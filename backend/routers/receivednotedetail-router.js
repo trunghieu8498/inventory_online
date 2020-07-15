@@ -14,7 +14,6 @@ const getReceivedNoteDetails = (req, res) => {
 
 const getReceivedNoteDetailByReceivedNoteId = (req, res) => {
     const id = req.params.id
-    console.log(id)
     pool.query('SELECT * FROM RECEIVEDNOTEDETAIL WHERE receivednote_id = $1', [id], (error, results) => {
         if (error) {
             throw error
