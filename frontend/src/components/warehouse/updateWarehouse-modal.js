@@ -14,7 +14,7 @@ class UpdateWarehouseModal extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
         console.log(props)
         this.state = {
-            warehouseName: '',
+            warehousename: '',
             address: '',
             description: '',
             show: false,
@@ -24,10 +24,10 @@ class UpdateWarehouseModal extends Component {
     }
 
     handleSubmit = (e) => {
-        const { warehouseName, address, description, warehouse_id } = this.state
+        const { warehousename, address, description, warehouse_id } = this.state
         e.preventDefault()
         console.log(warehouse_id)
-        this.props.updateWarehouse2222(this.props.warehouse_id, warehouseName, address, description )
+        this.props.updateWarehouse2222(this.props.warehouse_id, warehousename, address, description )
         this.resetInput()
     }
 
@@ -70,11 +70,11 @@ render(){
                                 spacing={2}
                             >
                                 <Grid item>
-                                    <TextField name="warehouseName"
+                                    <TextField name="warehousename"
                                         label="Tên kho"
                                         variant="outlined"
-                                        value={this.state.warehouseName}
-                                        inputRef={this.warehouseNameTextfield}
+                                        value={this.state.warehousename}
+                                        inputRef={this.warehousenameTextfield}
                                         autoFocus
                                         onChange={(e) => this.changeHandler(e)} />
                                 </Grid>

@@ -53,11 +53,10 @@ const addReceivedNoteDetail = (req, res) => {
 }
 
 const addListReceivedNoteDetail = (receivedNoteDetails, receivedNote_id) => {
-    const receivednotedetail_id = uniqid()
     // let array = []
     receivedNoteDetails.forEach(_receivedNoteDetail => {
+        const receivednotedetail_id = uniqid()
         const { quantity, costprice, goods_id } = _receivedNoteDetail.goods
-        
         pool.query('INSERT INTO RECEIVEDNOTEDETAIL (receivednotedetail_id, quantity, costprice, goods_id, receivednote_id) VALUES ($1, $2, $3, $4, $5)',
             [receivednotedetail_id, quantity, costprice, goods_id, receivedNote_id], (error, results) => {
                 if (error) {

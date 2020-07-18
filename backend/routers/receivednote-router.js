@@ -51,7 +51,6 @@ const addReceivedNote = (req, res) => {
     })
 }
 
-//dang viet
 /*
 viet 1 ham insert 1 luc nhieu receivednotedetail ben receivecNoteDetail-router
 khi insert 1 receivedNote se tro toi ham do' de insert cac receivedNoteDetail theo id cua no

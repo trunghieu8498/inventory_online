@@ -18,21 +18,20 @@ import { loadCustomer } from "./actions/auth-action";
 import GoodsTable from "./components/goods/goods-table";
 import TypeTable from "./components/type/type-table";
 import DeliveryNoteTable from "./components/deliverynote/deliveryNote-table";
-import ReceivedNoteTable from "./components/receivednote/receivednote-table";
+import ReceivedNoteTable from "./components/receivednote/receivedNote-table";
 import AddTypeForm from "./components/type/addType-form";
 import AddGoodsForm from "./components/goods/addGoods-form";
-import AddReceivedNoteForm from "./components/receivednote/receivednote-form";
-import AddDeliveryNoteForm from "./components/deliverynote/deliverynote-form";
+import AddReceivedNoteForm from "./components/receivednote/receivedNote-form";
+import AddDeliveryNoteForm from "./components/deliverynote/deliveryNote-form";
 import { loadWarehouse_selected_id } from "./actions/warehouse-action";
 import HomeContent from "./components/home/home-content";
 
 class App extends Component {
+  
   componentWillMount() {
-    store.dispatch(loadCustomer());
-  }
-
-  componentDidMount() {
-    store.dispatch(loadWarehouse_selected_id());
+    store.dispatch(loadCustomer()).then(() => {
+      store.dispatch(loadWarehouse_selected_id())
+    })
   }
 
   render() {
@@ -43,7 +42,7 @@ class App extends Component {
             <Sidebar />
           </Grid>
           <Grid item xs={9}>
-            <Content/>
+            <Content />
           </Grid>
         </Grid>
       </div>

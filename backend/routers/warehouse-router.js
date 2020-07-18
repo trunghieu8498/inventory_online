@@ -36,14 +36,14 @@ const getWarehouseById = (req, res) => {
 
 const addWarehouse = (req, res) => {
     const warehouse_id = uniqid()
-    const { warehouseName, address, description, customer_id } = req.body
-    pool.query('INSERT INTO WAREHOUSE (warehouse_id, warehouseName, address, description, customer_id) VALUES ($1, $2, $3, $4, $5)', [warehouse_id, warehouseName, address, description, customer_id], (error, results) => {
+    const { warehousename, address, description, customer_id } = req.body
+    pool.query('INSERT INTO WAREHOUSE (warehouse_id, warehousename, address, description, customer_id) VALUES ($1, $2, $3, $4, $5)', [warehouse_id, warehousename, address, description, customer_id], (error, results) => {
         if (error) {
             throw error
         }
         const warehouse = {
             warehouse_id: warehouse_id,
-            warehouseName: warehouseName,
+            warehousename: warehousename,
             address: address,
             description: description,
             customer_id: customer_id
@@ -54,10 +54,10 @@ const addWarehouse = (req, res) => {
 
 const updateWarehouse = (req, res) => {
     const warehouse_id = req.params.id
-    const { warehouseName, address, description } = req.body
+    const { warehousename, address, description } = req.body
     pool.query(
-        'UPDATE WAREHOUSE SET warehouseName = $1, address = $2, description = $3  WHERE warehouse_id = $4',
-        [warehouseName, address, description, warehouse_id],
+        'UPDATE WAREHOUSE SET warehousename = $1, address = $2, description = $3  WHERE warehouse_id = $4',
+        [warehousename, address, description, warehouse_id],
         (err, results) => {
             if (err)
                 throw err

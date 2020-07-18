@@ -59,7 +59,7 @@ const updateType = (req, res) => {
             if (err) {
                 throw err
             }
-            pool.query('SELECT * FROM TYPE', [], (error, results) => {
+            pool.query('SELECT * FROM TYPE WHERE available = $1', [true], (error, results) => {
                 if (error)
                     throw error
                 res.status(200).json(results.rows)
@@ -78,7 +78,7 @@ const deleteType = (req, res) => {
             if (err) {
                 throw err
             }
-            pool.query('SELECT * FROM TYPE', [], (error, results) => {
+            pool.query('SELECT * FROM TYPE WHERE available = $1', [true], (error, results) => {
                 if (error)
                     throw error
                 res.status(200).json(results.rows)

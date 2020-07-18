@@ -11,16 +11,16 @@ CREATE TABLE CUSTOMER (
 	customer_id varchar(20) PRIMARY KEY,
 	email varchar(30) UNIQUE NOT NULL,
 	password varchar(20) NOT NULL,
-	fullName varchar(30) NOT NULL,
+	fullname varchar(30) NOT NULL,
 	birthday date,
-	numberPhone varchar(12),
+	numberphone varchar(12),
 	available boolean DEFAULT true,
-	isAdmin boolean DEFAULT false
+	isadmin boolean DEFAULT false
 );
 
 CREATE TABLE WAREHOUSE(
 	warehouse_id varchar(20) PRIMARY KEY,
-	warehouseName varchar(30) NOT NULL,
+	warehousename varchar(30) NOT NULL,
 	address varchar(50),
 	description varchar(100),
 	available boolean DEFAULT true,
@@ -110,11 +110,11 @@ CREATE TABLE DELIVERYNOTEDETAIL(
 );
 
 --admin
-INSERT INTO CUSTOMER (customer_id, email, password, fullName, birthday, numberPhone) VALUES ('admin_01','admin','123','ADMIN','04/08/1998','0947303707');
+INSERT INTO CUSTOMER (customer_id, email, password, fullname, birthday, numberphone) VALUES ('admin_01','admin','123','ADMIN','04/08/1998','0947303707');
 --customer
-INSERT INTO CUSTOMER (customer_id, email, password, fullName, birthday, numberPhone) VALUES ('customer_01','hieu','123','Trung Hieu','04/08/1998','0947303707');
+INSERT INTO CUSTOMER (customer_id, email, password, fullname, birthday, numberphone) VALUES ('customer_01','hieu','123','Trung Hieu','04/08/1998','0947303707');
 --warehouse
-INSERT INTO WAREHOUSE (warehouse_id, warehouseName, address, description, customer_id) VALUES ('warehouse_01', 'kho 1','diachine', 'motane', 'customer_01');
+INSERT INTO WAREHOUSE (warehouse_id, warehousename, address, description, customer_id) VALUES ('warehouse_01', 'kho 1','diachine', 'motane', 'customer_01');
 --type
 INSERT INTO TYPE (type_id, typename, warehouse_id) VALUES ('type_01', 'Loai 1', 'warehouse_01');
 --goods

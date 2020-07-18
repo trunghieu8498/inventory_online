@@ -26,28 +26,21 @@ export class GoodsTable extends Component {
   }
 
   componentWillMount() {
-    // if (this.props.warehouse_selected_id !== null)
-    //     this.props.getGoodsByWarehouse_id(this.props.warehouse_selected_id)
     this.setState({
       data: this.props.goodss,
-    });
+    })
   }
 
-  componentDidUpdate(prevProps) {
-    const {
-      warehouse_selected_id,
-      goodss,
-      getGoodsByWarehouse_id,
-    } = this.props;
+  componentDidUpdate(prevProps, prevStates) {
+    const { warehouse_selected_id, goodss, getGoodsByWarehouse_id } = this.props;
 
-    if (prevProps.goodss !== goodss)
+    if (prevProps.goodss !== goodss){
       this.setState({
         data: goodss,
-      });
-
-    // if (prevProps.warehouse_selected_id !== warehouse_selected_id)
-    //     getGoodsByWarehouse_id(this.props.warehouse_selected_id)
+      })
+    }
   }
+
   render() {
     const { warehouses, isLoading } = this.props
 

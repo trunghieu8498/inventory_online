@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { SuggestCreateWarehouseForm } from "../warehouse/suggestCreateWarehouse-form";
 // import { getWarehousesByCustomer_id } from '../../actions/warehouse-action'
 import { getReceivedNotesByWarehouse_id } from '../../actions/receivedNote-action'
-import ReceivedNoteDetailModal from '../receivednote/receivedNoteDetail-modal'
+import ReceivedNoteDetailModal from './receivedNoteDetail-modal'
 import { MoonLoader } from "react-spinners";
 
 export class ReceivedNoteTable extends Component {

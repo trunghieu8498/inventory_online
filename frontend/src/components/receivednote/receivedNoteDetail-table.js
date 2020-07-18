@@ -55,7 +55,7 @@ export class ReceivedNoteDetailTable extends Component {
             </TableHead>
             <TableBody>
               {this.state.rows.map((row) => (
-                <TableRow key={row.name}>
+                <TableRow key={row.goods.goodsname}>
                   <TableCell component="th" scope="row">
                     {row.goods.goods_id}
                   </TableCell>
@@ -72,6 +72,7 @@ export class ReceivedNoteDetailTable extends Component {
     );
   }
 }
+
 const mapStateToProps = (state) => ({
   receivedNoteDetails: state.receivedNoteReducer.receivedNoteDetails,
 })

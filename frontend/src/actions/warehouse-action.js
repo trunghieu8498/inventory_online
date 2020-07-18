@@ -21,13 +21,13 @@ export const selectWarehouse = (warehouse_id) => dispatch => {
     })
 }
 
-export const addWarehouse = (warehouseName, address, description, customer_id) => dispatch => {
+export const addWarehouse = (warehousename, address, description, customer_id) => dispatch => {
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
-    const body = JSON.stringify({ warehouseName, address, description, customer_id })
+    const body = JSON.stringify({ warehousename, address, description, customer_id })
     axios.post('http://localhost:8000/api/warehouse/add', body, config)
         .then(res => {
             if (res.data) {
@@ -75,14 +75,14 @@ export const getWarehousesByCustomer_id = (customer_id) => dispatch => {
     //     alert('customer_id is "" ')
 }
 
-export const updateWarehouse = (warehouse_id, warehouseName, address, description) => dispatch => {
+export const updateWarehouse = (warehouse_id, warehousename, address, description) => dispatch => {
     dispatch(setIsLoading())
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
-    const body = JSON.stringify({ warehouseName, address, description })
+    const body = JSON.stringify({ warehousename, address, description })
     axios.put(`http://localhost:8000/api/warehouse/update/${warehouse_id}`, body, config)
         .then(res => {
             dispatch({

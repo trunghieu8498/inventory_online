@@ -11,17 +11,17 @@ class AddWarehouseForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this)
 
         this.state = {
-            warehouseName: '',
+            warehousename: '',
             address: '',
             description: '',
         }
-        this.warehouseNameTextfield = React.createRef()
+        this.warehousenameTextfield = React.createRef()
     }
 
     handleSubmit = (e) => {
-        const { warehouseName, address, description } = this.state
+        const { warehousename, address, description } = this.state
         e.preventDefault()
-        this.props.addWarehouse(warehouseName, address, description, this.props.customer_id)
+        this.props.addWarehouse(warehousename, address, description, this.props.customer_id)
 
         this.resetInput()
     }
@@ -34,7 +34,7 @@ class AddWarehouseForm extends Component {
 
     resetInput = () => {
         this.setState({
-            warehouseName: '',
+            warehousename: '',
             address: '',
             description: '',
         })
@@ -57,11 +57,11 @@ class AddWarehouseForm extends Component {
                                 spacing={2}
                             >
                                 <Grid item>
-                                    <TextField name="warehouseName"
+                                    <TextField name="warehousename"
                                         label="Tên kho"
                                         variant="outlined"
-                                        value={this.state.warehouseName}
-                                        inputRef={this.warehouseNameTextfield}
+                                        value={this.state.warehousename}
+                                        inputRef={this.warehousenameTextfield}
                                         autoFocus
                                         onChange={(e) => this.changeHandler(e)} />
                                 </Grid>

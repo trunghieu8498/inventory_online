@@ -40,12 +40,12 @@ const addGoods = (req, res) => {
         }
         const goods = {
             goods_id: goods_id,
-            goodsName: goodsName,
+            goodsname: goodsName,
             weight: weight,
             description: description,
-            costPrice: costPrice,
-            sellingPrice: sellingPrice,
-            inventoryNumber: inventoryNumber,
+            costprice: costPrice,
+            sellingprice: sellingPrice,
+            inventorynumber: inventoryNumber,
             warehouse_id: warehouse_id,
             type_id: type_id
         }
@@ -63,7 +63,7 @@ const updateGoods = (req, res) => {
             if (err) {
                 throw err
             }
-            pool.query('SELECT * FROM GOODS', [], (error, results) => {
+            pool.query('SELECT * FROM GOODS WHERE available = $1', [true], (error, results) => {
                 if (error)
                     throw error
                 res.status(200).json(results.rows)
@@ -81,7 +81,7 @@ const deleteGoods = (req, res) => {
             if (err) {
                 throw err
             }
-            pool.query('SELECT * FROM GOODS', [], (error, results) => {
+            pool.query('SELECT * FROM GOODS WHERE available = $1', [true], (error, results) => {
                 if (error)
                     throw error
                 res.status(200).json(results.rows)

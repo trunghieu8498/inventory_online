@@ -28,7 +28,7 @@ class Sidebar extends Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        const { customer_id, warehouses, goodss, warehouse_selected_id } = this.props
+        const { customer_id, warehouses, goodss, warehouse_selected_id, types } = this.props
 
         if (prevProps.customer_id !== customer_id) {
             this.props.getWarehousesByCustomer_id(customer_id)
@@ -105,7 +105,8 @@ const mapStateToProps = (state) => ({
     customer_id: state.authReducer.customer_id,
     warehouses: state.warehouseReducer.warehouses,
     warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
-    goodss: state.goodsReducer.goodss
+    goodss: state.goodsReducer.goodss,
+    types: state.typeReducer.types
 })
 
 const mapDispatchToProps = {
