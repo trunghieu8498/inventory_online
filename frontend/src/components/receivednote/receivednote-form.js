@@ -36,6 +36,7 @@ class AddReceivedNoteForm extends Component {
     const { date } = this.state
     const { receivedNoteDetails, warehouse_selected_id } = this.props
     this.props.addReceivedNote(date, warehouse_selected_id, receivedNoteDetails)
+    this.props.resetReceivedNoteTable()
   }
 
   changeHandler = (e) => {

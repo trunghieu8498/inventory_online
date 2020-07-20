@@ -10,14 +10,15 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl'
+import OutlinedInput from '@material-ui/core/OutlinedInput';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
 
 export class ReceivedNoteDetailTable extends Component {
   constructor(props) {
     super(props);
-  }
-
-  resetForm = () => {
-    
   }
 
   render() {
@@ -33,7 +34,17 @@ export class ReceivedNoteDetailTable extends Component {
             <TableCell align="right">{row.goods.goodsname}</TableCell>
             <TableCell align="right">{row.goods.weight}</TableCell>
             <TableCell align="right">{row.costprice}</TableCell>
-            <TableCell align="right">{row.quantity}</TableCell>
+            <TableCell align="right">
+              {row.quantity}
+              {/* <FormControl variant="outlined">
+                <OutlinedInput
+                  value={row.quantity}
+                  // onChange={handleChange('weight')}
+                  labelWidth={0}
+                  style={{width: '3rem'}}
+                />
+              </FormControl> */}
+            </TableCell>
           </TableRow>
         ))}
       </Fragment>
@@ -67,7 +78,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  // addType
+
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReceivedNoteDetailTable);

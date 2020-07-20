@@ -8,6 +8,7 @@ export const addReceivedNote = (date, warehouse_id, receivedNoteDetails) => disp
         }
     }
     const body = JSON.stringify({ date, warehouse_id, receivedNoteDetails })
+    console.log(receivedNoteDetails)
     axios.post(`http://localhost:8000/api/receivednote/add`, body, config)
         .then(res => {
             dispatch({
@@ -32,7 +33,7 @@ export const getReceivedNotesByWarehouse_id = (warehouse_id) => dispatch => {
             'Content-Type': 'application/json'
         }
     }
-    const body = JSON.stringify({ })
+    const body = JSON.stringify({})
     axios.get(`http://localhost:8000/api/receivednotes/get/${warehouse_id}`, body, config)
         .then(res => {
             dispatch({
@@ -41,7 +42,7 @@ export const getReceivedNotesByWarehouse_id = (warehouse_id) => dispatch => {
             })
         })
         .catch((err) => {
-            
+
             alert(err)
         })
 }

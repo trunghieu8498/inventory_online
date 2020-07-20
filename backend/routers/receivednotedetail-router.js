@@ -72,24 +72,19 @@ const addListReceivedNoteDetail = (receivedNoteDetails, receivedNote_id) => {
     // let array = []
     receivedNoteDetails.forEach(_receivedNoteDetail => {
         const receivednotedetail_id = uniqid()
-        const { quantity, costprice, goods_id } = _receivedNoteDetail.goods
+        const { goods_id, inventorynumber } = _receivedNoteDetail.goods
+        const { quantity, costprice } = _receivedNoteDetail
         pool.query('INSERT INTO RECEIVEDNOTEDETAIL (receivednotedetail_id, quantity, costprice, goods_id, receivednote_id) VALUES ($1, $2, $3, $4, $5)',
             [receivednotedetail_id, quantity, costprice, goods_id, receivedNote_id], (error, results) => {
-                if (error) {
+                if (error)
                     throw error
-                }
-                // var newReceivedNoteDetail = {
-                //     quantity: quantity,
-                //     costprice: costprice,
-                //     goods_id: goods_id,
-                //     receivednote_id: receivedNote_id
-                // }
-                // array = [...array, newReceivedNoteDetail]
+
+                pool.query('UPDATE GOODS SET inventorynumber = $1 WHERE goods_id = $2', [inventorynumber - quantity, goods_id], (error, results) => {
+                    if (error)
+                        throw error
+                })
             })
-        // console.log(2,goods_id)
     })
-    // console.log(3, array)
-    // res.status(200).json('Them received note detail thanh cong')
 }
 
 const updateReceivedNoteDetail = (req, res) => {
