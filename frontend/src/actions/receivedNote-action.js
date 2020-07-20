@@ -26,37 +26,6 @@ export const addReceivedNote = (date, warehouse_id, receivedNoteDetails) => disp
         })
 }
 
-export const addReceivedNoteDetailToTable = (goods_id) => dispatch => {
-    const config = {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-    const body = JSON.stringify({ goods_id })
-    axios.get(`http://localhost:8000/api/goods/${goods_id}`, body, config)
-        .then(res => {
-            const receivedNoteDetail = {
-                // goods_id: res.data.goods_id,
-                goods: res.data,
-                quantity: 1,
-                costprice: 0,
-            }
-            dispatch({
-                type: ADD_RECEIVED_NOTE_DETAIL,
-                payload: receivedNoteDetail
-            })
-            // alert('Đã thêm hàng mới')
-            console.log('da them')
-        })
-        .catch((err) => {
-            // dispatch(returnErrors(err.res.data, err.res.status, 'LOGIN_FAIL'))
-            // dispatch({
-            //     type: LOGIN_FAIL
-            // })
-            alert(err)
-        })
-}
-
 export const getReceivedNotesByWarehouse_id = (warehouse_id) => dispatch => {
     const config = {
         headers: {

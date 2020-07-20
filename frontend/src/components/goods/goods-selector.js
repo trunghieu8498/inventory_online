@@ -7,7 +7,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert'
 import { Typography } from '@material-ui/core'
 import { Grid, Button } from '@material-ui/core'
 import { selectGoods } from '../../actions/goods-action'
-import {addReceivedNoteDetailToTable} from '../../actions/receivedNote-action'
+import { addReceivedNoteDetailToTable } from '../../actions/receivedNoteDetail-action'
 
 class GoodsSelector extends Component {
     constructor(props) {
@@ -38,7 +38,7 @@ class GoodsSelector extends Component {
     }
 
     render() {
-        const { goodss } = this.props
+        const { goodss, receivedNoteDetails } = this.props
         const { anchorEl, selectedIndex } = this.state
         return (
             <div>
@@ -70,7 +70,7 @@ class GoodsSelector extends Component {
                                     // disabled={index === 0}
                                     // selected={index === selectedIndex}
                                     // onClick={(event) => this.props.selectGoods(goods.goods_id)}
-                                    onClick={(event) => this.props.addReceivedNoteDetailToTable(goods.goods_id)}
+                                    onClick={(event) => this.props.addReceivedNoteDetailToTable(goods, receivedNoteDetails)}
                                 >
                                     {goods.goodsname}
                                 </MenuItem>
@@ -86,7 +86,8 @@ class GoodsSelector extends Component {
 const mapStateToProps = (state) => ({
     goods_selected_id: state.goodsReducer.goods_selected_id,
     goodss: state.goodsReducer.goodss,
-    customer_id: state.authReducer.customer_id
+    customer_id: state.authReducer.customer_id,
+    receivedNoteDetails: state.receivedNoteReducer.receivedNoteDetails
 })
 
 const mapDispatchToProps = {

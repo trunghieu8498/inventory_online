@@ -12,15 +12,31 @@ const getReceivedNoteDetails = (req, res) => {
     })
 }
 
-const getReceivedNoteDetailByReceivedNoteId = (req, res) => {
+const getReceivedNoteDetailsByReceivedNoteId = (req, res) => {
     const id = req.params.id
-    pool.query('SELECT * FROM RECEIVEDNOTEDETAIL WHERE receivednote_id = $1', [id], (error, results) => {
-        if (error) {
+    pool.query('SELECT * FROM RECEIVEDNOTEDETAIL WHERE receivednote_id = $1', [id], async (error, results) => {
+        if (error)
             throw error
-        }
-        res.status(200).json(results.rows)
+        const promises = results.rows.map(row => {
+            return new Promise(resolve => {
+                const { goods_id } = row
+                pool.query('SELECT * FROM GOODS WHERE goods_id = $1', [goods_id], (error, results) => {
+                    if (error)
+                        throw error
+
+                    delete row.goods_id
+                    row.goods = results.rows[0]
+                    resolve(row)
+                })
+            })
+        })
+
+        Promise.all(promises)
+            .then(result => res.status(200).json(result))
     })
 }
+
+// const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 
 const getReceivedNoteDetailById = (req, res) => {
     const id = req.params.id
@@ -103,5 +119,5 @@ module.exports = {
     addReceivedNoteDetail,
     updateReceivedNoteDetail,
     addListReceivedNoteDetail,
-    getReceivedNoteDetailByReceivedNoteId
+    getReceivedNoteDetailsByReceivedNoteId
 }

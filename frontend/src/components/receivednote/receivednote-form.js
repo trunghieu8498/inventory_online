@@ -14,6 +14,7 @@ import ReceivedNoteDetailTable from "./receivedNoteDetail-table"
 import GoodsSelector from '../goods/goods-selector'
 import { addReceivedNote } from '../../actions/receivedNote-action'
 import { Link } from "react-router-dom";
+import { resetReceivedNoteTable } from '../../actions/receivedNoteDetail-action'
 
 class AddReceivedNoteForm extends Component {
   constructor(props) {
@@ -22,8 +23,12 @@ class AddReceivedNoteForm extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     var today = new Date();
     this.state = {
-      date: (today.getMonth() + 1) + " / " + today.getDate() +  " / " + today.getFullYear(),
+      date: (today.getMonth() + 1) + " / " + today.getDate() + " / " + today.getFullYear(),
     }
+  }
+
+  componentDidMount = () => {
+    this.props.resetReceivedNoteTable()
   }
 
   handleSubmit = (e) => {
@@ -78,7 +83,7 @@ class AddReceivedNoteForm extends Component {
               color="primary"
             >
               Xác nhận
-                  </Button>
+            </Button>
           </Grid>
         </Grid>
       </form>
@@ -111,7 +116,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-  // addType
+  resetReceivedNoteTable,
   addReceivedNote
 };
 

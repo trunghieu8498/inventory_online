@@ -1,7 +1,7 @@
-import { ADD_RECEIVED_NOTE_DETAIL, ADD_RECEIVED_NOTE, GET_RECEIVED_NOTES_BY_WAREHOUSE_ID, GET_RECEIVED_NOTE_DETAIL_BY_RECEIVED_NOTE_ID } from '../constant'
+import { ADD_RECEIVED_NOTE_DETAIL, ADD_RECEIVED_NOTE, GET_RECEIVED_NOTES_BY_WAREHOUSE_ID, GET_RECEIVED_NOTE_DETAIL_BY_RECEIVED_NOTE_ID, RESET_RECEIVED_NOTE_DETAIL_TABLE } from '../constant'
 
 const initialState = {
-    receivedNoteDetails: [], //array of 
+    receivedNoteDetails: [],
     receivedNotes: []
 }
 
@@ -10,7 +10,8 @@ export default function (state = initialState, action) {
         case ADD_RECEIVED_NOTE_DETAIL:
             return {
                 ...state,
-                receivedNoteDetails: [...state.receivedNoteDetails, action.payload]
+                // receivedNoteDetails: [...state.receivedNoteDetails, action.payload]
+                receivedNoteDetails: action.payload
             }
         case ADD_RECEIVED_NOTE:
             return {
@@ -22,9 +23,14 @@ export default function (state = initialState, action) {
                 receivedNotes: action.payload
             }
         case GET_RECEIVED_NOTE_DETAIL_BY_RECEIVED_NOTE_ID:
-            return{
+            return {
                 ...state,
                 receivedNoteDetails: action.payload
+            }
+        case RESET_RECEIVED_NOTE_DETAIL_TABLE:
+            return {
+                ...state,
+                receivedNoteDetails: []
             }
         default:
             return state

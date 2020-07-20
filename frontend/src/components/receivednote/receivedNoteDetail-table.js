@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Grow, Button, Grid } from "@material-ui/core";
 import MaterialTable, { MTableToolbar } from "material-table";
@@ -14,32 +14,31 @@ import Paper from '@material-ui/core/Paper';
 export class ReceivedNoteDetailTable extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      rows: []
-    };
-  }
-
-  componentDidMount = () => {
-    this.setState({
-      rows: this.props.receivedNoteDetails
-    })
-  }
-
-  componentDidUpdate = (prevProps, prevStates) => {
-    const { receivedNoteDetails } = this.props
-    if (prevProps.receivedNoteDetails !== receivedNoteDetails)
-      this.setState({
-        rows: this.props.receivedNoteDetails
-      })
   }
 
   resetForm = () => {
-    this.setState({
-      rows: []
-    })
+    
   }
 
   render() {
+    const { receivedNoteDetails } = this.props
+
+    const body = (
+      <Fragment>
+        {receivedNoteDetails.map((row) => (
+          <TableRow key={row.goods.goodsname}>
+            <TableCell component="th" scope="row">
+              {row.goods.goods_id}
+            </TableCell>
+            <TableCell align="right">{row.goods.goodsname}</TableCell>
+            <TableCell align="right">{row.goods.weight}</TableCell>
+            <TableCell align="right">{row.costprice}</TableCell>
+            <TableCell align="right">{row.quantity}</TableCell>
+          </TableRow>
+        ))}
+      </Fragment>
+    )
+
     return (
       <div>
         <TableContainer component={Paper}>
@@ -54,17 +53,7 @@ export class ReceivedNoteDetailTable extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {this.state.rows.map((row) => (
-                <TableRow key={row.goods.goodsname}>
-                  <TableCell component="th" scope="row">
-                    {row.goods.goods_id}
-                  </TableCell>
-                  <TableCell align="right">{row.goods.goodsname}</TableCell>
-                  <TableCell align="right">{row.goods.weight}</TableCell>
-                  <TableCell align="right">{row.costprice}</TableCell>
-                  <TableCell align="right">{row.quantity}</TableCell>
-                </TableRow>
-              ))}
+              {receivedNoteDetails.length ? body : null}
             </TableBody>
           </Table>
         </TableContainer>
