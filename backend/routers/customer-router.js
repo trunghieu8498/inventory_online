@@ -6,7 +6,7 @@ const sayHello = (req, res) => {
 }
 
 const getCustomers = (req, res) => {
-    pool.query('SELECT customer_id, email, fullname, birthday, numberphone FROM CUSTOMER ORDER BY customer_id ASC', (error, results) => {
+    pool.query('SELECT * FROM CUSTOMER ORDER BY customer_id ASC', (error, results) => {
         if (error) {
             throw error
         }
@@ -14,9 +14,17 @@ const getCustomers = (req, res) => {
     })
 }
 
+const getCustomersAsAdmin = (req, res) => {
+    pool.query('SELECT * FROM CUSTOMER', [], (error, results) => {
+        if (error)
+            throw error
+        res.status(200).json(results.rows)
+    })
+}
+
 const getCustomerById = (req, res) => {
     const id = req.params.id
-    pool.query('SELECT customer_id, email, fullname, birthday, numberphone FROM CUSTOMER WHERE customer_id = $1', [id], (error, results) => {
+    pool.query('SELECT * FROM CUSTOMER WHERE customer_id = $1', [id], (error, results) => {
         if (error) {
             // throw error
             res.status(400).json(error)
@@ -70,6 +78,6 @@ module.exports = {
     getCustomerById,
     addCustomer,
     updateCustomer,
-    //deleteUser,
+    getCustomersAsAdmin,
     sayHello
 }

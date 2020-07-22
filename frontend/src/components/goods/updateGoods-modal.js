@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -12,7 +11,6 @@ class UpdateGoodsModal extends Component {
     constructor(props) {
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
-        console.log(props)
         this.state = {
             goodsName: '',
             weight: '',

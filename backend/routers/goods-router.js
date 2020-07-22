@@ -9,15 +9,31 @@ const getGoods = (req, res) => {
     })
 }
 
-const getGoodsByWarehouse_id = (req, res) => {
-    const warehouse_id = req.params.id
-
-    pool.query('SELECT * FROM GOODS WHERE warehouse_id = $1 AND available = true', [warehouse_id], (error, results) => {
-        if (error) {
+const getGoodsAsAdmin = (req, res) => {
+    pool.query('SELECT * FROM GOODS', [], (error, results) => {
+        if (error)
             throw error
-        }
         res.status(200).json(results.rows)
     })
+}
+
+const getGoodsByWarehouse_id = (req, res) => {
+    const warehouse_id = req.params.id
+    const { isAdmin } = req.body
+    if (isAdmin)
+        pool.query('SELECT * FROM GOODS WHERE warehouse_id = $1', [warehouse_id], (error, results) => {
+            if (error) {
+                throw error
+            }
+            res.status(200).json(results.rows)
+        })
+    else
+        pool.query('SELECT * FROM GOODS WHERE warehouse_id = $1 AND available = true', [warehouse_id], (error, results) => {
+            if (error) {
+                throw error
+            }
+            res.status(200).json(results.rows)
+        })
 }
 
 const getGoodsById = (req, res) => {
@@ -96,6 +112,6 @@ module.exports = {
     addGoods,
     updateGoods,
     deleteGoods,
-    getGoodsByWarehouse_id
-    //deleteUser,
+    getGoodsByWarehouse_id,
+    getGoodsAsAdmin
 }
