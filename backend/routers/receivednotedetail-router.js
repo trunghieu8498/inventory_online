@@ -79,7 +79,7 @@ const addListReceivedNoteDetail = (receivedNoteDetails, receivedNote_id) => {
                 if (error)
                     throw error
 
-                pool.query('UPDATE GOODS SET inventorynumber = $1 WHERE goods_id = $2', [inventorynumber - quantity, goods_id], (error, results) => {
+                pool.query('UPDATE GOODS SET inventorynumber = $1 WHERE goods_id = $2', [inventorynumber + quantity, goods_id], (error, results) => {
                     if (error)
                         throw error
                 })

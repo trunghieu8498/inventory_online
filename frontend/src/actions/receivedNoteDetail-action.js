@@ -39,7 +39,7 @@ export const addReceivedNoteDetailToTable = (goods, receivedNoteDetails) => asyn
                 var newReceivedNoteDetail = {
                     goods: res.data,
                     quantity: 1,
-                    costprice: 0,
+                    costprice: 0
                 }
                 receivedNoteDetails = [...receivedNoteDetails, newReceivedNoteDetail]
                 dispatch({
