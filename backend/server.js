@@ -56,14 +56,17 @@ app.put('/api/goods/delete/:id', goods.deleteGoods)
 
 app.get('/api/deliverynotes', deliverynote.getDeliveryNotes)
 app.get('/api/deliverynote/:id', deliverynote.getDeliveryNoteById)
+app.get('/api/deliverynotes/get/:id', deliverynote.getDeliveryNoteByWarehouse_id)
 app.post('/api/deliverynote/add', deliverynote.addDeliveryNote)
 app.put('/api/deliverynote/update/:id', deliverynote.updateDeliveryNote)
 //app.delete('/users/:id', db.deleteUser)
 
 app.get('/api/deliverynotedetails', deliverynotedetail.getDeliveryNoteDetails)
 app.get('/api/deliverynotedetail/:id', deliverynotedetail.getDeliveryNoteDetailById)
+app.get('/api/deliverynotedetail/get/:id', deliverynotedetail.getDeliveryNoteDetailsByDeliveryNoteId)
 app.post('/api/deliverynotedetail/add', deliverynotedetail.addDeliveryNoteDetail)
 app.put('/api/deliverynotedetail/update/:id', deliverynotedetail.updateDeliveryNoteDetail)
+app.post('/api/deliverynotedetail/add/list', deliverynotedetail.addListDeliveryNoteDetail)
 
 app.get('/api/receivednotes', receivednote.getReceivedNotes)
 app.get('/api/receivednote/:id', receivednote.getReceivedNoteById)

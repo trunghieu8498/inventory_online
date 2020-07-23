@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { SuggestCreateWarehouseForm } from "../warehouse/suggestCreateWarehouse-form";
 // import { getWarehousesByCustomer_id } from '../../actions/warehouse-action'
 import { MoonLoader } from "react-spinners";
+import { getDeliveryNotesByWarehouse_id } from '../../actions/deliveryNote-action'
+import DeliveryNoteDetailModal from './deliveryNoteDetail-modal'
 
 export class DeliveryNoteTable extends Component {
   constructor(props) {
@@ -21,35 +23,42 @@ export class DeliveryNoteTable extends Component {
   }
 
   componentDidMount() {
-    //if (this.props.customer_id !== '')
-    // this.props.getWarehousesByCustomer_id(this.props.customer_id)
+    const { warehouse_selected_id } = this.props;
+    this.props.getDeliveryNotesByWarehouse_id(warehouse_selected_id);
   }
 
   componentDidUpdate(prevProps) {
-    // if (prevProps.warehouses !== this.props.warehouses)
-    //     this.setState({
-    //         data: this.props.warehouses
-    //     })
-    // if (prevProps.customer_id !== this.props.customer_id)
-    //     this.props.getWarehousesByCustomer_id(this.props.customer_id)
+    const { deliveryNotes, warehouse_selected_id } = this.props;
+    if (prevProps.deliveryNotes !== deliveryNotes)
+      this.setDataTable(deliveryNotes);
+
+    if (prevProps.warehouse_selected_id !== warehouse_selected_id)
+      this.props.getDeliveryNotesByWarehouse_id(warehouse_selected_id);
   }
 
+  setDataTable = (deliveryNotes) => {
+    this.setState({
+      data: deliveryNotes,
+    });
+  };
+
   render() {
+    const {warehouses, isLoading} =  this.props
     const table = (
       <Grow in={true}>
         <MaterialTable
           title="DANH SÁCH PHIẾU XUẤT KHO"
           columns={this.state.columns}
           data={this.state.data}
-          // actions={[
-          //     {
-          //         icon: 'save',
-          //         tooltip: 'Save User',
-          //         Update: (e, rowData) => alert("You updated " + rowData.name),
-          //         Delete: (e, rowData) => alert("You deleted " + rowData.name),
-          //     },
+          actions={[
+              {
+                  icon: 'save',
+                  tooltip: 'Save User',
+                  // Update: (e, rowData) => alert("You updated " + rowData.name),
+                  // Delete: (e, rowData) => alert("You deleted " + rowData.name),
+              },
 
-          // ]}
+          ]}
           components={{
             Toolbar: (props) => (
               <div style={{ backgroundColor: "#e8eaf5" }}>
@@ -57,7 +66,9 @@ export class DeliveryNoteTable extends Component {
               </div>
             ),
             Action: (props) => (
-              <div></div>
+              <div style={{ width: '10rem' }}>
+                <DeliveryNoteDetailModal deliveryNoteId = {props.data.deliverynote_id}/>
+              </div>
               // <Row>
               //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}
               //         onClick={(event) => props.action.Update(event, props.data)}>
@@ -75,10 +86,10 @@ export class DeliveryNoteTable extends Component {
         />
       </Grow>
     );
-    if (this.props.warehouses.length > 0) {
+    if (!isLoading) {
       return (
         <div>
-          {this.props.warehouses.length ? (
+          {warehouses.length ? (
             <div>
               <Grid
                 container
@@ -126,10 +137,13 @@ export class DeliveryNoteTable extends Component {
 
 const mapStateToProps = (state) => ({
   warehouses: state.warehouseReducer.warehouses,
+  warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
+  deliveryNotes: state.deliveryNoteReducer.deliveryNotes,
+  isLoading: state.loadReducer.isLoading
 });
 
 const mapDispatchToProps = {
-  //getWarehousesByCustomer_id
+  getDeliveryNotesByWarehouse_id
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeliveryNoteTable);

@@ -10,19 +10,19 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { getReceivedNoteDetailsByReceivedNoteId } from "../../actions/receivedNoteDetail-action";
+import { getDeliveryNoteDetailsByDeliveryNoteId } from "../../actions/deliveryNoteDetail-action";
 //icon
 import InfoIcon from '@material-ui/icons/Info';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
-import ReceivedNoteDetailTable from './receivedNoteDetail-table'
+import DeliveryNoteDetailTable from './deliveryNoteDetail-table'
 
-class ReceivedNoteDetailModal extends Component {
+class DeliveryNoteDetailModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      receivedNoteId: props.receivedNoteId,
+      deliveryNoteId: props.deliveryNoteId,
       // rows: [],
       show: false,
     };
@@ -33,10 +33,10 @@ class ReceivedNoteDetailModal extends Component {
   };
 
   handleShow = async () => {
-    this.props.getReceivedNoteDetailsByReceivedNoteId(this.state.receivedNoteId)
-      .then((receivedNoteDetails) => {
+    this.props.getDeliveryNoteDetailsByDeliveryNoteId(this.state.deliveryNoteId)
+      .then((deliveryNoteDetails) => {
         this.setState({
-          // rows: receivedNoteDetails,
+          // rows: deliveryNoteDetails,
           show: true,
         });
       });
@@ -58,7 +58,7 @@ class ReceivedNoteDetailModal extends Component {
           onClose={() => this.handleClose()}
         // style={{ position: "absolute" }}
         >
-          <ReceivedNoteDetailTable />
+          <DeliveryNoteDetailTable />
         </Modal>
       </div>
     );
@@ -66,14 +66,14 @@ class ReceivedNoteDetailModal extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  receivedNoteDetails: state.receivedNoteReducer.receivedNoteDetails,
+  deliveryNoteDetails: state.deliveryNoteReducer.deliveryNoteDetails,
 });
 
 const mapDispatchToProps = {
-  getReceivedNoteDetailsByReceivedNoteId,
+  getDeliveryNoteDetailsByDeliveryNoteId,
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ReceivedNoteDetailModal);
+)(DeliveryNoteDetailModal);

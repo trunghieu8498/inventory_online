@@ -8,6 +8,7 @@ import { Typography } from '@material-ui/core'
 import { Grid, Button } from '@material-ui/core'
 import { selectGoods } from '../../actions/goods-action'
 import { addReceivedNoteDetailToTable } from '../../actions/receivedNoteDetail-action'
+import { addDeliveryNoteDetailToTable } from '../../actions/deliveryNoteDetail-action'
 
 class GoodsSelector extends Component {
     constructor(props) {
@@ -24,7 +25,15 @@ class GoodsSelector extends Component {
         })
     }
 
-    handleMenuItemClick = (event, index) => {
+    // handleClickListItem2 = (event2) => {
+    //     this.setState({
+    //         anchorEl: event2.currentTarget
+    //     })
+    // }
+
+    handleMenuItemClick = (event, 
+        // event2, 
+        index) => {
         this.setState({
             // selectedIndex: index,
             anchorEl: null
@@ -38,7 +47,7 @@ class GoodsSelector extends Component {
     }
 
     render() {
-        const { goodss, receivedNoteDetails } = this.props
+        const { goodss, receivedNoteDetails, deliveryNoteDetails} = this.props
         const { anchorEl, selectedIndex } = this.state
         return (
             <div>
@@ -70,7 +79,9 @@ class GoodsSelector extends Component {
                                     // disabled={index === 0}
                                     // selected={index === selectedIndex}
                                     // onClick={(event) => this.props.selectGoods(goods.goods_id)}
-                                    onClick={(event) => this.props.addReceivedNoteDetailToTable(goods, receivedNoteDetails)}
+                                    onClick={(event) => window.location.href === 'http://localhost:3000/receivednote/add' ? 
+                                    this.props.addReceivedNoteDetailToTable(goods, receivedNoteDetails) : this.props.addDeliveryNoteDetailToTable(goods, deliveryNoteDetails)}
+                                    // onClick={(event2) => this.props.addDeliveryNoteDetailToTable(goods, deliveryNoteDetails)}
                                 >
                                     {goods.goodsname}
                                 </MenuItem>
@@ -87,13 +98,15 @@ const mapStateToProps = (state) => ({
     goods_selected_id: state.goodsReducer.goods_selected_id,
     goodss: state.goodsReducer.goodss,
     customer_id: state.authReducer.customer_id,
-    receivedNoteDetails: state.receivedNoteReducer.receivedNoteDetails
+    receivedNoteDetails: state.receivedNoteReducer.receivedNoteDetails,
+    deliveryNoteDetails: state.deliveryNoteReducer.deliveryNoteDetails
 })
 
 const mapDispatchToProps = {
     // getWarehousesByCustomer_id,
     selectGoods,
-    addReceivedNoteDetailToTable
+    addReceivedNoteDetailToTable,
+    addDeliveryNoteDetailToTable
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoodsSelector)

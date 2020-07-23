@@ -11,6 +11,10 @@ import {
 } from "@material-ui/core";
 import { addType } from "../../actions/type-action";
 import DeliveryNoteDetailTable from "./deliveryNoteDetail-table";
+import GoodsSelector from "../goods/goods-selector";
+import { addDeliveryNote } from "../../actions/deliveryNote-action";
+import { Link } from "react-router-dom";
+import { resetDeliveryNoteTable } from "../../actions/deliveryNoteDetail-action";
 
 class AddDeliveryNoteForm extends Component {
   constructor(props) {
@@ -20,20 +24,29 @@ class AddDeliveryNoteForm extends Component {
     var today = new Date();
     this.state = {
       date:
-        today.getDate() +
+        today.getMonth() +
+        1 +
         " / " +
-        (today.getMonth() + 1) +
+        today.getDate() +
         " / " +
         today.getFullYear(),
     };
-    this.typeNameTextfield = React.createRef();
   }
 
+  componentDidMount = () => {
+    this.props.resetDeliveryNoteTable();
+  };
+
   handleSubmit = (e) => {
-    // const { typeName } = this.state
-    // e.preventDefault()
-    // this.props.addType(typeName, this.props.warehouse_selected_id)
-    // this.resetInput()
+    e.preventDefault();
+    const { date } = this.state;
+    const { deliveryNoteDetails, warehouse_selected_id } = this.props;
+    this.props.addDeliveryNote(
+      date,
+      warehouse_selected_id,
+      deliveryNoteDetails
+    );
+    this.props.resetDeliveryNoteTable();
   };
 
   changeHandler = (e) => {
@@ -42,64 +55,69 @@ class AddDeliveryNoteForm extends Component {
     });
   };
 
-  resetInput = () => {
-    this.setState({
-      typeName: "",
-    });
-  };
-
   render() {
+    const form = (
+      <form onSubmit={this.handleSubmit} noValidate autoComplete="off">
+        <Grid
+          container
+          direction="column"
+          justify="center"
+          alignItems="flex-start"
+          spacing={2}
+        >
+          <Grid item>
+            <TextField
+              name="date"
+              label="Ngày xuất"
+              variant="outlined"
+              value={this.state.date}
+              inputRef={this.typeNameTextfield}
+              autoFocus
+              onChange={(e) => this.changeHandler(e)}
+            />
+          </Grid>
+          <Grid
+            item
+            container
+            direction="row"
+            justify="center"
+            alignItems="right"
+          >
+            <GoodsSelector />
+          </Grid>
+          <Grid item>
+            <DeliveryNoteDetailTable />
+          </Grid>
+          <Grid item>
+            <Button
+              type="submit"
+              variant="contained"
+              size="medium"
+              color="primary"
+            >
+              Xác nhận
+            </Button>
+          </Grid>
+        </Grid>
+      </form>
+    );
+
+    const note = (
+      <div>
+        <p>
+          Bạn chưa có hàng hóa nào, vui lòng Thêm ít nhất 1 hàng hóa để tạo
+          phiếu xuất
+        </p>
+        <Link to="/goods/add">Tạo ngay</Link>
+      </div>
+    );
+
     return (
       <div>
         <Typography>Thêm phiếu xuất</Typography>
         <Card variant="outlined">
           <CardContent>
-            <form onSubmit={this.handleSubmit} noValidate autoComplete="off">
-              <Grid
-                container
-                direction="column"
-                justify="center"
-                alignItems="flex-start"
-                spacing={2}
-              >
-                <Grid item>
-                  <TextField
-                    name="date"
-                    label="Ngày xuất"
-                    variant="outlined"
-                    value={this.state.date}
-                    inputRef={this.typeNameTextfield}
-                    autoFocus
-                    onChange={(e) => this.changeHandler(e)}
-                  />
-                </Grid>
-                <Grid
-                  item
-                  container
-                  direction="row"
-                  justify="center"
-                  alignItems="right"
-                >
-                  <Button variant="contained" size="medium" color="primary">
-                    Chọn hàng
-                  </Button>
-                </Grid>
-
-                <Grid item>
-                  <DeliveryNoteDetailTable />
-                </Grid>
-                <Grid item>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    size="medium"
-                    color="primary"
-                  >
-                    Xác nhận
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
+            {this.props.goodss.length > 0 ? form : note}
           </CardContent>
         </Card>
       </div>
@@ -108,11 +126,14 @@ class AddDeliveryNoteForm extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  // warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
+  warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
+  deliveryNoteDetails: state.deliveryNoteReducer.deliveryNoteDetails,
+  goodss: state.goodsReducer.goodss,
 });
 
 const mapDispatchToProps = {
-  // addType
+  resetDeliveryNoteTable,
+  addDeliveryNote,
 };
 
 export default connect(
