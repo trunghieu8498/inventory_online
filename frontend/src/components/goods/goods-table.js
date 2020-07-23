@@ -9,6 +9,9 @@ import { MoonLoader } from "react-spinners";
 // import { makeStyles } from "@material-ui/core/styles";
 // import LinearProgress from "@material-ui/core/LinearProgress";
 import UpdateGoodsModal from './updateGoods-modal'
+//icon
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 export class GoodsTable extends Component {
   constructor(props) {
@@ -73,11 +76,13 @@ export class GoodsTable extends Component {
                 <UpdateGoodsModal goods_id={props.data.goods_id} />
                 {
                   props.data.available ?
-                    <Button
+                  <IconButton color="secondary">
+                    <DeleteIcon
                       onClick={() => props.action.Delete(props.data.goods_id)}>
                       {/* onClick={(e) => console.log('id ne` ',props.data.type_id)}> */}
-                      Xóa
-                    </Button>
+                    
+                    </DeleteIcon>
+                  </IconButton>
                     :
                     null
                 }

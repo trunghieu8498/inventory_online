@@ -45,7 +45,7 @@ class DeliveryNoteDetailModal extends Component {
   render() {
     return (
       <div>
-        <IconButton
+        <IconButton color="inherit"
           variant="contained"
           size="large"
           // style={{ backgroundColor: '#ffab00' }}

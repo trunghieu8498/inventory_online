@@ -91,8 +91,8 @@ class UpdateTypeModal extends Component {
 
         return (
             <div>
-                <IconButton type="button" onClick={() => this.handleOpen()}>
-                    <EditIcon />
+                <IconButton type="button" color="primary" onClick={() => this.handleOpen()}>
+                    <EditIcon/>
                 </IconButton>
                 <Modal
                     open={this.state.show}

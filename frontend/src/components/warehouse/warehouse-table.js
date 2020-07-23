@@ -4,10 +4,17 @@ import { Grow, Button, Grid } from "@material-ui/core";
 import MaterialTable, { MTableToolbar } from "material-table";
 import { Link } from "react-router-dom";
 import { SuggestCreateWarehouseForm } from "./suggestCreateWarehouse-form";
-import { getWarehousesByCustomer_id, selectWarehouse, loadWarehouse, deleteWarehouse } from "../../actions/warehouse-action";
-import { IconButton, EditIcon } from "@material-ui/icons";
+import {
+  getWarehousesByCustomer_id,
+  selectWarehouse,
+  loadWarehouse,
+  deleteWarehouse,
+} from "../../actions/warehouse-action";
 import { MoonLoader } from "react-spinners";
-import UpdateWarehouseModal from './updateWarehouse-modal'
+import UpdateWarehouseModal from "./updateWarehouse-modal";
+//icon
+import IconButton from "@material-ui/core/IconButton";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 export class WarehouseTable extends Component {
   constructor(props) {
@@ -18,7 +25,7 @@ export class WarehouseTable extends Component {
         { title: "Tên kho", field: "warehousename" },
         { title: "Địa chỉ", field: "address" },
         { title: "Mô tả", field: "description" },
-        { title: "Tình trạng", field: "available"}
+        { title: "Tình trạng", field: "available" },
       ],
       data: [],
     };
@@ -37,36 +44,32 @@ export class WarehouseTable extends Component {
   // }
 
   componentDidUpdate(prevProps) {
-
     if (prevProps.warehouses !== this.props.warehouses) {
+      let arr = [];
+      this.props.warehouses.forEach((warehouse) => {
+        let available;
+        if (warehouse.available) available = "Tồn tại";
+        else available = "Đã xóa";
 
-        let arr = [];
-        this.props.warehouses.forEach(warehouse => {
-            let available
-            if (warehouse.available)
-                available = 'Tồn tại'
-            else
-                available = 'Đã xóa'
+        const temp = {
+          warehouse_id: warehouse.warehouse_id,
+          warehousename: warehouse.warehousename,
+          address: warehouse.address,
+          description: warehouse.description,
+          available: available,
+        };
 
-            const temp = {
-                warehouse_id: warehouse.warehouse_id,
-                warehousename: warehouse.warehousename,
-                address: warehouse.address,
-                description: warehouse.description,
-                available: available
-            }
-
-            arr = [...arr, temp]
-        });
-        this.setState({
-            data: arr
-        })
+        arr = [...arr, temp];
+      });
+      this.setState({
+        data: arr,
+      });
     }
     // if (prevProps.warehouses !== this.props.warehouses)
     //   this.setState({
     //     data: this.props.warehouses,
-        
-    //   });    
+
+    //   });
 
     // if (prevProps.warehouses !== this.props.customer_id)
     //     this.props.getWarehousesByCustomer_id(this.props.customer_id)
@@ -94,8 +97,8 @@ export class WarehouseTable extends Component {
               // select: (warehouse_id) => this.selectWarehouseHandle(warehouse_id)
               Delete: (_id) => {
                 // console.log(_id)
-                this.props.deleteWarehouse(_id)
-            }
+                this.props.deleteWarehouse(_id);
+              },
             },
           ]}
           components={{
@@ -107,22 +110,24 @@ export class WarehouseTable extends Component {
             Action: (props) => (
               <div>
                 <UpdateWarehouseModal warehouse_id={props.data.warehouse_id} />
-                {props.data.available === 'Tồn tại'? 
-                  <Button 
-                  onClick={() => props.action.Delete(props.data.warehouse_id)}>
-                  {/* onClick={(e) => console.log('id ne` ',props.data.type_id)}> */}                                   
-                  Xóa
-                  </Button>
-                  :
-                  null
-                }
+                {props.data.available === "Tồn tại" ? (
+                  <IconButton>
+                    <DeleteIcon
+                      onClick={() =>
+                        props.action.Delete(props.data.warehouse_id)
+                      }
+                    >
+                      {/* onClick={(e) => console.log('id ne` ',props.data.type_id)}> */}
+                    </DeleteIcon>
+                  </IconButton>
+                ) : null}
                 {/* <Button variant="outlined" color="primary" onClick={() => props.action.select(props.data.warehouse_id)}>Chọn</Button> */}
               </div>
             ),
           }}
         />
       </Grow>
-    )
+    );
 
     if (!isLoading) {
       return (
@@ -145,8 +150,8 @@ export class WarehouseTable extends Component {
               {table}
             </div>
           ) : (
-              <SuggestCreateWarehouseForm />
-            )}
+            <SuggestCreateWarehouseForm />
+          )}
         </div>
       );
     } else {
@@ -176,13 +181,13 @@ export class WarehouseTable extends Component {
 const mapStateToProps = (state) => ({
   warehouses: state.warehouseReducer.warehouses,
   customer_id: state.authReducer.customer_id,
-  isLoading: state.loadReducer.isLoading
+  isLoading: state.loadReducer.isLoading,
 });
 
 const mapDispatchToProps = {
   getWarehousesByCustomer_id,
   selectWarehouse,
-  deleteWarehouse
+  deleteWarehouse,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(WarehouseTable);

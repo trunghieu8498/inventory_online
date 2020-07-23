@@ -105,7 +105,7 @@ render(){
 
     return (
         <div>
-          <IconButton type="button" onClick={()=> this.handleOpen()}>
+          <IconButton type="button" color="primary" onClick={()=> this.handleOpen()}>
            <EditIcon/>
           </IconButton>
           <Modal
