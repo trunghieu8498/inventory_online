@@ -5,7 +5,9 @@ import { TextField, Grid, Card, Typography, Button, CardContent, CardActions } f
 import { updateGoods } from '../../actions/goods-action'
 import { connect } from 'react-redux'
 import TypeSelector from '../type/type-selector'
-
+//icon
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 class UpdateGoodsModal extends Component {
     constructor(props) {
@@ -135,9 +137,9 @@ class UpdateGoodsModal extends Component {
         )
         return (
             <div>
-                <button type="button" onClick={() => this.handleOpen()}>
-                    Sửa
-          </button>
+                <IconButton type="button" color='primary' onClick={() => this.handleOpen()}>
+                    <EditIcon/>
+                </IconButton>
                 <Modal
                     open={this.state.show}
                     onClose={() => this.handleClose()}
