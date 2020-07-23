@@ -18,14 +18,16 @@ import BallotIcon from '@material-ui/icons/Ballot';
 import ArchiveIcon from '@material-ui/icons/Archive';
 import UnarchiveIcon from '@material-ui/icons/Unarchive';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
-
+import { getCustomersAsAdmin } from '../../actions/customer-action'
 import { getReceivedNotesByWarehouse_id } from '../../actions/receivedNote-action'
 
 class Sidebar extends Component {
 
     componentDidMount = () => {
-        if (this.props.isAdmin)
+        if (this.props.isAdmin) {
+            this.props.getCustomersAsAdmin()
             this.props.getWarehouseAsAdmin()
+        }
         else
             this.props.getWarehousesByCustomer_id(this.props.customer_id)
     }
@@ -34,8 +36,10 @@ class Sidebar extends Component {
         const { customer_id, warehouses, goodss, warehouse_selected_id, types, isAdmin } = this.props
 
         if (prevProps.customer_id !== customer_id) {
-            if (isAdmin)
+            if (isAdmin) {
+                this.props.getCustomersAsAdmin()
                 this.props.getWarehouseAsAdmin()
+            }
             else
                 this.props.getWarehousesByCustomer_id(customer_id)
         }
@@ -104,7 +108,7 @@ class Sidebar extends Component {
                         </Link>
                         <Divider />
                         {this.props.isAdmin ?
-                            <Link to='/warehouse' style={{ textDecoration: 'none' }}>
+                            <Link to='/customer' style={{ textDecoration: 'none' }}>
                                 <MenuItem>
                                     <ListItemIcon>
                                         <AccountBalanceIcon fontSize="small" />
@@ -128,7 +132,8 @@ const mapStateToProps = (state) => ({
     warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
     goodss: state.goodsReducer.goodss,
     types: state.typeReducer.types,
-    isAdmin: state.authReducer.isAdmin
+    isAdmin: state.authReducer.isAdmin,
+    customers: state.customerReducer.customers
 })
 
 const mapDispatchToProps = {
@@ -137,7 +142,8 @@ const mapDispatchToProps = {
     getTypesByWarehouse_id,
     getReceivedNotesByWarehouse_id,
     getWarehouseAsAdmin,
-    getGoodsAsAdmin
+    getGoodsAsAdmin,
+    getCustomersAsAdmin
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar)

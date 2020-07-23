@@ -1,4 +1,4 @@
-import { GET_CUSTOMERS, GET_CUSTOMER_BY_ID, ADD_CUSTOMER } from '../constant'
+import { GET_CUSTOMERS, GET_CUSTOMER_BY_ID, ADD_CUSTOMER, GET_CUSTOMERS_AS_ADMIN } from '../constant'
 
 const initialState = {
     customers: [],
@@ -20,6 +20,11 @@ export default function (state = initialState, action) {
         case ADD_CUSTOMER:
             return {
                 ...state,
+            }
+        case GET_CUSTOMERS_AS_ADMIN:
+            return {
+                ...state,
+                customers: action.payload
             }
         default:
             return state

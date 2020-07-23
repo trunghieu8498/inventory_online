@@ -25,9 +25,10 @@ import AddReceivedNoteForm from "./components/receivednote/receivedNote-form";
 import AddDeliveryNoteForm from "./components/deliverynote/deliveryNote-form";
 import { loadWarehouse_selected_id } from "./actions/warehouse-action";
 import HomeContent from "./components/home/home-content";
+import CustomerTable from './components/customer/customer-table'
 
 class App extends Component {
-  
+
   componentWillMount() {
     store.dispatch(loadCustomer()).then(() => {
       store.dispatch(loadWarehouse_selected_id())
@@ -101,6 +102,7 @@ class App extends Component {
                 path="/deliverynote/add"
                 component={() => Page(AddDeliveryNoteForm)}
               />
+              <Route exact path="/customer" component={() => Page(CustomerTable)} />
             </Switch>
           </div>
         </BrowserRouter>

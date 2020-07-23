@@ -26,7 +26,7 @@ app.post('/api/signup', auth.signup)
 
 app.get('/api/customers', customer.getCustomers)
 app.get('/api/customer/:id', customer.getCustomerById)
-app.post('api/customer/get/all', customer.getCustomersAsAdmin)
+app.post('/api/customer/get/all', customer.getCustomersAsAdmin)
 app.post('/api/customer/add', customer.addCustomer)
 app.put('/api/customer/update/:id', customer.updateCustomer)
 
