@@ -46,11 +46,13 @@ export const login = (email, password) => dispatch => {
     axios.post('http://localhost:8000/api/login', body, config)
         .then(res => {
             const { isadmin } = res.data
-            if (isadmin)
+            if (isadmin){
                 dispatch({
                     type: LOGIN_AS_ADMIN,
                     payload: res.data
                 })
+                alert('Bạn đang đăng nhập bằng quyền Admin')
+            }
             else
                 dispatch({
                     type: LOGIN_AS_CUSTOMER,

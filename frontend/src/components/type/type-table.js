@@ -16,6 +16,7 @@ export class TypeTable extends Component {
             columns: [
                 { title: 'ID', field: 'type_id' },
                 { title: 'Tên loại', field: 'typename' },
+                { title: 'Tình trạng', field: 'available' }
             ],
             data: [],
         }
@@ -39,6 +40,28 @@ export class TypeTable extends Component {
             this.setState({
                 data: this.props.types
             })
+        // if (prevProps.types !== this.props.types) {
+
+        //     let arr = [];
+        //     this.props.types.forEach(type => {
+        //         let available
+        //         if (type.available)
+        //             available = 'Tồn tại'
+        //         else
+        //             available = 'Đã xóa'
+
+        //         const temp = {
+        //             type_id: type.type_id,
+        //             typename: type.typename, 
+        //             available: available
+        //         }
+
+        //         arr = [...arr, temp]
+        //     });
+        //     this.setState({
+        //         data: arr
+        //     })
+        // }
 
         // if (prevProps.warehouse_selected_id !== this.props.warehouse_selected_id)
         //     this.props.getTypesByWarehouse_id(this.props.warehouse_selected_id)
@@ -74,13 +97,15 @@ export class TypeTable extends Component {
                         Action: props => (
                             <div>
                                 <UpdateTypeModal type_id={props.data.type_id} />
-
-                                <Button 
-                                    onClick={() => props.action.Delete(props.data.type_id)}>
-                                    {/* onClick={(e) => console.log('id ne` ',props.data.type_id)}> */}
-                                    
-                                    Xóa
-                                </Button>
+                                {
+                                    props.data.available ?
+                                        <Button
+                                            onClick={() => props.action.Delete(props.data.type_id)}>
+                                            {/* onClick={(e) => console.log('id ne` ',props.data.type_id)}> */}
+                                            Xóa
+                                        </Button>
+                                    : null
+                                }
                             </div>
 
                             // <Row>

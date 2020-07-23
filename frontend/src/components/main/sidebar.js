@@ -102,9 +102,21 @@ class Sidebar extends Component {
                                 <Typography variant="inherit">Kho hàng</Typography>
                             </MenuItem>
                         </Link>
+                        <Divider />
+                        {this.props.isAdmin ?
+                            <Link to='/warehouse' style={{ textDecoration: 'none' }}>
+                                <MenuItem>
+                                    <ListItemIcon>
+                                        <AccountBalanceIcon fontSize="small" />
+                                    </ListItemIcon>
+                                    <Typography variant="inherit">Người dùng</Typography>
+                                </MenuItem>
+                            </Link>
+                            : null
+                        }
                     </MenuList>
                 </Paper>
-            </div>
+            </div >
         )
     }
 }
