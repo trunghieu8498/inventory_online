@@ -6,6 +6,7 @@ import warehouseReducer from './warehouse-reducer'
 import typeReducer from './type-reducer'
 import goodsReducer from './goods-reducer'
 import receivedNoteReducer from './receivedNote-reducer'
+import deliveryNoteReducer from './deliveryNote-reducer'
 import loadReducer from './load-reducer'
 
 export default combineReducers({
@@ -15,5 +16,6 @@ export default combineReducers({
     typeReducer: typeReducer,
     goodsReducer: goodsReducer,
     receivedNoteReducer: receivedNoteReducer,
+    deliveryNoteReducer: deliveryNoteReducer,
     loadReducer: loadReducer
 })

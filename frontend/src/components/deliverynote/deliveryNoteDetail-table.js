@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Grow, Button, Grid } from "@material-ui/core";
 import MaterialTable, { MTableToolbar } from "material-table";
@@ -14,37 +14,50 @@ import Paper from '@material-ui/core/Paper';
 export class DeliveryNoteDetailTable extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      rows: []
-    };
   }
 
   render() {
+    const { deliveryNoteDetails } = this.props;
+    const body = (
+      <Fragment>
+        {deliveryNoteDetails.map((row) => (
+          <TableRow key={row.goods.goodsname}>
+            <TableCell component="th" scope="row">
+              {row.goods.goods_id}
+            </TableCell>
+            <TableCell align="right">{row.goods.goodsname}</TableCell>
+            <TableCell align="right">{row.goods.weight}</TableCell>
+            <TableCell align="right">{row.sellingprice}</TableCell>
+            <TableCell align="right">
+              {row.quantity}
+              {/* <FormControl variant="outlined">
+                <OutlinedInput
+                  value={row.quantity}
+                  // onChange={handleChange('weight')}
+                  labelWidth={0}
+                  style={{width: '3rem'}}
+                />
+              </FormControl> */}
+            </TableCell>
+          </TableRow>
+        ))}
+      </Fragment>
+    )
+
     return (
       <div>
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Dessert (100g serving)</TableCell>
-                <TableCell align="right">Calories</TableCell>
-                <TableCell align="right">Fat&nbsp;(g)</TableCell>
-                <TableCell align="right">Carbs&nbsp;(g)</TableCell>
-                <TableCell align="right">Protein&nbsp;(g)</TableCell>
+              <TableCell>ID</TableCell>
+                <TableCell align="right">Tên hàng</TableCell>
+                <TableCell align="right">Khối lượng&nbsp;(g)</TableCell>
+                <TableCell align="right">Số lượng nhập</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {this.state.rows.map((row) => (
-                <TableRow key={row.name}>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.calories}</TableCell>
-                  <TableCell align="right">{row.fat}</TableCell>
-                  <TableCell align="right">{row.carbs}</TableCell>
-                  <TableCell align="right">{row.protein}</TableCell>
-                </TableRow>
-              ))}
+              {deliveryNoteDetails.length ? body : null}
             </TableBody>
           </Table>
         </TableContainer>
@@ -53,4 +66,12 @@ export class DeliveryNoteDetailTable extends Component {
   }
 }
 
-export default DeliveryNoteDetailTable;
+const mapStateToProps = (state) => ({
+  deliveryNoteDetails: state.deliveryNoteReducer.deliveryNoteDetails,
+})
+
+const mapDispatchToProps = {
+
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeliveryNoteDetailTable);

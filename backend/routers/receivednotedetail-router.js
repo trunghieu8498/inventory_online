@@ -52,7 +52,7 @@ const addReceivedNoteDetail = (req, res) => {
     const receivednotedetail_id = uniqid()
     const { quantity, costprice, goods_id, receivednote_id } = req.body
 
-    pool.query('INSERT INTO RECEIVEDNOTEDETAIL (receivednotedetail_id, quantity, costprice, goods_id, receivednote_id) VALUES ($1, $2, $3, $4)',
+    pool.query('INSERT INTO RECEIVEDNOTEDETAIL (receivednotedetail_id, quantity, costprice, goods_id, receivednote_id) VALUES ($1, $2, $3, $4, $5)',
         [receivednotedetail_id, quantity, costprice, goods_id, receivednote_id], (error, results) => {
             if (error) {
                 throw error
