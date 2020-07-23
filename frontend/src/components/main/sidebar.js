@@ -9,8 +9,8 @@ import WarehouseSelector from '../main/warehouse-selector'
 import { Grid } from '@material-ui/core'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { getWarehousesByCustomer_id } from '../../actions/warehouse-action'
-import { getGoodsByWarehouse_id } from '../../actions/goods-action'
+import { getWarehousesByCustomer_id, getWarehouseAsAdmin } from '../../actions/warehouse-action'
+import { getGoodsByWarehouse_id, getGoodsAsAdmin } from '../../actions/goods-action'
 import { getTypesByWarehouse_id } from '../../actions/type-action'
 //Icon
 import AllInboxIcon from '@material-ui/icons/AllInbox';
@@ -24,21 +24,30 @@ import { getReceivedNotesByWarehouse_id } from '../../actions/receivedNote-actio
 class Sidebar extends Component {
 
     componentDidMount = () => {
-        this.props.getWarehousesByCustomer_id(this.props.customer_id)
+        if (this.props.isAdmin)
+            this.props.getWarehouseAsAdmin()
+        else
+            this.props.getWarehousesByCustomer_id(this.props.customer_id)
     }
 
     componentDidUpdate = (prevProps) => {
-        const { customer_id, warehouses, goodss, warehouse_selected_id, types } = this.props
+        const { customer_id, warehouses, goodss, warehouse_selected_id, types, isAdmin } = this.props
 
         if (prevProps.customer_id !== customer_id) {
-            this.props.getWarehousesByCustomer_id(customer_id)
+            if (isAdmin)
+                this.props.getWarehouseAsAdmin()
+            else
+                this.props.getWarehousesByCustomer_id(customer_id)
         }
 
         if (prevProps.warehouse_selected_id !== warehouse_selected_id && warehouse_selected_id !== '') {
-            this.props.getGoodsByWarehouse_id(warehouse_selected_id)
-            this.props.getTypesByWarehouse_id(warehouse_selected_id)
+            this.props.getGoodsByWarehouse_id(warehouse_selected_id, isAdmin)
+            this.props.getTypesByWarehouse_id(warehouse_selected_id, isAdmin)
             this.props.getReceivedNotesByWarehouse_id(warehouse_selected_id)
         }
+        // if (prevProps.warehouse_selected_id !== warehouse_selected_id && warehouse_selected_id !== '' && isAdmin) {
+        //     this.props.getGoodsAsAdmin()
+        // }
     }
 
     render() {
@@ -93,9 +102,21 @@ class Sidebar extends Component {
                                 <Typography variant="inherit">Kho hàng</Typography>
                             </MenuItem>
                         </Link>
+                        <Divider />
+                        {this.props.isAdmin ?
+                            <Link to='/warehouse' style={{ textDecoration: 'none' }}>
+                                <MenuItem>
+                                    <ListItemIcon>
+                                        <AccountBalanceIcon fontSize="small" />
+                                    </ListItemIcon>
+                                    <Typography variant="inherit">Người dùng</Typography>
+                                </MenuItem>
+                            </Link>
+                            : null
+                        }
                     </MenuList>
                 </Paper>
-            </div>
+            </div >
         )
     }
 }
@@ -106,14 +127,17 @@ const mapStateToProps = (state) => ({
     warehouses: state.warehouseReducer.warehouses,
     warehouse_selected_id: state.warehouseReducer.warehouse_selected_id,
     goodss: state.goodsReducer.goodss,
-    types: state.typeReducer.types
+    types: state.typeReducer.types,
+    isAdmin: state.authReducer.isAdmin
 })
 
 const mapDispatchToProps = {
     getWarehousesByCustomer_id,
     getGoodsByWarehouse_id,
     getTypesByWarehouse_id,
-    getReceivedNotesByWarehouse_id
+    getReceivedNotesByWarehouse_id,
+    getWarehouseAsAdmin,
+    getGoodsAsAdmin
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Sidebar)

@@ -1,4 +1,4 @@
-import { ADD_GOODS, GET_GOODSS_BY_WAREHOUSE_ID, SELECT_GOODS, UPDATE_GOODS, DELETE_GOODS } from '../constant'
+import { ADD_GOODS, GET_GOODSS_BY_WAREHOUSE_ID, SELECT_GOODS, UPDATE_GOODS, DELETE_GOODS, GET_GOODSS_AS_ADMIN } from '../constant'
 
 const initialState = {
     goodss: [],
@@ -29,6 +29,11 @@ export default function (state = initialState, action) {
                 goodss: action.payload
             }
         case DELETE_GOODS:
+            return {
+                ...state,
+                goodss: action.payload
+            }
+        case GET_GOODSS_AS_ADMIN:
             return {
                 ...state,
                 goodss: action.payload

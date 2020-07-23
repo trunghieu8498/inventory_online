@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ADD_GOODS, GET_GOODSS_BY_WAREHOUSE_ID, SELECT_GOODS, UPDATE_GOODS, DELETE_GOODS } from "../constant"
+import { ADD_GOODS, GET_GOODSS_BY_WAREHOUSE_ID, SELECT_GOODS, UPDATE_GOODS, DELETE_GOODS, GET_GOODSS_AS_ADMIN } from "../constant"
 import { setIsLoading, setIsLoaded } from './load-action'
 
 export const selectGoods = (goods_selected_id) => dispatch => {
@@ -34,15 +34,16 @@ export const addGoods = (goodsName, weight, inventoryNumber, description, costPr
         })
 }
 
-export const getGoodsByWarehouse_id = (warehouse_id) => dispatch => {
+export const getGoodsByWarehouse_id = (warehouse_id, isAdmin) => dispatch => {
     dispatch(setIsLoading())
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
+    const body = JSON.stringify({ isAdmin })
     if (warehouse_id !== '')
-        axios.get(`http://localhost:8000/api/goods/get/${warehouse_id}`, config)
+        axios.post(`http://localhost:8000/api/goods/get/${warehouse_id}`, body, config)
             .then(res => {
                 dispatch({
                     type: GET_GOODSS_BY_WAREHOUSE_ID,
@@ -69,7 +70,7 @@ export const updateGoods = (goods_id, goodsName, weight, description, costPrice,
             'Content-Type': 'application/json'
         }
     }
-    const body = JSON.stringify({goodsName, weight, description, costPrice, sellingPrice, inventoryNumber, type_id })
+    const body = JSON.stringify({ goodsName, weight, description, costPrice, sellingPrice, inventoryNumber, type_id })
     axios.put(`http://localhost:8000/api/goods/update/${goods_id}`, body, config)
         .then(res => {
             dispatch({
@@ -104,6 +105,26 @@ export const deleteGoods = (goods_id) => dispatch => {
         })
         .catch((err) => {
             alert(err.res.data)
+            dispatch(setIsLoaded())
+        })
+}
+
+export const getGoodsAsAdmin = () => dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    axios.post(`http://localhost:8000/api/goods/get/all`, null, config)
+        .then(res => {
+            dispatch({
+                type: GET_GOODSS_AS_ADMIN,
+                payload: res.data
+            })
+            dispatch(setIsLoaded())
+        })
+        .catch((err) => {
+            console.log('Lỗi lấy danh sách hàng (admin)', err)
             dispatch(setIsLoaded())
         })
 }

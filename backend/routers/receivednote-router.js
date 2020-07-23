@@ -3,6 +3,14 @@ const warehouseRouter = require('./warehouse-router')
 const receivedNoteDetail = require('./receivednotedetail-router')
 var uniqid = require('uniqid');
 
+const getReceivedNotesAsAdmin = (req, res) => {
+    pool.query('SELECT * FROM RECEIVEDNOTE', [], (error, results) => {
+        if (error)
+            throw error
+        res.status(200).json(results.rows)
+    })
+}
+
 const getReceivedNotes = (req, res) => {
     pool.query('SELECT * FROM RECEIVEDNOTE ORDER BY receivednote_id ASC', (error, results) => {
         if (error) {
@@ -103,5 +111,6 @@ module.exports = {
     getReceivedNoteById,
     addReceivedNote,
     updateReceivedNote,
-    getReceivedNoteByWarehouse_id
+    getReceivedNoteByWarehouse_id,
+    getReceivedNotesAsAdmin
 }

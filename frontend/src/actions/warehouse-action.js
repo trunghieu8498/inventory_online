@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ADD_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID, SELECT_WAREHOUSE, UPDATE_WAREHOUSE, DELETE_WAREHOUSE } from "../constant"
+import { ADD_WAREHOUSE, GET_WAREHOUSES_BY_CUSTOMER_ID, SELECT_WAREHOUSE, UPDATE_WAREHOUSE, DELETE_WAREHOUSE, GET_WAREHOUSES_AS_ADMIN } from "../constant"
 import { setIsLoading, setIsLoaded } from './load-action'
 
 export const loadWarehouse_selected_id = () => dispatch => {
@@ -117,5 +117,25 @@ export const deleteWarehouse = (warehouse_id) => dispatch => {
         })
         .catch((err) => {
             alert(err.res.data)
+        })
+}
+
+export const getWarehouseAsAdmin = () => dispatch => {
+    const config = {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    axios.post(`http://localhost:8000/api/warehouse/get/all`, null, config)
+        .then(res => {
+            dispatch({
+                type: GET_WAREHOUSES_AS_ADMIN,
+                payload: res.data
+            })
+            dispatch(setIsLoaded())
+        })
+        .catch((err) => {
+            alert('Lỗi lấy danh sách kho (admin)', err)
+            dispatch(setIsLoaded())
         })
 }

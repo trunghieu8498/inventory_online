@@ -20,6 +20,7 @@ export class GoodsTable extends Component {
         { title: "Giá vốn", field: "costprice" },
         { title: "Giá bán", field: "sellingprice" },
         { title: "Số lượng hàng tồn", field: "inventorynumber" },
+        { title: "Trạng thái", field: "available" }
       ],
       data: [],
     };
@@ -31,12 +32,11 @@ export class GoodsTable extends Component {
     })
   }
 
-  componentDidUpdate(prevProps, prevStates) {
-    const { warehouse_selected_id, goodss, getGoodsByWarehouse_id } = this.props;
-
-    if (prevProps.goodss !== goodss){
+  componentDidUpdate(prevProps) {
+    if (prevProps.goodss !== this.props.goodss) {
+      console.log('ye')
       this.setState({
-        data: goodss,
+        data: this.props.goodss
       })
     }
   }
@@ -71,11 +71,16 @@ export class GoodsTable extends Component {
             Action: props => (
               <div>
                 <UpdateGoodsModal goods_id={props.data.goods_id} />
-                <Button
-                  onClick={() => props.action.Delete(props.data.goods_id)}>
-                  {/* onClick={(e) => console.log('id ne` ',props.data.type_id)}> */}
-                    Xóa
-                </Button>
+                {
+                  props.data.available ?
+                    <Button
+                      onClick={() => props.action.Delete(props.data.goods_id)}>
+                      {/* onClick={(e) => console.log('id ne` ',props.data.type_id)}> */}
+                      Xóa
+                    </Button>
+                    :
+                    null
+                }
               </div>
               // <Row>
               //     <IconButton aria-label="edit" style={{ color: '#009FFF' }}

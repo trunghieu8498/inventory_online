@@ -110,7 +110,7 @@ CREATE TABLE DELIVERYNOTEDETAIL(
 );
 
 --admin
-INSERT INTO CUSTOMER (customer_id, email, password, fullname, birthday, numberphone) VALUES ('admin_01','admin','123','ADMIN','04/08/1998','0947303707');
+INSERT INTO CUSTOMER (customer_id, email, password, fullname, birthday, numberphone, isadmin) VALUES ('admin_01','admin','123','ADMIN','04/08/1998','0947303707', true);
 --customer
 INSERT INTO CUSTOMER (customer_id, email, password, fullname, birthday, numberphone) VALUES ('customer_01','hieu','123','Trung Hieu','04/08/1998','0947303707');
 --warehouse

@@ -27,15 +27,16 @@ export const addType = (typeName, warehouse_id) => dispatch => {
         })
 }
 
-export const getTypesByWarehouse_id = (warehouse_id) => dispatch => {
+export const getTypesByWarehouse_id = (warehouse_id, isAdmin) => dispatch => {
     dispatch(setIsLoading())
     const config = {
         headers: {
             'Content-Type': 'application/json'
         }
     }
+    const body = JSON.stringify({ isAdmin })
     if (warehouse_id !== '')
-        axios.get(`http://localhost:8000/api/type/get/${warehouse_id}`, config)
+        axios.post(`http://localhost:8000/api/type/get/${warehouse_id}`, body, config)
             .then(res => {
                 dispatch({
                     type: GET_TYPES_BY_WAREHOUSE_ID,

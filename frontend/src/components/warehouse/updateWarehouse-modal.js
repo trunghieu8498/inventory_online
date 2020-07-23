@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -12,7 +13,6 @@ class UpdateWarehouseModal extends Component {
     constructor(props) {
         super(props)
         this.handleSubmit = this.handleSubmit.bind(this)
-        console.log(props)
         this.state = {
             warehousename: '',
             address: '',
@@ -26,7 +26,6 @@ class UpdateWarehouseModal extends Component {
     handleSubmit = (e) => {
         const { warehousename, address, description, warehouse_id } = this.state
         e.preventDefault()
-        console.log(warehouse_id)
         this.props.updateWarehouse2222(this.props.warehouse_id, warehousename, address, description )
         this.resetInput()
     }

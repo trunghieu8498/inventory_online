@@ -9,15 +9,31 @@ const getTypes = (req, res) => {
     })
 }
 
+const getTypesAsAdmin = (req, res) => {
+    pool.query('SELECT * FROM TYPE', [], (error, results) => {
+        if (error)
+            throw error
+        res.status(200).json(results.rows)
+    })
+}
+
 const getTypeByWarehouse_id = (req, res) => {
     const warehouse_id = req.params.id
-
-    pool.query('SELECT * FROM TYPE WHERE warehouse_id = $1 AND available = true' , [warehouse_id], (error, results) => {
-        if (error) {
-            throw error
-        }
-        res.status(200).json(results.rows) 
-    })
+    const { isAdmin } = req.body
+    if (isAdmin)
+        pool.query('SELECT * FROM TYPE WHERE warehouse_id = $1', [warehouse_id], (error, results) => {
+            if (error) {
+                throw error
+            }
+            res.status(200).json(results.rows)
+        })
+    else
+        pool.query('SELECT * FROM TYPE WHERE warehouse_id = $1 AND available = true', [warehouse_id], (error, results) => {
+            if (error) {
+                throw error
+            }
+            res.status(200).json(results.rows)
+        })
 }
 
 const getTypeById = (req, res) => {
@@ -73,7 +89,7 @@ const deleteType = (req, res) => {
     console.log(type_id)
     pool.query(
         'UPDATE TYPE SET available = $1 WHERE type_id = $2',
-        [false,type_id],
+        [false, type_id],
         (err, results) => {
             if (err) {
                 throw err
@@ -93,6 +109,6 @@ module.exports = {
     addType,
     updateType,
     deleteType,
-    getTypeByWarehouse_id
-    //deleteUser,
+    getTypeByWarehouse_id,
+    getTypesAsAdmin
 }

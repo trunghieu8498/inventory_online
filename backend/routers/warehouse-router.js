@@ -9,19 +9,22 @@ const getWarehouses = (req, res) => {
     })
 }
 
+const getWarehouseAsAdmin = (req, res) => {
+    pool.query('SELECT * FROM WAREHOUSE', [], (error, results) => {
+        if (error)
+            throw error
+        res.status(200).json(results.rows)
+    })
+}
+
 const getWarehousesByCustomer_id = (req, res) => {
     const customer_id = req.params.id
-    try {
-        pool.query('SELECT * FROM WAREHOUSE WHERE customer_id = $1 AND available = true', [customer_id], (error, results) => {
-            if (error) {
-                throw error
-            }
-            res.status(200).json(results.rows)
-        })
-    }
-    catch{
-
-    }
+    pool.query('SELECT * FROM WAREHOUSE WHERE customer_id = $1 AND available = true', [customer_id], (error, results) => {
+        if (error) {
+            throw error
+        }
+        res.status(200).json(results.rows)
+    })
 }
 
 const getWarehouseById = (req, res) => {
@@ -95,6 +98,6 @@ module.exports = {
     addWarehouse,
     updateWarehouse,
     deleteWarehouse,
-    getWarehousesByCustomer_id
-    //deleteUser,
+    getWarehousesByCustomer_id,
+    getWarehouseAsAdmin
 }

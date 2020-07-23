@@ -18,6 +18,7 @@ export class WarehouseTable extends Component {
         { title: "Tên kho", field: "warehousename" },
         { title: "Địa chỉ", field: "address" },
         { title: "Mô tả", field: "description" },
+        { title: "Tình trạng", field: "available"}
       ],
       data: [],
     };
@@ -36,10 +37,37 @@ export class WarehouseTable extends Component {
   // }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.warehouses !== this.props.warehouses)
-      this.setState({
-        data: this.props.warehouses,
-      });
+
+    if (prevProps.warehouses !== this.props.warehouses) {
+
+        let arr = [];
+        this.props.warehouses.forEach(warehouse => {
+            let available
+            if (warehouse.available)
+                available = 'Tồn tại'
+            else
+                available = 'Đã xóa'
+
+            const temp = {
+                warehouse_id: warehouse.warehouse_id,
+                warehousename: warehouse.warehousename,
+                address: warehouse.address,
+                description: warehouse.description,
+                available: available
+            }
+
+            arr = [...arr, temp]
+        });
+        this.setState({
+            data: arr
+        })
+    }
+    // if (prevProps.warehouses !== this.props.warehouses)
+    //   this.setState({
+    //     data: this.props.warehouses,
+        
+    //   });    
+
     // if (prevProps.warehouses !== this.props.customer_id)
     //     this.props.getWarehousesByCustomer_id(this.props.customer_id)
   }
@@ -79,11 +107,15 @@ export class WarehouseTable extends Component {
             Action: (props) => (
               <div>
                 <UpdateWarehouseModal warehouse_id={props.data.warehouse_id} />
-                <Button 
+                {props.data.available === 'Tồn tại'? 
+                  <Button 
                   onClick={() => props.action.Delete(props.data.warehouse_id)}>
                   {/* onClick={(e) => console.log('id ne` ',props.data.type_id)}> */}                                   
                   Xóa
-                </Button>
+                  </Button>
+                  :
+                  null
+                }
                 {/* <Button variant="outlined" color="primary" onClick={() => props.action.select(props.data.warehouse_id)}>Chọn</Button> */}
               </div>
             ),

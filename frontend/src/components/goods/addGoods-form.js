@@ -15,7 +15,7 @@ class AddGoodsForm extends Component {
         this.state = {
             goodsName: '',
             weight: '',
-            inventoryNumber: '',
+            inventoryNumber: 0,
             description: '',
             costPrice: '',
             sellingPrice: '',
@@ -41,7 +41,6 @@ class AddGoodsForm extends Component {
         this.setState({
             goodsName: '',
             weight: '',
-            inventoryNumber: '',
             description: '',
             costPrice: '',
             sellingPrice: '',
@@ -102,13 +101,13 @@ class AddGoodsForm extends Component {
                                             value={this.state.sellingPrice}
                                             onChange={(e) => this.changeHandler(e)} />
                                     </Grid>
-                                    <Grid item>
+                                    {/* <Grid item>
                                         <TextField name="inventoryNumber"
                                             label="Số lượng tồn"
                                             variant="outlined"
                                             value={this.state.inventoryNumber}
                                             onChange={(e) => this.changeHandler(e)} />
-                                    </Grid>
+                                    </Grid> */}
                                     <Grid item>
                                         <TypeSelector />
                                     </Grid>
