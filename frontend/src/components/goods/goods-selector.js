@@ -31,7 +31,7 @@ class GoodsSelector extends Component {
     //     })
     // }
 
-    handleMenuItemClick = (event, 
+    handleMenuItemClick = (event,
         // event2, 
         index) => {
         this.setState({
@@ -47,7 +47,7 @@ class GoodsSelector extends Component {
     }
 
     render() {
-        const { goodss, receivedNoteDetails, deliveryNoteDetails} = this.props
+        const { goodss, receivedNoteDetails, deliveryNoteDetails } = this.props
         const { anchorEl, selectedIndex } = this.state
         return (
             <div>
@@ -74,17 +74,23 @@ class GoodsSelector extends Component {
                             onClose={() => this.handleClose()}
                         >
                             {goodss.map((goods, index) => (
-                                <MenuItem
-                                    key={goods.goods_id}
-                                    // disabled={index === 0}
-                                    // selected={index === selectedIndex}
-                                    // onClick={(event) => this.props.selectGoods(goods.goods_id)}
-                                    onClick={(event) => window.location.href === 'http://localhost:3000/receivednote/add' ? 
-                                    this.props.addReceivedNoteDetailToTable(goods, receivedNoteDetails) : this.props.addDeliveryNoteDetailToTable(goods, deliveryNoteDetails)}
-                                    // onClick={(event2) => this.props.addDeliveryNoteDetailToTable(goods, deliveryNoteDetails)}
-                                >
-                                    {goods.goodsname}
-                                </MenuItem>
+                                <div>
+                                    {
+                                        goods.available ?
+                                            <MenuItem
+                                                key={goods.goods_id}
+                                                // disabled={index === 0}
+                                                // selected={index === selectedIndex}
+                                                // onClick={(event) => this.props.selectGoods(goods.goods_id)}
+                                                onClick={(event) => window.location.href === 'http://localhost:3000/receivednote/add' ?
+                                                    this.props.addReceivedNoteDetailToTable(goods, receivedNoteDetails) : this.props.addDeliveryNoteDetailToTable(goods, deliveryNoteDetails)}
+                                            // onClick={(event2) => this.props.addDeliveryNoteDetailToTable(goods, deliveryNoteDetails)}
+                                            >
+                                                {goods.goodsname}
+                                            </MenuItem>
+                                            : null
+                                    }
+                                </div>
                             ))}
                         </Menu>
                     </div>

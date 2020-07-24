@@ -22,7 +22,7 @@ class TypeSelector extends Component {
     componentDidMount = () => {
         const { types, warehouse_selected_id, getTypesByWarehouse_id, selectType_id } = this.props
         const { selectedIndex } = this.state
-        
+
         // if (warehouse_selected_id !== null) => note: lam updategoods modal ko hoat dong
         //     getTypesByWarehouse_id(warehouse_selected_id)
     }
@@ -88,14 +88,21 @@ class TypeSelector extends Component {
                                 onClose={() => this.handleClose()}
                             >
                                 {types.map((type, index) => (
-                                    <MenuItem
-                                        key={type.type_id}
-                                        // disabled={index === 0}
-                                        selected={index === selectedIndex}
-                                        onClick={(event) => this.handleMenuItemClick(event, index)}
-                                    >
-                                        {type.typename}
-                                    </MenuItem>
+                                    <div>
+                                        {
+                                            type.available ?
+                                                <MenuItem
+                                                    key={type.type_id}
+                                                    // disabled={index === 0}
+                                                    selected={index === selectedIndex}
+                                                    onClick={(event) => this.handleMenuItemClick(event, index)}
+                                                >
+                                                    {type.typename}
+                                                </MenuItem>
+                                                : null
+                                        }
+                                    </div>
+
                                 ))}
                             </Menu>
                         </div>

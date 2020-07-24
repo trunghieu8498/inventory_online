@@ -43,7 +43,7 @@ export class CustomerTable extends Component {
         const table = (
             <Grow in={true}>
                 <MaterialTable
-                    title="DANH SÁCH HÀNG HÀNG HÓA"
+                    title="DANH SÁCH NGƯỜI DÙNG"
                     columns={this.state.columns}
                     data={this.state.data}
                     actions={[

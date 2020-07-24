@@ -32,12 +32,12 @@ class UpdateGoodsModal extends Component {
         this.props.updateGoods(this.props.goods_id, goodsName, weight, description, costPrice, sellingPrice, inventoryNumber, type_id)
         this.resetInput()
     }
-    
-  changeHandler = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  };
+
+    changeHandler = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value,
+        });
+    };
 
     resetInput = () => {
         this.setState({
@@ -113,16 +113,16 @@ class UpdateGoodsModal extends Component {
                                         value={this.state.sellingPrice}
                                         onChange={(e) => this.changeHandler(e)} />
                                 </Grid>
-                                <Grid item>
+                                {/* <Grid item>
                                     <TextField name="inventoryNumber"
                                         label="Số lượng tồn"
                                         variant="outlined"
                                         value={this.state.inventoryNumber}
                                         onChange={(e) => this.changeHandler(e)} />
-                                </Grid>
+                                </Grid> */}
                                 <Grid item>
                                     <TypeSelector />
-                                </Grid> 
+                                </Grid>
 
                                 <Grid item>
                                     <Button type='submit' variant="contained" size="medium" color="primary">
@@ -138,7 +138,7 @@ class UpdateGoodsModal extends Component {
         return (
             <div>
                 <IconButton type="button" color='primary' onClick={() => this.handleOpen()}>
-                    <EditIcon/>
+                    <EditIcon />
                 </IconButton>
                 <Modal
                     open={this.state.show}

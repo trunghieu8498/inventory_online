@@ -20,6 +20,7 @@ import UnarchiveIcon from '@material-ui/icons/Unarchive';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import { getCustomersAsAdmin } from '../../actions/customer-action'
 import { getReceivedNotesByWarehouse_id } from '../../actions/receivedNote-action'
+import PeopleIcon from '@material-ui/icons/People';
 
 class Sidebar extends Component {
 
@@ -111,7 +112,7 @@ class Sidebar extends Component {
                             <Link to='/customer' style={{ textDecoration: 'none' }}>
                                 <MenuItem>
                                     <ListItemIcon>
-                                        <AccountBalanceIcon fontSize="small" />
+                                        <PeopleIcon fontSize="small" />
                                     </ListItemIcon>
                                     <Typography variant="inherit">Người dùng</Typography>
                                 </MenuItem>
